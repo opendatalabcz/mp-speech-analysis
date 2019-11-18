@@ -43,17 +43,31 @@ public class Main {
         File input = new File("033schuz/s033001.htm");
         Document doc = Jsoup.parse(input, "Windows-1250");
         Elements elements = doc.body().select("*");
-        String currentSpeech = "";
-        String currentSpeaker = "";
+        Speech currentSpeech = null;
+        //String currentSpeech = "";
+        //String currentSpeaker = "";
 
         for (Element element : elements) {
             Attributes atrs = element.attributes();
-            for (Attribute atr:atrs) {
-                //System.out.println(atr.getKey());
-                //System.out.println(atr.getValue());
-                // if(atr.)
-            }
+
             if(validSpeaker(element)){
+                if(currentSpeech != null){
+                    System.out.println(currentSpeech.toString());
+                    currentSpeech = null;
+                }
+                currentSpeech = new Speech(element.ownText());
+            }
+            if(currentSpeech != null && validSpeechPart(element)){
+                currentSpeech.addSpeechPart(new SpeechPart(element.ownText()));
+            }
+        }
+        //System.out.println("sdfsdf");
+    }
+}
+
+
+/*
+* if(validSpeaker(element)){
                 if(currentSpeaker != ""){
                     System.out.println(currentSpeaker + ": " + currentSpeech);
                 }
@@ -62,14 +76,18 @@ public class Main {
             }
             if(validSpeechPart(element)){
                 currentSpeech += element.ownText();
+            }*/
+/*
+for (Attribute atr:atrs) {
+                //System.out.println(atr.getKey());
+                //System.out.println(atr.getValue());
+                // if(atr.)
             }
+            */
+
 
            /* System.out.println();
             System.out.println(element.tagName());
             System.out.println("speech part: " + validSpeechPart(element));
             System.out.println("speaker: " + validSpeaker(element));*/
-            //System.out.println(element.ownText());
-        }
-        //System.out.println("sdfsdf");
-    }
-}
+//System.out.println(element.ownText());
