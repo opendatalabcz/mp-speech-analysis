@@ -5,11 +5,27 @@ import java.util.List;
 
 public class Speech {
     private String speaker;
-    private String speakerID;
+    private Integer speakerID;
+    private Integer meetingNum;
+    private Integer speechNumInMeeting;
     private List<SpeechPart> speechParts;
 
     public Speech(String speaker) {
         this.speaker = speaker;
+        this.speechParts = new ArrayList<>();
+    }
+
+    public Speech(String speaker, Integer speakerID) {
+        this.speaker = speaker;
+        this.speakerID = speakerID;
+        this.speechParts = new ArrayList<>();
+    }
+
+    public Speech(String speaker, Integer speakerID, Integer meetingNum, Integer speechNumInMeeting) {
+        this.speaker = speaker;
+        this.speakerID = speakerID;
+        this.meetingNum = meetingNum;
+        this.speechNumInMeeting = speechNumInMeeting;
         this.speechParts = new ArrayList<>();
     }
 
@@ -21,11 +37,11 @@ public class Speech {
         this.speaker = speaker;
     }
 
-    public String getSpeakerID() {
+    public Integer getSpeakerID() {
         return speakerID;
     }
 
-    public void setSpeakerID(String speakerID) {
+    public void setSpeakerID(Integer speakerID) {
         this.speakerID = speakerID;
     }
 
@@ -44,7 +60,7 @@ public class Speech {
     @Override
     public String toString() {
         String ret = "";
-        ret += speaker + " (" + speakerID + "):";
+        ret += speaker + " (SpeakerID:" + speakerID + ", MeetingNumber:" + meetingNum + ", SpeechNumberInMeeting:" + speechNumInMeeting + " ):";
         for (SpeechPart sp : speechParts) {
             ret+=sp.toString() + "\n";
         }

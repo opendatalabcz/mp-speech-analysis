@@ -48,7 +48,6 @@ public class Main {
         //String currentSpeaker = "";
 
         for (Element element : elements) {
-            Attributes atrs = element.attributes();
 
             if(validSpeaker(element)){
                 if(currentSpeech != null){
