@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d7ee2b51-199b-4fc9-ab22-aa025e311164" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Text-extractor/out/production/Text-extractor/horynja2/textextractor/MeetingDir.class" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/out/production/Text-extractor/horynja2/textextractor/MeetingDir.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/001schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/001schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/002schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/002schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/003schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/003schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/004schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/004schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/005schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/005schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/006schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/006schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/007schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/007schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/008schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/008schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/009schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/009schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/010schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/010schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/011schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/011schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/012schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/012schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/013schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/013schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/014schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/014schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/015schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/015schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/016schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/016schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/017schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/017schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/018schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/018schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/019schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/019schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/020schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/020schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/021schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/021schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/022schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/022schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/023schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/023schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/024schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/024schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/025schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/025schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/026schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/026schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/027schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/027schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/028schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/028schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/029schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/029schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/030schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/030schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/031schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/031schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/032schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/032schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/033schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/033schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/034schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/034schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/035schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/035schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/036schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/036schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/037schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/037schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/038schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/038schuz-format-txt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Text-extractor/src/horynja2/textextractor/MeetingDir.java" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/src/horynja2/textextractor/MeetingDir.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\hory9\Documents\GitHub\mp-speech-analysis\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1UilIcG3SUGkLruvg7EU6vfE9sK" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Text-analyzer" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../mhttpd-104-3/server" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d7ee2b51-199b-4fc9-ab22-aa025e311164" name="Default Changelist" comment="" />
+      <created>1575847217123</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575847217123</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

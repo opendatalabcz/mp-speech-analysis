@@ -15,7 +15,7 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.*;
 
-public class MeetingDir {
+class MeetingDir {
     private static Map<Integer, String> poslanecCurrentMap;
     private static String charset = "Windows-1250";
 
