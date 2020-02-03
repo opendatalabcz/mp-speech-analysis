@@ -26,7 +26,11 @@ public class AllMeetings {
         Map<Integer, String> poslanecCurrentMap = getPoslanecCurrentMap("resources/newData/poslanec-current.unl");
         Integer meetingsCount = 38;
         for(int i = 1; i <= meetingsCount; i++) {
+<<<<<<< HEAD
             MeetingDir2.Themes(String.format("%03d",i) + "schuz", poslanecCurrentMap);
+=======
+            MeetingDir.MeetingDir(String.format("%03d",i) + "schuz", poslanecCurrentMap);
+>>>>>>> 70bac5e6556c6aeddcc79a7247876e6edb2cac41
         }
 
 
