@@ -95,7 +95,7 @@ public class MeetingDir2 {
         //System.out.println();
         while(new File(inPath + dirName + "/s" + String.format("%03d",meetingNum) + String.format("%03d",meetingPartNum) + ".htm").exists()){
             File currentFile = new File(inPath + dirName + "/s" + String.format("%03d",meetingNum) + String.format("%03d",meetingPartNum) + ".htm");
-            System.out.println(currentFile.getName());
+            //System.out.println(currentFile.getName());
             //out.append(currentFile.getName() + "\n");
             Document doc = Jsoup.parse(currentFile, charset);
             Elements elements = doc.body().select("*");

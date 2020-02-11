@@ -67,6 +67,20 @@ class MeetingDir {
         return id;
     }
 
+    private static boolean validTheme(Element elem) {
+        if(!elem.tagName().equals("p")) return false;
+        Attributes atrs = elem.attributes();
+        boolean ret = false;
+
+        for (Attribute atr:atrs) {
+            if(atr.getKey().equals("align") && atr.getValue().equals("center")){
+                if(!elem.child(0).ownText().isEmpty())  ret = true;
+                break;
+            }
+        }
+        return ret;
+    }
+
 
 
     public static void MeetingDir(String dirName, Map<Integer, String> inMap) throws IOException {

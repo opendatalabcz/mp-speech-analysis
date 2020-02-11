@@ -9,9 +9,9 @@ import java.util.List;
 
 public abstract class AbstractService<T extends HasID> {
 
-    private Class<T> entityClass;
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-    private EntityManager entityManager = entityManagerFactory.createEntityManager();
+    protected Class<T> entityClass;
+    protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
+    protected EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public AbstractService(Class<T> entityClass){
         this.entityClass = entityClass;
@@ -34,11 +34,11 @@ public abstract class AbstractService<T extends HasID> {
     }
 
     public void createOrUpdate(T entity) {
-        T entityOriginal = find(entity.takeID());
-        if(entityOriginal == null) {
+        if(entity.takeID() == null) {
             create(entity);
             System.out.println("Creating");
         } else {
+            T entityOriginal = find(entity.takeID());
             if(!entityOriginal.equals(entity)){
                 update(entity);
                 System.out.println("Updating");

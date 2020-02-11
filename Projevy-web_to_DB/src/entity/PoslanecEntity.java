@@ -3,10 +3,11 @@ package entity;
 import service.OsobyEntityService;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "poslanec", schema = "FdCPKNUIYW")
+@Table(name = "poslanec", schema = "FdCPKNUIYW", catalog = "")
 public class PoslanecEntity implements HasID {
     private Integer idPoslanec;
     private Integer idKraj;
@@ -23,6 +24,7 @@ public class PoslanecEntity implements HasID {
     private String facebook;
     private Integer foto;
     private OsobyEntity osobyByIdOsoba;
+    private Collection<ProjevEntity> projevsByIdPoslanec;
 
     public PoslanecEntity() {
     }
@@ -30,7 +32,6 @@ public class PoslanecEntity implements HasID {
     public PoslanecEntity(Integer idPoslanec) {
         this.idPoslanec = idPoslanec;
     }
-
     public PoslanecEntity(Integer idPoslanec, Integer idKraj, Integer idKandidatka, Integer idObdobi,
                           String web, String ulice, String obec, String psc, String email, String telefon, String fax,
                           String pspTelefon, String facebook, Integer foto, OsobyEntity osobyByIdOsoba) {
@@ -50,6 +51,7 @@ public class PoslanecEntity implements HasID {
         this.foto = foto;
         this.osobyByIdOsoba =  osobyByIdOsoba;
     }
+
     public PoslanecEntity(Integer idPoslanec, Integer idKraj, Integer idKandidatka, Integer idObdobi,
                           String web, String ulice, String obec, String psc, String email, String telefon, String fax,
                           String pspTelefon, String facebook, Integer foto) {
@@ -250,4 +252,13 @@ public class PoslanecEntity implements HasID {
 
     @Override
     public void pushID(Integer id) { setIdPoslanec(id); }
+
+    @OneToMany(mappedBy = "poslanecByIdPoslanec")
+    public Collection<ProjevEntity> getProjevsByIdPoslanec() {
+        return projevsByIdPoslanec;
+    }
+
+    public void setProjevsByIdPoslanec(Collection<ProjevEntity> projevsByIdPoslanec) {
+        this.projevsByIdPoslanec = projevsByIdPoslanec;
+    }
 }
