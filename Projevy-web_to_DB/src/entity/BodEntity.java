@@ -66,7 +66,7 @@ public class BodEntity implements HasID {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BodEntity bodEntity = (BodEntity) o;
-        return idBod == bodEntity.idBod &&
+        return idBod.equals(bodEntity.idBod) &&
                 Objects.equals(text, bodEntity.text) &&
                 Objects.equals(cisloSchuze, bodEntity.cisloSchuze) &&
                 Objects.equals(datum, bodEntity.datum);

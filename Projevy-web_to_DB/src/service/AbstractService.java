@@ -39,7 +39,10 @@ public abstract class AbstractService<T extends HasID> {
             System.out.println("Creating");
         } else {
             T entityOriginal = find(entity.takeID());
-            if(!entityOriginal.equals(entity)){
+            if(entityOriginal == null) {
+                create(entity);
+                System.out.println("Creating");
+            } else if(!entityOriginal.equals(entity)){
                 update(entity);
                 System.out.println("Updating");
             } else {
@@ -73,5 +76,17 @@ public abstract class AbstractService<T extends HasID> {
         T entity = entityManager.find(entityClass, id);
         entityManager.remove(entity);
         entityManager.getTransaction().commit();
+    }
+
+    public void multiBegin() {
+        entityManager.getTransaction().begin();
+    }
+
+    public void multiCommit() {
+        entityManager.getTransaction().commit();
+    }
+
+    public void multiCreate(T entity) {
+        entityManager.persist(entity);
     }
 }

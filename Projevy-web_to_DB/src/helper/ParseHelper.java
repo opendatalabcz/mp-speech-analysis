@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +34,14 @@ public class ParseHelper {
         return input.replaceAll("^[0-9]+\\. ", "");
     }
 
+    public static String removePrefix(String s, String prefix)
+    {
+        if (s != null && prefix != null && s.startsWith(prefix)){
+            return s.substring(prefix.length());
+        }
+        return s;
+    }
+
     public static String getStringDateFromBod (String input) {
         Pattern pattern = Pattern.compile("\\((.*?)\\)");
         Matcher matcher = pattern.matcher(input);
@@ -46,11 +53,10 @@ public class ParseHelper {
     }
 
     public static java.sql.Date getSqlDateFromString (String input, String pattern) {
-        String stringDate = getStringDateFromBod(input);
-        if(stringDate == null) return null;
+        if(input == null || input.equals("") || input.equals(" ")) return null;
         Date date;
         try {
-            date = new SimpleDateFormat(pattern).parse(stringDate);
+            date = new SimpleDateFormat(pattern).parse(input);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;

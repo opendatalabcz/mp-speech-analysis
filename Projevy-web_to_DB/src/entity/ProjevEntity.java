@@ -5,45 +5,61 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "projev", schema = "FdCPKNUIYW")
-public class ProjevEntity {
-    private int idProjev;
-    private int idPoslanec;
-    private int idBod;
+public class ProjevEntity implements HasID {
+    private Integer idProjev;
+    //private Integer idPoslanec;
+    //private Integer idBod;
     private String text;
-    private int delka;
+    private Integer delka;
+    private Integer poradi;
     private PoslanecEntity poslanecByIdPoslanec;
     private BodEntity bodByIdBod;
 
+    public ProjevEntity() {
+    }
+
+    public ProjevEntity(Integer idProjev, String text, Integer delka, Integer poradi,
+                        PoslanecEntity poslanecByIdPoslanec, BodEntity bodByIdBod) {
+        this.idProjev = idProjev;
+        this.text = text;
+        this.delka = delka;
+        this.poradi = poradi;
+        this.poslanecByIdPoslanec = poslanecByIdPoslanec;
+        this.bodByIdBod = bodByIdBod;
+
+    }
+
     @Id
     @Column(name = "id_projev")
-    public int getIdProjev() {
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    public Integer getIdProjev() {
         return idProjev;
     }
 
-    public void setIdProjev(int idProjev) {
+    public void setIdProjev(Integer idProjev) {
         this.idProjev = idProjev;
     }
-
+/*
     @Basic
-    @Column(name = "id_poslanec")
-    public int getIdPoslanec() {
+    @Column(name = "id_poslanec", insertable = false, updatable = false)
+    public Integer getIdPoslanec() {
         return idPoslanec;
     }
 
-    public void setIdPoslanec(int idPoslanec) {
+    public void setIdPoslanec(Integer idPoslanec) {
         this.idPoslanec = idPoslanec;
     }
 
     @Basic
-    @Column(name = "id_bod")
-    public int getIdBod() {
+    @Column(name = "id_bod", insertable = false, updatable = false)
+    public Integer getIdBod() {
         return idBod;
     }
 
-    public void setIdBod(int idBod) {
+    public void setIdBod(Integer idBod) {
         this.idBod = idBod;
     }
-
+*/
     @Basic
     @Column(name = "text")
     public String getText() {
@@ -56,13 +72,19 @@ public class ProjevEntity {
 
     @Basic
     @Column(name = "delka")
-    public int getDelka() {
+    public Integer getDelka() {
         return delka;
     }
 
-    public void setDelka(int delka) {
+    public void setDelka(Integer delka) {
         this.delka = delka;
     }
+
+    @Basic
+    @Column(name = "poradi")
+    public Integer getPoradi() { return poradi; }
+
+    public void setPoradi(Integer poradi) { this.poradi = poradi; }
 
     @Override
     public boolean equals(Object o) {
@@ -70,15 +92,17 @@ public class ProjevEntity {
         if (o == null || getClass() != o.getClass()) return false;
         ProjevEntity that = (ProjevEntity) o;
         return idProjev == that.idProjev &&
-                idPoslanec == that.idPoslanec &&
-                idBod == that.idBod &&
+                /*idPoslanec == that.idPoslanec &&
+                idBod == that.idBod &&*/
                 delka == that.delka &&
-                Objects.equals(text, that.text);
+                Objects.equals(text, that.text) &&
+                Objects.equals(poslanecByIdPoslanec, that.poslanecByIdPoslanec) &&
+                Objects.equals(bodByIdBod, that.bodByIdBod);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProjev, idPoslanec, idBod, text, delka);
+        return Objects.hash(idProjev, text, delka, poslanecByIdPoslanec, bodByIdBod);
     }
 
     @ManyToOne
@@ -99,5 +123,15 @@ public class ProjevEntity {
 
     public void setBodByIdBod(BodEntity bodByIdBod) {
         this.bodByIdBod = bodByIdBod;
+    }
+
+    @Override
+    public Integer takeID() {
+        return getIdProjev();
+    }
+
+    @Override
+    public void pushID(Integer id) {
+        setIdProjev(id);
     }
 }

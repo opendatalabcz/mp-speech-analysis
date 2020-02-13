@@ -12,7 +12,6 @@ public class BodEntityService extends AbstractService<BodEntity> {
         List list = entityManager.createQuery("SELECT t FROM " + entityClass.getName() +
                 " t WHERE t.text = '" + text + "' AND t.cisloSchuze = " + meetingNumber).getResultList();
         entityManager.getTransaction().commit();
-        System.out.println(list);
         if(list.size() > 0) {
             return (BodEntity) list.get(0);
         } else {

@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "poslanec", schema = "FdCPKNUIYW", catalog = "")
+@Table(name = "poslanec", schema = "FdCPKNUIYW")
 public class PoslanecEntity implements HasID {
     private Integer idPoslanec;
     private Integer idKraj;
@@ -49,7 +49,7 @@ public class PoslanecEntity implements HasID {
         this.pspTelefon = pspTelefon;
         this.facebook = facebook;
         this.foto = foto;
-        this.osobyByIdOsoba =  osobyByIdOsoba;
+        this.osobyByIdOsoba = osobyByIdOsoba;
     }
 
     public PoslanecEntity(Integer idPoslanec, Integer idKraj, Integer idKandidatka, Integer idObdobi,

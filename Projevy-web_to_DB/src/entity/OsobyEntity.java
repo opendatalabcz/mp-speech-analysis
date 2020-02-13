@@ -13,10 +13,10 @@ public class OsobyEntity implements HasID{
     private String jmeno;
     private String prijmeni;
     private String za;
-    private String narozeni;
+    private Date narozeni;
     private String pohlavi;
-    private String zmena;
-    private String umrti;
+    private Date zmena;
+    private Date umrti;
     private Collection<PoslanecEntity> poslanecsByIdOsoba;
 
     public OsobyEntity() {
@@ -26,8 +26,8 @@ public class OsobyEntity implements HasID{
         this.idOsoba = idOsoba;
     }
 
-    public OsobyEntity(Integer idOsoba, String pred, String jmeno, String prijmeni, String za, String narozeni,
-                       String pohlavi, String zmena, String umrti, Collection<PoslanecEntity> poslanecsByIdOsoba) {
+    public OsobyEntity(Integer idOsoba, String pred, String jmeno, String prijmeni, String za, Date narozeni,
+                       String pohlavi, Date zmena, Date umrti, Collection<PoslanecEntity> poslanecsByIdOsoba) {
         setIdOsoba(idOsoba);
         setPred(pred);
         setJmeno(jmeno);
@@ -40,8 +40,8 @@ public class OsobyEntity implements HasID{
         setPoslanecsByIdOsoba(poslanecsByIdOsoba);
     }
 
-    public OsobyEntity(Integer idOsoba, String pred, String jmeno, String prijmeni, String za, String narozeni,
-                       String pohlavi, String zmena, String umrti) {
+    public OsobyEntity(Integer idOsoba, String pred, String jmeno, String prijmeni, String za, Date narozeni,
+                       String pohlavi, Date zmena, Date umrti) {
         setIdOsoba(idOsoba);
         setPred(pred);
         setJmeno(jmeno);
@@ -106,11 +106,11 @@ public class OsobyEntity implements HasID{
 
     @Basic
     @Column(name = "narozeni")
-    public String getNarozeni() {
+    public Date getNarozeni() {
         return narozeni;
     }
 
-    public void setNarozeni(String narozeni) {
+    public void setNarozeni(Date narozeni) {
         this.narozeni = narozeni;
     }
 
@@ -126,21 +126,21 @@ public class OsobyEntity implements HasID{
 
     @Basic
     @Column(name = "zmena")
-    public String getZmena() {
+    public Date getZmena() {
         return zmena;
     }
 
-    public void setZmena(String zmena) {
+    public void setZmena(Date zmena) {
         this.zmena = zmena;
     }
 
     @Basic
     @Column(name = "umrti")
-    public String getUmrti() {
+    public Date getUmrti() {
         return umrti;
     }
 
-    public void setUmrti(String umrti) {
+    public void setUmrti(Date umrti) {
         this.umrti = umrti;
     }
 
@@ -172,6 +172,16 @@ public class OsobyEntity implements HasID{
 
     public void setPoslanecsByIdOsoba(Collection<PoslanecEntity> poslanecsByIdOsoba) {
         this.poslanecsByIdOsoba = poslanecsByIdOsoba;
+    }
+
+    public PoslanecEntity getPoslanecByIdOsobaAndPeriond(int period) {
+        Collection<PoslanecEntity> poslanecEntityCollection = getPoslanecsByIdOsoba();
+        for(PoslanecEntity item : poslanecEntityCollection)
+        {
+            if(item.getIdObdobi() == period)
+                return item;
+        }
+        return null;
     }
 
     @Override

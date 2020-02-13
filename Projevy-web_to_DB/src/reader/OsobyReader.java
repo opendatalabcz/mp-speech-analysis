@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +18,8 @@ import java.util.regex.Pattern;
 import static helper.ParseHelper.*;
 
 public class OsobyReader {
+    static OsobyEntityService osobyEntityService = new OsobyEntityService();
+
     public static void main(String[] args) {
         String path = "osoby.unl";
         BufferedReader file;
@@ -48,7 +51,6 @@ public class OsobyReader {
             entityManagerFactory.close();
 */
 
-            OsobyEntityService osobyEntityService = new OsobyEntityService();
             while ((line = file.readLine()) != null) {
                 List<String> myList = new ArrayList<String>(Arrays.asList(line.replaceAll("\\|$","").split("\\|", -1)));
                 OsobyEntity osobyEntity = CreateOsobaEntityFromStringList(myList);
@@ -69,7 +71,9 @@ public class OsobyReader {
         if(list.size() != 9) throw new IllegalArgumentException();
 
         Integer idOsoba;
-        String pred, jmeno, prijmeni, za, narozeni, pohlavi, zmena, umrti;
+        String pred, jmeno, prijmeni, za, pohlavi;
+        Date narozeni, zmena, umrti;
+        String pattern = "dd.MM.yyyy";
 
         if(tryParseInt(list.get(0))){
             idOsoba = Integer.parseInt(list.get(0));
@@ -79,10 +83,10 @@ public class OsobyReader {
         jmeno = removeUselessWhitespacesString(list.get(2));
         prijmeni = removeUselessWhitespacesString(list.get(3));
         za = removeUselessWhitespacesString(list.get(4));
-        narozeni = parseDateString(list.get(5));
+        narozeni = getSqlDateFromString(list.get(5), pattern);
         pohlavi = removeUselessWhitespacesString(list.get(6));
-        zmena = parseDateString(list.get(7));
-        umrti = parseDateString(list.get(8));
+        zmena = getSqlDateFromString(list.get(7), pattern);
+        umrti = getSqlDateFromString(list.get(8), pattern);
 
         return new OsobyEntity(idOsoba, pred, jmeno, prijmeni, za, narozeni, pohlavi, zmena, umrti);
     }
