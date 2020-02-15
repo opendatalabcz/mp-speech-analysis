@@ -25,13 +25,14 @@ public class PoslanecEntity implements HasID {
     private Integer foto;
     private OsobyEntity osobyByIdOsoba;
     private Collection<ProjevEntity> projevsByIdPoslanec;
+    private StatistikyEntity statistikyByIdPoslanec;
 
     public PoslanecEntity() {
     }
-
     public PoslanecEntity(Integer idPoslanec) {
         this.idPoslanec = idPoslanec;
     }
+
     public PoslanecEntity(Integer idPoslanec, Integer idKraj, Integer idKandidatka, Integer idObdobi,
                           String web, String ulice, String obec, String psc, String email, String telefon, String fax,
                           String pspTelefon, String facebook, Integer foto, OsobyEntity osobyByIdOsoba) {
@@ -211,6 +212,40 @@ public class PoslanecEntity implements HasID {
         this.foto = foto;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "id_osoba", referencedColumnName = "id_osoba", nullable = false)
+    public OsobyEntity getOsobyByIdOsoba() {
+        return osobyByIdOsoba;
+    }
+
+    public void setOsobyByIdOsoba(OsobyEntity osobyByIdOsoba) {
+        this.osobyByIdOsoba = osobyByIdOsoba;
+    }
+
+    @Override
+    public Integer takeID() { return getIdPoslanec(); }
+
+    @Override
+    public void pushID(Integer id) { setIdPoslanec(id); }
+
+    @OneToMany(mappedBy = "poslanecByIdPoslanec")
+    public Collection<ProjevEntity> getProjevsByIdPoslanec() {
+        return projevsByIdPoslanec;
+    }
+
+    public void setProjevsByIdPoslanec(Collection<ProjevEntity> projevsByIdPoslanec) {
+        this.projevsByIdPoslanec = projevsByIdPoslanec;
+    }
+
+    @OneToOne(mappedBy = "poslanecByIdPoslanec")
+    public StatistikyEntity getStatistikyByIdPoslanec() {
+        return statistikyByIdPoslanec;
+    }
+
+    public void setStatistikyByIdPoslanec(StatistikyEntity statistikyByIdPoslanec) {
+        this.statistikyByIdPoslanec = statistikyByIdPoslanec;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -237,28 +272,4 @@ public class PoslanecEntity implements HasID {
         return Objects.hash(idPoslanec, idKraj, idKandidatka, idObdobi, web, ulice, obec, psc, email, telefon, fax, pspTelefon, facebook, foto);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_osoba", referencedColumnName = "id_osoba", nullable = false)
-    public OsobyEntity getOsobyByIdOsoba() {
-        return osobyByIdOsoba;
-    }
-
-    public void setOsobyByIdOsoba(OsobyEntity osobyByIdOsoba) {
-        this.osobyByIdOsoba = osobyByIdOsoba;
-    }
-
-    @Override
-    public Integer takeID() { return getIdPoslanec(); }
-
-    @Override
-    public void pushID(Integer id) { setIdPoslanec(id); }
-
-    @OneToMany(mappedBy = "poslanecByIdPoslanec")
-    public Collection<ProjevEntity> getProjevsByIdPoslanec() {
-        return projevsByIdPoslanec;
-    }
-
-    public void setProjevsByIdPoslanec(Collection<ProjevEntity> projevsByIdPoslanec) {
-        this.projevsByIdPoslanec = projevsByIdPoslanec;
-    }
 }

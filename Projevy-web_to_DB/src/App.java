@@ -1,8 +1,10 @@
 import entity.OsobyEntity;
 import entity.PoslanecEntity;
 import entity.ProjevEntity;
+import entity.StatistikyEntity;
 import service.OsobyEntityService;
 import service.PoslanecEntityService;
+import service.StatistikyEntityService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,6 +15,7 @@ public class App {
     public static void main(String[] args) {
         //OsobyEntityService osobyEntityService = new OsobyEntityService();
         PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
+        StatistikyEntityService statistikyEntityService = new StatistikyEntityService();
 /*
         OsobyEntity benda = osobyEntityService.find(4);
         Collection<PoslanecEntity> bendovePoslanci = benda.getPoslanecsByIdOsoba();
@@ -26,6 +29,7 @@ public class App {
             try {
                 poslanecEntity = (PoslanecEntity)obj;
             } catch (Exception e){
+                e.printStackTrace();
                 continue;
             }
 
@@ -33,6 +37,9 @@ public class App {
             for(ProjevEntity projevEntity : poslanecEntity.getProjevsByIdPoslanec()) {
                 delka += projevEntity.getDelka();
             }
+            StatistikyEntity statistikyEntity = new StatistikyEntity(poslanecEntity.getIdPoslanec(), delka, 0);
+            statistikyEntityService.createOrUpdate(statistikyEntity);
+
             osobyEntityIntegerTreeMap.put(poslanecEntity.getOsobyByIdOsoba(), delka);
         }
         for(Map.Entry<OsobyEntity, Integer> entry : osobyEntityIntegerTreeMap.entrySet()){

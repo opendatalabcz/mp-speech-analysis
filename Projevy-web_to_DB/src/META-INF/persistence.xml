@@ -10,6 +10,7 @@
         <class>entity.PoslanecEntity</class>
         <class>entity.BodEntity</class>
         <class>entity.ProjevEntity</class>
+        <class>entity.StatistikyEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://remotemysql.com:3306/FdCPKNUIYW"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>

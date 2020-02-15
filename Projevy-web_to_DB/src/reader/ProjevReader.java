@@ -41,8 +41,6 @@ public class ProjevReader {
         ProcessAllMeetings();
     }
 
-
-
     private static Integer getPoslanecIdFromVlada(String vladaString) {
         //how could look vladaString - https://www.vlada.cz/cz/clenove-vlady/pri-uradu-vlady/jan_chvojka/zivotopis/jan-chvojka-151262/
         String[] firstSplit = vladaString.split("/");
