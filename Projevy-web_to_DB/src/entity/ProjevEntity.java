@@ -39,27 +39,7 @@ public class ProjevEntity implements HasID {
     public void setIdProjev(Integer idProjev) {
         this.idProjev = idProjev;
     }
-/*
-    @Basic
-    @Column(name = "id_poslanec", insertable = false, updatable = false)
-    public Integer getIdPoslanec() {
-        return idPoslanec;
-    }
 
-    public void setIdPoslanec(Integer idPoslanec) {
-        this.idPoslanec = idPoslanec;
-    }
-
-    @Basic
-    @Column(name = "id_bod", insertable = false, updatable = false)
-    public Integer getIdBod() {
-        return idBod;
-    }
-
-    public void setIdBod(Integer idBod) {
-        this.idBod = idBod;
-    }
-*/
     @Basic
     @Column(name = "text")
     public String getText() {

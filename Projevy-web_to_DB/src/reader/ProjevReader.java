@@ -27,7 +27,8 @@ public class ProjevReader {
     private static String charset = "Windows-1250";
     private static String inPath = "resources/Schuze/";
     private static String snemovna = "/sqw/detail.sqw?id=";
-    private static String vlada = "https://www.vlada.cz/cz/clenove-vlady/";
+    private static String vladaHttps = "https://www.vlada.cz/cz/clenove-vlady/";
+    private static String vladaHttp = "http://www.vlada.cz/cz/clenove-vlady/";
     private static Integer period = 172;
     private static List poslanecEntityList = null;
     private static List bodEntityList = null;
@@ -54,7 +55,7 @@ public class ProjevReader {
             OsobyEntity osobyEntity = poslanecEntity.getOsobyByIdOsoba();
             if(StringHelper.equalsIgnoreCaseAndDiacritics(osobyEntity.getJmeno(), name) &&
                     StringHelper.equalsIgnoreCaseAndDiacritics(osobyEntity.getPrijmeni(), surname)){
-                return poslanecEntity.getIdPoslanec();
+                return osobyEntity.getIdOsoba();
             }
         }
         return null;
@@ -77,7 +78,7 @@ public class ProjevReader {
         }
         for (Attribute atr:atrs) {
             if(atr.getKey().equals("href")){
-                if(atr.getValue().startsWith(vlada)){
+                if(atr.getValue().startsWith(vladaHttp) || atr.getValue().startsWith(vladaHttps)){
                     System.out.println(atr.getValue());
                     id = getPoslanecIdFromVlada(atr.getValue());
                     return id;
@@ -115,6 +116,9 @@ public class ProjevReader {
     }
 
     private static PoslanecEntity findRightPoslanecEntity(Integer osobaId) {
+        if(osobaId == 443) {
+            int a = 8;
+        }
         for(Object object : poslanecEntityList) {
             PoslanecEntity poslanecEntity = (PoslanecEntity)object;
             if(poslanecEntity.getOsobyByIdOsoba().getIdOsoba().equals(osobaId))
@@ -173,6 +177,9 @@ public class ProjevReader {
         while(new File(completePath).exists()){
             File currentFile = new File(completePath);
             System.out.println(currentFile.getName());
+            if(currentFile.getName().equals("s004003.htm")) {
+                int a = 8;
+            }
             Document doc = null;
             try {
                 doc = Jsoup.parse(currentFile, charset);
@@ -188,6 +195,9 @@ public class ProjevReader {
                         if(currentOsobaId != null ) {
                             //System.out.println(projevEntity.toString());
                             //out.append(projevEntity.toString() + "\n");
+                            if(currentOsobaId == 443) {
+                                int a = 8;
+                            }
                             processAndSaveProjevtoDB(currentOsobaId, projevText, poradi, currentBod);
                             //TODO zapsat do DB
                             poradi++;
