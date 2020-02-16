@@ -1,8 +1,5 @@
 import analyzer.Analyzer;
-import entity.OsobyEntity;
-import entity.PoslanecEntity;
-import entity.ProjevEntity;
-import entity.StatistikyEntity;
+import entity.*;
 import service.OsobyEntityService;
 import service.PoslanecEntityService;
 import service.StatistikyEntityService;
@@ -14,36 +11,26 @@ import java.util.*;
 
 public class App {
     public static void main(String[] args) {
-        //OsobyEntityService osobyEntityService = new OsobyEntityService();
-        PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
-/*
-        OsobyEntity benda = osobyEntityService.find(4);
-        Collection<PoslanecEntity> bendovePoslanci = benda.getPoslanecsByIdOsoba();
-        PoslanecEntity benda172 = benda.getPoslanecByIdOsobaAndPeriond(172);
-        System.out.println("PoslanecID: " + benda172.getIdPoslanec());
-*/
-        /*List poslanecEntityList = poslanecEntityService.findAllWithPeriod(172);
-        for(Object obj : poslanecEntityList) {
-            PoslanecEntity poslanecEntity;
+        StatistikyEntityService statistikyEntityService = new StatistikyEntityService();
+
+        List list= statistikyEntityService.findAll();
+        for (Object obj : list) {
+            StatistikyEntity statistikyEntity;
             try {
-                poslanecEntity = (PoslanecEntity)obj;
+                statistikyEntity = (StatistikyEntity) obj;
             } catch (Exception e){
                 e.printStackTrace();
                 continue;
-            }*/
-            PoslanecEntity poslanecEntity = poslanecEntityService.find(1533);
-            Map<String, Integer> mapWords = new HashMap<>();
-            for(ProjevEntity projevEntity : poslanecEntity.getProjevsByIdPoslanec()) {
-                List<String> lemmasList = Analyzer.analyzeString(projevEntity.getText());
-                lemmasList.forEach(word -> {
-                    Integer value = mapWords.get(word);
-                    if (value == null)
-                        value = 0;
-                    value++;
-                    mapWords.put(word, value);
-                });
             }
-            int a = 8;
-        //}
+
+            OsobyEntity osobyEntity = statistikyEntity.getPoslanecByIdPoslanec().getOsobyByIdOsoba();
+
+            System.out.println(osobyEntity.getPred() + " " + osobyEntity.getJmeno() + " "
+                    + osobyEntity.getPrijmeni() + " " + osobyEntity.getZa());
+            for (TopSlovaEntity tse : statistikyEntity.getTopSlovaByIdPoslanec()) {
+                System.out.println(tse.getPoradi() + ": " + tse.getSlovo() + "(" + tse.getPocetVyskytu() + ")");
+            }
+            System.out.println();
+        }
     }
 }

@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Analyzer {
+    private static Tagger tagger = Tagger.load("czech-morfflex-pdt-161115\\czech-morfflex-pdt-161115-pos_only.tagger");
 
     public static String encodeEntities(String text) {
         return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;");
     }
 
     public static List<String> analyzeString(String input) {
-        Tagger tagger = Tagger.load("czech-morfflex-pdt-161115\\czech-morfflex-pdt-161115-pos_only.tagger");
+
         if (tagger == null) {
             System.err.println("Cannot load tagger from file");
             return null;
@@ -38,10 +39,13 @@ public class Analyzer {
                 TaggedLemma lemma = lemmas.get(i);
                 TokenRange token = tokens.get(i);
                 int token_start = (int)token.getStart(), token_end = token_start + (int)token.getLength();
-                System.out.println("Lemma: " + lemma.getLemma());
-                System.out.println("Tag: " + lemma.getTag());
-                System.out.println();
-                lemmasList.add(lemma.getLemma());
+                //System.out.println("Lemma: " + lemma.getLemma());
+                //System.out.println("Tag: " + lemma.getTag());
+                //System.out.println();
+                if(lemma.getTag().startsWith("A") || lemma.getTag().startsWith("D") ||
+                        lemma.getTag().startsWith("N") || lemma.getTag().startsWith("V")) {
+                    lemmasList.add(lemma.getLemma());
+                }
                     /*System.out.printf("%s%s<token lemma=\"%s\" tag=\"%s\">%s</token>%s",
                             encodeEntities(text.substring(t, token_start)),
                             i == 0 ? "<sentence>" : "",
@@ -53,7 +57,7 @@ public class Analyzer {
                 t = token_end;
             }
         }
-        System.out.print(encodeEntities(input.substring(t)));
+        //System.out.print(encodeEntities(input.substring(t)));
         return lemmasList;
     }
 
