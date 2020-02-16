@@ -1,3 +1,4 @@
+import analyzer.Analyzer;
 import entity.OsobyEntity;
 import entity.PoslanecEntity;
 import entity.ProjevEntity;
@@ -15,15 +16,13 @@ public class App {
     public static void main(String[] args) {
         //OsobyEntityService osobyEntityService = new OsobyEntityService();
         PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
-        StatistikyEntityService statistikyEntityService = new StatistikyEntityService();
 /*
         OsobyEntity benda = osobyEntityService.find(4);
         Collection<PoslanecEntity> bendovePoslanci = benda.getPoslanecsByIdOsoba();
         PoslanecEntity benda172 = benda.getPoslanecByIdOsobaAndPeriond(172);
         System.out.println("PoslanecID: " + benda172.getIdPoslanec());
 */
-        Map<OsobyEntity, Integer> osobyEntityIntegerTreeMap = new HashMap<>();
-        List poslanecEntityList = poslanecEntityService.findAllWithPeriod(172);
+        /*List poslanecEntityList = poslanecEntityService.findAllWithPeriod(172);
         for(Object obj : poslanecEntityList) {
             PoslanecEntity poslanecEntity;
             try {
@@ -31,21 +30,20 @@ public class App {
             } catch (Exception e){
                 e.printStackTrace();
                 continue;
-            }
-
-            Integer delka = 0;
+            }*/
+            PoslanecEntity poslanecEntity = poslanecEntityService.find(1533);
+            Map<String, Integer> mapWords = new HashMap<>();
             for(ProjevEntity projevEntity : poslanecEntity.getProjevsByIdPoslanec()) {
-                delka += projevEntity.getDelka();
+                List<String> lemmasList = Analyzer.analyzeString(projevEntity.getText());
+                lemmasList.forEach(word -> {
+                    Integer value = mapWords.get(word);
+                    if (value == null)
+                        value = 0;
+                    value++;
+                    mapWords.put(word, value);
+                });
             }
-            StatistikyEntity statistikyEntity = new StatistikyEntity(poslanecEntity.getIdPoslanec(), delka, 0);
-            statistikyEntityService.createOrUpdate(statistikyEntity);
-
-            osobyEntityIntegerTreeMap.put(poslanecEntity.getOsobyByIdOsoba(), delka);
-        }
-        for(Map.Entry<OsobyEntity, Integer> entry : osobyEntityIntegerTreeMap.entrySet()){
-            System.out.println("Osoba: " + entry.getKey().getJmeno() + " " + entry.getKey().getPrijmeni());
-            System.out.println("Pocet slov: " + entry.getValue());
-            System.out.println();
-        }
+            int a = 8;
+        //}
     }
 }

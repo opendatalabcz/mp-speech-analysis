@@ -45,5 +45,6 @@
     <orderEntry type="library" name="junit:junit:4.13" level="project" />
     <orderEntry type="library" name="org.apache.commons:commons-lang3:3.3.2" level="project" />
     <orderEntry type="library" name="org.hibernate:hibernate-c3p0:5.4.12.Final" level="project" />
+    <orderEntry type="library" name="morphodita" level="project" />
   </component>
 </module>
