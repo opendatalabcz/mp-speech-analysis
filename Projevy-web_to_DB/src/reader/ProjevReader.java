@@ -114,9 +114,6 @@ public class ProjevReader {
     }
 
     private static PoslanecEntity findRightPoslanecEntity(Integer osobaId) {
-        if(osobaId == 443) {
-            int a = 8;
-        }
         for(Object object : poslanecEntityList) {
             PoslanecEntity poslanecEntity = (PoslanecEntity)object;
             if(poslanecEntity.getOsobyByIdOsoba().getIdOsoba().equals(osobaId))

@@ -1,10 +1,11 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "projev", schema = "FdCPKNUIYW")
+@Table(name = "projev", schema = "FdCPKNUIYW", catalog = "")
 public class ProjevEntity implements HasID {
     private Integer idProjev;
     //private Integer idPoslanec;
@@ -14,6 +15,7 @@ public class ProjevEntity implements HasID {
     private Integer poradi;
     private PoslanecEntity poslanecByIdPoslanec;
     private BodEntity bodByIdBod;
+    private Collection<SlovoEntity> slovosByIdProjev;
 
     public ProjevEntity() {
     }
@@ -113,5 +115,14 @@ public class ProjevEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdProjev(id);
+    }
+
+    @OneToMany(mappedBy = "projevByIdProjev")
+    public Collection<SlovoEntity> getSlovosByIdProjev() {
+        return slovosByIdProjev;
+    }
+
+    public void setSlovosByIdProjev(Collection<SlovoEntity> slovosByIdProjev) {
+        this.slovosByIdProjev = slovosByIdProjev;
     }
 }
