@@ -1,5 +1,6 @@
 package analyzer;
 
+import creator.LemmaWithTag;
 import cz.cuni.mff.ufal.morphodita.*;
 
 import java.util.ArrayList;
@@ -7,14 +8,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Analyzer {
-    private static Tagger tagger = Tagger.load("czech-morfflex-pdt-161115\\czech-morfflex-pdt-161115-pos_only.tagger");
+    private static Tagger tagger = Tagger.load("czech-morfflex-pdt-161115\\czech-morfflex-pdt-161115.tagger");
 
     public static String encodeEntities(String text) {
         return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;");
     }
 
-    public static List<String> analyzeString(String input) {
-
+    public static List<LemmaWithTag> analyzeString(String input) {
         if (tagger == null) {
             System.err.println("Cannot load tagger from file");
             return null;
@@ -30,7 +30,7 @@ public class Analyzer {
 
         tokenizer.setText(input);
         int t = 0;
-        List<String> lemmasList = new ArrayList<>();
+        List<LemmaWithTag> lemmasList = new ArrayList<>();
 
         while (tokenizer.nextSentence(forms, tokens)) {
             tagger.tag(forms, lemmas);
@@ -39,13 +39,10 @@ public class Analyzer {
                 TaggedLemma lemma = lemmas.get(i);
                 TokenRange token = tokens.get(i);
                 int token_start = (int)token.getStart(), token_end = token_start + (int)token.getLength();
-                //System.out.println("Lemma: " + lemma.getLemma());
-                //System.out.println("Tag: " + lemma.getTag());
-                //System.out.println();
-                if(lemma.getTag().startsWith("A") || lemma.getTag().startsWith("D") ||
-                        lemma.getTag().startsWith("N") || lemma.getTag().startsWith("V")) {
-                    lemmasList.add(lemma.getLemma());
-                }
+                /*System.out.println("Lemma: " + lemma.getLemma());
+                System.out.println("Tag: " + lemma.getTag());
+                System.out.println();*/
+                lemmasList.add(new LemmaWithTag(lemma.getLemma(), lemma.getTag()));
                     /*System.out.printf("%s%s<token lemma=\"%s\" tag=\"%s\">%s</token>%s",
                             encodeEntities(text.substring(t, token_start)),
                             i == 0 ? "<sentence>" : "",

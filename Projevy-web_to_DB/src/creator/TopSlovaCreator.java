@@ -18,14 +18,14 @@ public class TopSlovaCreator {
     }
 
     public void processSpeech(String speech) {
-        List<String> lemmasList = Analyzer.analyzeString(speech);
+        List<LemmaWithTag> lemmasList = Analyzer.analyzeString(speech);
         sortedMapDescending = null;
         lemmasList.forEach(word -> {
-            Integer value = unsortedMap.get(word);
+            Integer value = unsortedMap.get(word.getLemma());
             if (value == null)
                 value = 0;
             value++;
-            unsortedMap.put(word, value);
+            unsortedMap.put(word.getLemma(), value);
         });
     }
 

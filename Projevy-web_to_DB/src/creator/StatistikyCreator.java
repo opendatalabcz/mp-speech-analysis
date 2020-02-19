@@ -34,6 +34,7 @@ public class StatistikyCreator {
             TopSlovaCreator topSlovaCreator = new TopSlovaCreator(poslanecEntity.getIdPoslanec());
 
             for(ProjevEntity projevEntity : poslanecEntity.getProjevsByIdPoslanec()) {
+                System.out.println("Poslanec: " + poslanecEntity.getOsobyByIdOsoba().getPrijmeni() + " - " + poslanecEntity.getIdPoslanec());
                 delka += projevEntity.getDelka();
                 topSlovaCreator.processSpeech(projevEntity.getText());
             }

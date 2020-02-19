@@ -7,13 +7,38 @@ import java.util.Objects;
 @Table(name = "slovo", schema = "FdCPKNUIYW")
 public class SlovoEntity implements HasID {
     private Integer idSlovo;
-    private Integer slovo;
-    private Integer tag;
+    private String slovo;
+    private String tag;
     private Integer pocetVyskytu;
+    private Integer sentiment;
     private ProjevEntity projevByIdProjev;
+
+    public SlovoEntity() {
+    }
+
+    public SlovoEntity(String slovo, String tag, Integer pocetVyskytu,
+                       Integer sentiment, ProjevEntity projevEntity) {
+        this.idSlovo = null;
+        this.slovo = slovo;
+        this.tag = tag;
+        this.pocetVyskytu = pocetVyskytu;
+        this.sentiment = sentiment;
+        this.projevByIdProjev = projevEntity;
+    }
+
+    public SlovoEntity(Integer idSlovo, String slovo, String tag, Integer pocetVyskytu,
+                       Integer sentiment, ProjevEntity projevEntity) {
+        this.idSlovo = idSlovo;
+        this.slovo = slovo;
+        this.tag = tag;
+        this.pocetVyskytu = pocetVyskytu;
+        this.sentiment = sentiment;
+        this.projevByIdProjev = projevEntity;
+    }
 
     @Id
     @Column(name = "id_slovo")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Integer getIdSlovo() {
         return idSlovo;
     }
@@ -24,21 +49,21 @@ public class SlovoEntity implements HasID {
 
     @Basic
     @Column(name = "slovo")
-    public Integer getSlovo() {
+    public String getSlovo() {
         return slovo;
     }
 
-    public void setSlovo(Integer slovo) {
+    public void setSlovo(String slovo) {
         this.slovo = slovo;
     }
 
     @Basic
     @Column(name = "tag")
-    public Integer getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(Integer tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
@@ -50,6 +75,16 @@ public class SlovoEntity implements HasID {
 
     public void setPocetVyskytu(Integer pocetVyskytu) {
         this.pocetVyskytu = pocetVyskytu;
+    }
+
+    @Basic
+    @Column(name = "sentiment")
+    public Integer getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(Integer sentiment) {
+        this.sentiment = sentiment;
     }
 
     @Override
