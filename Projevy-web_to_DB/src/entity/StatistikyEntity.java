@@ -5,12 +5,12 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "statistiky", schema = "FdCPKNUIYW", catalog = "")
+@Table(name = "statistiky", schema = "dbo", catalog = "Poslanci")
 public class StatistikyEntity implements HasID {
+    private Integer idPoslanec;
     private Integer pocetSlov;
     private Integer sentiment;
     private PoslanecEntity poslanecByIdPoslanec;
-    private Integer idPoslanec;
     private Collection<TopSlovaEntity> topSlovaByIdPoslanec;
 
     public StatistikyEntity() {
@@ -63,14 +63,24 @@ public class StatistikyEntity implements HasID {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StatistikyEntity that = (StatistikyEntity) o;
-        return idPoslanec.equals(that.idPoslanec) &&
-                pocetSlov.equals(that.pocetSlov) &&
-                sentiment.equals(that.sentiment);
+        return Objects.equals(idPoslanec, that.idPoslanec) &&
+                Objects.equals(pocetSlov, that.pocetSlov) &&
+                Objects.equals(sentiment, that.sentiment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pocetSlov, sentiment);
+        return Objects.hash(idPoslanec, pocetSlov, sentiment);
+    }
+
+    @Override
+    public Integer takeID() {
+        return getIdPoslanec();
+    }
+
+    @Override
+    public void pushID(Integer id) {
+        setIdPoslanec(id);
     }
 
     @OneToOne
@@ -83,17 +93,7 @@ public class StatistikyEntity implements HasID {
         this.poslanecByIdPoslanec = poslanecByIdPoslanec;
     }
 
-    @Override
-    public Integer takeID() {
-        return idPoslanec;
-    }
-
-    @Override
-    public void pushID(Integer id) {
-        setIdPoslanec(id);
-    }
-
-    @OneToMany(mappedBy = "statistikyByIdPoslanec")
+    @OneToMany(mappedBy = "statistikyByIdPoslanec", cascade = CascadeType.ALL, orphanRemoval = true)
     public Collection<TopSlovaEntity> getTopSlovaByIdPoslanec() {
         return topSlovaByIdPoslanec;
     }

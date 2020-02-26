@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "top_slova", schema = "FdCPKNUIYW")
+@Table(name = "top_slova", schema = "dbo", catalog = "Poslanci")
 public class TopSlovaEntity implements HasID {
     private Integer idTopSlova;
     private String slovo;
@@ -16,7 +16,7 @@ public class TopSlovaEntity implements HasID {
     }
 
     public TopSlovaEntity(String slovo, Integer pocetVyskytu, Integer poradi, StatistikyEntity statistikyEntity) {
-        //this.idPoslanec = idPoslanec;
+        this.idTopSlova = null;
         this.slovo = slovo;
         this.pocetVyskytu = pocetVyskytu;
         this.poradi = poradi;
@@ -69,25 +69,15 @@ public class TopSlovaEntity implements HasID {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TopSlovaEntity that = (TopSlovaEntity) o;
-        return idTopSlova == that.idTopSlova &&
-                pocetVyskytu == that.pocetVyskytu &&
-                poradi == that.poradi &&
-                Objects.equals(slovo, that.slovo);
+        return Objects.equals(idTopSlova, that.idTopSlova) &&
+                Objects.equals(slovo, that.slovo) &&
+                Objects.equals(pocetVyskytu, that.pocetVyskytu) &&
+                Objects.equals(poradi, that.poradi);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(idTopSlova, slovo, pocetVyskytu, poradi);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "id_poslanec", referencedColumnName = "id_poslanec", nullable = false)
-    public StatistikyEntity getStatistikyByIdPoslanec() {
-        return statistikyByIdPoslanec;
-    }
-
-    public void setStatistikyByIdPoslanec(StatistikyEntity statistikyByIdPoslanec) {
-        this.statistikyByIdPoslanec = statistikyByIdPoslanec;
     }
 
     @Override
@@ -98,5 +88,15 @@ public class TopSlovaEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdTopSlova(id);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_poslanec", referencedColumnName = "id_poslanec")
+    public StatistikyEntity getStatistikyByIdPoslanec() {
+        return statistikyByIdPoslanec;
+    }
+
+    public void setStatistikyByIdPoslanec(StatistikyEntity statistikyByIdPoslanec) {
+        this.statistikyByIdPoslanec = statistikyByIdPoslanec;
     }
 }

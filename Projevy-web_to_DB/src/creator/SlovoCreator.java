@@ -6,6 +6,7 @@ import entity.SlovoEntity;
 import service.PoslanecEntityService;
 import service.SlovoEntityService;
 
+import java.util.Collection;
 import java.util.List;
 
 public class SlovoCreator {
@@ -26,26 +27,38 @@ public class SlovoCreator {
                 e.printStackTrace();
                 continue;
             }
-            slovoEntityService.multiBegin();
             processAllSpeeches(poslanecEntity);
-            slovoEntityService.multiCommit();
         }
     }
 
     private static void processAllSpeeches(PoslanecEntity poslanecEntity) {
         System.out.println("Poslanec: " + poslanecEntity.getOsobyByIdOsoba().getPrijmeni() + " - " + poslanecEntity.getIdPoslanec());
+        //Integer count = 0;
+        //Integer size = 10;
+        slovoEntityService.multiBegin();
         for(ProjevEntity projevEntity : poslanecEntity.getProjevsByIdPoslanec()) {
+            /*if(count % size == 0) {
+                slovoEntityService.multiCommit();
+                slovoEntityService.multiBegin();
+            }
+            count++;*/
+            System.out.println("Projev: " + projevEntity.getIdProjev() + " - Delka: "+  projevEntity.getDelka());
+            //System.out.println("Projev: " + projevEntity.getIdProjev() + "\nText: "+  projevEntity.getText());
             SlovoCreatorData slovoCreatorData = new SlovoCreatorData(projevEntity);
             slovoCreatorData.analyze();
             List<SlovoEntity> slovoEntities = slovoCreatorData.getSlovoEntities();
+
+
             for(SlovoEntity slovoEntity : slovoEntities) {
-                //TODO hodit na DB
                 slovoEntityService.multiCreate(slovoEntity);
-                /*System.out.println("Lemma: " + slovoEntity.getSlovo());
-                System.out.println("Tag: " + slovoEntity.getTag());
-                System.out.println("Pocet: " + slovoEntity.getPocetVyskytu());
-                System.out.println();*/
             }
+
+
+            /*System.out.println("Projev: " + projevEntity.getDelka() + " slov, z toho " +
+                    pos + " pozitivnich, " + neg + " negativnich a " + nor + " nerozlisenych.");*/
         }
+        slovoEntityService.multiCommit();
+        ProjevStatistikyCreator.processAllSpeeches(poslanecEntityService.refresh(poslanecEntity).getProjevsByIdPoslanec());
+        //ProjevStatistikyCreator.processOneSpeech(projevEntity);
     }
 }

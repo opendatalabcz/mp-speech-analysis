@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "bod", schema = "FdCPKNUIYW", catalog = "")
+@Table(name = "bod", schema = "dbo", catalog = "Poslanci")
 public class BodEntity implements HasID {
     private Integer idBod;
     private String text;
@@ -47,9 +47,13 @@ public class BodEntity implements HasID {
 
     @Basic
     @Column(name = "cislo_schuze")
-    public Integer getCisloSchuze() { return cisloSchuze; }
+    public Integer getCisloSchuze() {
+        return cisloSchuze;
+    }
 
-    public void setCisloSchuze(Integer cisloSchuze) { this.cisloSchuze = cisloSchuze;    }
+    public void setCisloSchuze(Integer cisloSchuze) {
+        this.cisloSchuze = cisloSchuze;
+    }
 
     @Basic
     @Column(name = "datum")
@@ -66,15 +70,23 @@ public class BodEntity implements HasID {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BodEntity bodEntity = (BodEntity) o;
-        return idBod.equals(bodEntity.idBod) &&
-                Objects.equals(text, bodEntity.text) &&
+        return Objects.equals(text.toString(), bodEntity.text.toString()) &&
                 Objects.equals(cisloSchuze, bodEntity.cisloSchuze) &&
                 Objects.equals(datum, bodEntity.datum);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idBod, text, cisloSchuze, datum);
+        return Objects.hash(text, cisloSchuze, datum);
+    }
+
+    @OneToMany(mappedBy = "bodByIdBod", cascade = CascadeType.ALL, orphanRemoval = true)
+    public Collection<ProjevEntity> getProjevsByIdBod() {
+        return projevsByIdBod;
+    }
+
+    public void setProjevsByIdBod(Collection<ProjevEntity> projevsByIdBod) {
+        this.projevsByIdBod = projevsByIdBod;
     }
 
     @Override
@@ -85,14 +97,5 @@ public class BodEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdBod(id);
-    }
-
-    @OneToMany(mappedBy = "bodByIdBod")
-    public Collection<ProjevEntity> getProjevsByIdBod() {
-        return projevsByIdBod;
-    }
-
-    public void setProjevsByIdBod(Collection<ProjevEntity> projevsByIdBod) {
-        this.projevsByIdBod = projevsByIdBod;
     }
 }

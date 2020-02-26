@@ -1,13 +1,11 @@
 package entity;
 
-import service.OsobyEntityService;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "poslanec", schema = "FdCPKNUIYW")
+@Table(name = "poslanec", schema = "dbo", catalog = "Poslanci")
 public class PoslanecEntity implements HasID {
     private Integer idPoslanec;
     private Integer idKraj;
@@ -29,6 +27,7 @@ public class PoslanecEntity implements HasID {
 
     public PoslanecEntity() {
     }
+
     public PoslanecEntity(Integer idPoslanec) {
         this.idPoslanec = idPoslanec;
     }
@@ -212,46 +211,12 @@ public class PoslanecEntity implements HasID {
         this.foto = foto;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_osoba", referencedColumnName = "id_osoba", nullable = false)
-    public OsobyEntity getOsobyByIdOsoba() {
-        return osobyByIdOsoba;
-    }
-
-    public void setOsobyByIdOsoba(OsobyEntity osobyByIdOsoba) {
-        this.osobyByIdOsoba = osobyByIdOsoba;
-    }
-
-    @Override
-    public Integer takeID() { return getIdPoslanec(); }
-
-    @Override
-    public void pushID(Integer id) { setIdPoslanec(id); }
-
-    @OneToMany(mappedBy = "poslanecByIdPoslanec")
-    public Collection<ProjevEntity> getProjevsByIdPoslanec() {
-        return projevsByIdPoslanec;
-    }
-
-    public void setProjevsByIdPoslanec(Collection<ProjevEntity> projevsByIdPoslanec) {
-        this.projevsByIdPoslanec = projevsByIdPoslanec;
-    }
-
-    @OneToOne(mappedBy = "poslanecByIdPoslanec")
-    public StatistikyEntity getStatistikyByIdPoslanec() {
-        return statistikyByIdPoslanec;
-    }
-
-    public void setStatistikyByIdPoslanec(StatistikyEntity statistikyByIdPoslanec) {
-        this.statistikyByIdPoslanec = statistikyByIdPoslanec;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PoslanecEntity that = (PoslanecEntity) o;
-        return idPoslanec.equals(that.idPoslanec) &&
+        return Objects.equals(idPoslanec, that.idPoslanec) &&
                 Objects.equals(idKraj, that.idKraj) &&
                 Objects.equals(idKandidatka, that.idKandidatka) &&
                 Objects.equals(idObdobi, that.idObdobi) &&
@@ -272,4 +237,41 @@ public class PoslanecEntity implements HasID {
         return Objects.hash(idPoslanec, idKraj, idKandidatka, idObdobi, web, ulice, obec, psc, email, telefon, fax, pspTelefon, facebook, foto);
     }
 
+    @ManyToOne
+    @JoinColumn(name = "id_osoba", referencedColumnName = "id_osoba", nullable = false)
+    public OsobyEntity getOsobyByIdOsoba() {
+        return osobyByIdOsoba;
+    }
+
+    public void setOsobyByIdOsoba(OsobyEntity osobyByIdOsoba) {
+        this.osobyByIdOsoba = osobyByIdOsoba;
+    }
+
+    @OneToMany(mappedBy = "poslanecByIdPoslanec", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    public Collection<ProjevEntity> getProjevsByIdPoslanec() {
+        return projevsByIdPoslanec;
+    }
+
+    public void setProjevsByIdPoslanec(Collection<ProjevEntity> projevsByIdPoslanec) {
+        this.projevsByIdPoslanec = projevsByIdPoslanec;
+    }
+
+    @OneToOne(mappedBy = "poslanecByIdPoslanec", cascade = CascadeType.ALL, orphanRemoval = true)
+    public StatistikyEntity getStatistikyByIdPoslanec() {
+        return statistikyByIdPoslanec;
+    }
+
+    public void setStatistikyByIdPoslanec(StatistikyEntity statistikyByIdPoslanec) {
+        this.statistikyByIdPoslanec = statistikyByIdPoslanec;
+    }
+
+    @Override
+    public Integer takeID() {
+        return getIdPoslanec();
+    }
+
+    @Override
+    public void pushID(Integer id) {
+        setIdPoslanec(id);
+    }
 }

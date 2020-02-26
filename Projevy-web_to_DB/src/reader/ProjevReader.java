@@ -35,7 +35,6 @@ public class ProjevReader {
     private static PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
     private static BodEntityService bodEntityService = new BodEntityService();
     private static ProjevEntityService projevEntityService = new ProjevEntityService();
-    //private static OsobyEntityService osobyEntityService = new OsobyEntityService();
 
     public static void main(String[] args) {
         ProcessAllMeetings();
@@ -45,7 +44,7 @@ public class ProjevReader {
         //how could look vladaString - https://www.vlada.cz/cz/clenove-vlady/pri-uradu-vlady/jan_chvojka/zivotopis/jan-chvojka-151262/
         String[] firstSplit = vladaString.split("/");
         String[] secondSplit = firstSplit[firstSplit.length - 1].split("-");
-        //todo pridat if na delku
+        if(secondSplit.length < 2) return null;
         String name = secondSplit[0];
         String surname = secondSplit[1];
         for(Object object : poslanecEntityList) {

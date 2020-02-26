@@ -1,6 +1,7 @@
 package creator;
 
-import analyzer.Analyzer;
+import analyzer.MorphoditaAnalyzer;
+import analyzer.SubLexWordSentiment;
 import entity.ProjevEntity;
 import entity.SlovoEntity;
 
@@ -16,7 +17,7 @@ public class SlovoCreatorData {
 
     public void analyze() {
         List<LemmaWithTag> lemmasList;
-        lemmasList = Analyzer.analyzeString(projevEntity.getText());
+        lemmasList = MorphoditaAnalyzer.analyzeString(projevEntity.getText());
         if(lemmasList != null) {
             for(LemmaWithTag lemmaWithTag : lemmasList) {
                 Integer value = lemmas.get(lemmaWithTag);
@@ -32,14 +33,14 @@ public class SlovoCreatorData {
         List<SlovoEntity> slovoEntities = new ArrayList<>();
         for(Map.Entry<LemmaWithTag, Integer> entry : lemmas.entrySet()) {
             LemmaWithTag lemmaWithTag = entry.getKey();
-            SlovoEntity slovoEntity = new SlovoEntity(lemmaWithTag.getLemma(), lemmaWithTag.getTag(), entry.getValue(),
-                    processSentiment(lemmaWithTag.getLemma()), projevEntity);
-            slovoEntities.add(slovoEntity);
+
+            //filter unknown and punctuation types
+            if(!(lemmaWithTag.getTag().startsWith("X") || lemmaWithTag.getTag().startsWith("Z"))) {
+                SlovoEntity slovoEntity = new SlovoEntity(lemmaWithTag.getLemma(), lemmaWithTag.getTag(), entry.getValue(),
+                        SubLexWordSentiment.getSentimentForWord(lemmaWithTag.getLemma()), projevEntity);
+                slovoEntities.add(slovoEntity);
+            }
         }
         return slovoEntities;
-    }
-
-    private Integer processSentiment(String word) {
-        return 0;
     }
 }

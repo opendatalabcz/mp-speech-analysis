@@ -4,7 +4,9 @@ import entity.HasID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractService<T extends HasID> {
@@ -12,6 +14,7 @@ public abstract class AbstractService<T extends HasID> {
     protected Class<T> entityClass;
     protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
     protected EntityManager entityManager = entityManagerFactory.createEntityManager();
+    protected Integer batchSize = 1000;
 
     public AbstractService(Class<T> entityClass){
         this.entityClass = entityClass;
@@ -60,9 +63,16 @@ public abstract class AbstractService<T extends HasID> {
 
     public List findAll() {
         entityManager.getTransaction().begin();
-        List list = entityManager.createQuery("SELECT t FROM " + entityClass.getName() + " t").getResultList();
+        List list = entityManager.createQuery("FROM " + entityClass.getName()).getResultList();
         entityManager.getTransaction().commit();
         return list;
+    }
+
+    public T refresh(T entity) {
+        entityManager.getTransaction().begin();
+        entityManager.refresh(entity);
+        entityManager.getTransaction().commit();
+        return entity;
     }
 
     public void remove(T entity) {
@@ -78,15 +88,39 @@ public abstract class AbstractService<T extends HasID> {
         entityManager.getTransaction().commit();
     }
 
+    public void removeAll() {
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("DELETE FROM " + entityClass.getName());
+        entityManager.getTransaction().commit();
+    }
+
     public void multiBegin() {
         entityManager.getTransaction().begin();
     }
 
     public void multiCommit() {
+        entityManager.flush();
+        entityManager.clear();
         entityManager.getTransaction().commit();
     }
 
-    public void multiCreate(T entity) {
-        entityManager.persist(entity);
+    public void multiCreate(T entity) { entityManager.persist(entity); }
+
+    public void ultraCreate(List<T> entities) {
+        EntityTransaction tx = entityManager.getTransaction();
+        Iterator<T> iterator = entities.iterator();
+        tx.begin();
+        int cont = 0;
+        while (iterator.hasNext()) {
+            entityManager.persist(iterator.next());
+            cont++;
+            if (cont % batchSize == 0) {
+                entityManager.flush();
+                entityManager.clear();
+                tx.commit();
+                tx.begin();
+            }
+        }
+        tx.commit();
     }
 }

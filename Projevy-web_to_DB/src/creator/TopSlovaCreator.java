@@ -1,9 +1,8 @@
 package creator;
 
-import analyzer.Analyzer;
+import analyzer.MorphoditaAnalyzer;
 import entity.StatistikyEntity;
 import entity.TopSlovaEntity;
-import service.TopSlovaEntityService;
 
 import java.util.*;
 
@@ -18,7 +17,7 @@ public class TopSlovaCreator {
     }
 
     public void processSpeech(String speech) {
-        List<LemmaWithTag> lemmasList = Analyzer.analyzeString(speech);
+        List<LemmaWithTag> lemmasList = MorphoditaAnalyzer.analyzeString(speech);
         sortedMapDescending = null;
         lemmasList.forEach(word -> {
             Integer value = unsortedMap.get(word.getLemma());

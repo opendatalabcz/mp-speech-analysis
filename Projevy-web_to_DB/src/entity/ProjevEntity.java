@@ -5,14 +5,13 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "projev", schema = "FdCPKNUIYW", catalog = "")
+@Table(name = "projev", schema = "dbo", catalog = "Poslanci")
 public class ProjevEntity implements HasID {
     private Integer idProjev;
-    //private Integer idPoslanec;
-    //private Integer idBod;
     private String text;
     private Integer delka;
     private Integer poradi;
+    private ProjevStatistikyEntity projevStatistikyByIdProjev;
     private PoslanecEntity poslanecByIdPoslanec;
     private BodEntity bodByIdBod;
     private Collection<SlovoEntity> slovosByIdProjev;
@@ -33,7 +32,8 @@ public class ProjevEntity implements HasID {
 
     @Id
     @Column(name = "id_projev")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "projev_generator")
+    @SequenceGenerator(name="projev_generator", sequenceName = "projev_seq", allocationSize=500, initialValue = 1)
     public Integer getIdProjev() {
         return idProjev;
     }
@@ -64,31 +64,41 @@ public class ProjevEntity implements HasID {
 
     @Basic
     @Column(name = "poradi")
-    public Integer getPoradi() { return poradi; }
+    public Integer getPoradi() {
+        return poradi;
+    }
 
-    public void setPoradi(Integer poradi) { this.poradi = poradi; }
+    public void setPoradi(Integer poradi) {
+        this.poradi = poradi;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProjevEntity that = (ProjevEntity) o;
-        return idProjev == that.idProjev &&
-                /*idPoslanec == that.idPoslanec &&
-                idBod == that.idBod &&*/
-                delka == that.delka &&
+        return Objects.equals(idProjev, that.idProjev) &&
                 Objects.equals(text, that.text) &&
-                Objects.equals(poslanecByIdPoslanec, that.poslanecByIdPoslanec) &&
-                Objects.equals(bodByIdBod, that.bodByIdBod);
+                Objects.equals(delka, that.delka) &&
+                Objects.equals(poradi, that.poradi);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idProjev, text, delka, poslanecByIdPoslanec, bodByIdBod);
+        return Objects.hash(idProjev, text, delka, poradi);
+    }
+
+    @OneToOne(mappedBy = "projevByIdProjev", cascade = CascadeType.ALL, orphanRemoval = true)
+    public ProjevStatistikyEntity getProjevStatistikyByIdProjev() {
+        return projevStatistikyByIdProjev;
+    }
+
+    public void setProjevStatistikyByIdProjev(ProjevStatistikyEntity projevStatistikyByIdProjev) {
+        this.projevStatistikyByIdProjev = projevStatistikyByIdProjev;
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_poslanec", referencedColumnName = "id_poslanec", nullable = false)
+    @JoinColumn(name = "id_poslanec", referencedColumnName = "id_poslanec")
     public PoslanecEntity getPoslanecByIdPoslanec() {
         return poslanecByIdPoslanec;
     }
@@ -98,13 +108,22 @@ public class ProjevEntity implements HasID {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_bod", referencedColumnName = "id_bod", nullable = false)
+    @JoinColumn(name = "id_bod", referencedColumnName = "id_bod")
     public BodEntity getBodByIdBod() {
         return bodByIdBod;
     }
 
     public void setBodByIdBod(BodEntity bodByIdBod) {
         this.bodByIdBod = bodByIdBod;
+    }
+
+    @OneToMany(mappedBy = "projevByIdProjev", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    public Collection<SlovoEntity> getSlovosByIdProjev() {
+        return slovosByIdProjev;
+    }
+
+    public void setSlovosByIdProjev(Collection<SlovoEntity> slovosByIdProjev) {
+        this.slovosByIdProjev = slovosByIdProjev;
     }
 
     @Override
@@ -115,14 +134,5 @@ public class ProjevEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdProjev(id);
-    }
-
-    @OneToMany(mappedBy = "projevByIdProjev")
-    public Collection<SlovoEntity> getSlovosByIdProjev() {
-        return slovosByIdProjev;
-    }
-
-    public void setSlovosByIdProjev(Collection<SlovoEntity> slovosByIdProjev) {
-        this.slovosByIdProjev = slovosByIdProjev;
     }
 }

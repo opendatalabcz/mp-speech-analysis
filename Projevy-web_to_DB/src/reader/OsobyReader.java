@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,24 +32,6 @@ public class OsobyReader {
         long startTime = System.currentTimeMillis();
 
         try {
-
-             /*
-            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            while ((line = file.readLine()) != null) {
-                List<String> myList = new ArrayList<String>(Arrays.asList(line.replaceAll("\\|$","").split("\\|", -1)));
-                //System.out.println(myList.size() + "---" + Arrays.toString(myList.toArray()));
-                OsobyEntity osobyEntity = CreateOsobaEntityFromStringList(myList);
-                entityManager.persist(osobyEntity);
-                long estimatedTime = System.currentTimeMillis() - startTime;
-                System.out.println("CURRENT ESTIMATED TIME: " + new java.util.Date(estimatedTime) + " (" + estimatedTime + ") --- ACTUAL ID: " +
-                        osobyEntity.getIdOsoba());
-            }
-            entityManager.getTransaction().commit();
-            entityManagerFactory.close();
-*/
-
             while ((line = file.readLine()) != null) {
                 List<String> myList = new ArrayList<String>(Arrays.asList(line.replaceAll("\\|$","").split("\\|", -1)));
                 OsobyEntity osobyEntity = CreateOsobaEntityFromStringList(myList);
@@ -59,7 +40,6 @@ public class OsobyReader {
                 System.out.println("CURRENT ESTIMATED TIME: " + new java.util.Date(estimatedTime) + " (" + estimatedTime + ") --- ACTUAL ID: " +
                         osobyEntity.getIdOsoba());
             }
-
         } catch (Exception e) {
             System.out.println("UnlFile(String path) - corrupted file " + " (" + e.toString() + ")");
         }
@@ -80,8 +60,8 @@ public class OsobyReader {
         } else throw new IllegalArgumentException();
 
         pred = removeUselessWhitespacesString(list.get(1));
-        jmeno = removeUselessWhitespacesString(list.get(2));
-        prijmeni = removeUselessWhitespacesString(list.get(3));
+        jmeno = removeUselessWhitespacesString(list.get(3));
+        prijmeni = removeUselessWhitespacesString(list.get(2));
         za = removeUselessWhitespacesString(list.get(4));
         narozeni = getSqlDateFromString(list.get(5), pattern);
         pohlavi = removeUselessWhitespacesString(list.get(6));

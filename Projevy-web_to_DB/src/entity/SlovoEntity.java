@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "slovo", schema = "FdCPKNUIYW")
+@Table(name = "slovo", schema = "dbo", catalog = "Poslanci")
 public class SlovoEntity implements HasID {
     private Integer idSlovo;
     private String slovo;
@@ -38,7 +38,8 @@ public class SlovoEntity implements HasID {
 
     @Id
     @Column(name = "id_slovo")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "slovo_generator")
+    @SequenceGenerator(name="slovo_generator", sequenceName = "slovo_seq", allocationSize=500, initialValue = 1)
     public Integer getIdSlovo() {
         return idSlovo;
     }
@@ -95,16 +96,17 @@ public class SlovoEntity implements HasID {
         return Objects.equals(idSlovo, that.idSlovo) &&
                 Objects.equals(slovo, that.slovo) &&
                 Objects.equals(tag, that.tag) &&
-                Objects.equals(pocetVyskytu, that.pocetVyskytu);
+                Objects.equals(pocetVyskytu, that.pocetVyskytu) &&
+                Objects.equals(sentiment, that.sentiment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idSlovo, slovo, tag, pocetVyskytu);
+        return Objects.hash(idSlovo, slovo, tag, pocetVyskytu, sentiment);
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_projev", referencedColumnName = "id_projev", nullable = false)
+    @JoinColumn(name = "id_projev", referencedColumnName = "id_projev")
     public ProjevEntity getProjevByIdProjev() {
         return projevByIdProjev;
     }

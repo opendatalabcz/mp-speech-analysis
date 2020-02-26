@@ -1,16 +1,41 @@
-import analyzer.Analyzer;
 import entity.*;
-import service.OsobyEntityService;
-import service.PoslanecEntityService;
+import service.ProjevEntityService;
 import service.StatistikyEntityService;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.util.*;
 
 public class App {
     public static void main(String[] args) {
+
+
+
+
+
+
+        /*Double sentiment = 0.0;
+        Integer pocetPosSlov = 10, pocetNegSlov = 3;
+
+        sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
+        System.out.println("Sentiment: " + sentiment);
+
+        ProjevStatistikyEntity projevStatistikyEntity = new ProjevStatistikyEntity(null, null, null,
+                null, sentiment, null);
+        System.out.println("Sentiment: " + projevStatistikyEntity.getSentiment());*/
+
+
+        /* projevEntityService = new ProjevEntityService();
+        projevEntityService.removeAll();*/
+
+
+
+
+        /*OsobyEntityService osobyEntityService = new OsobyEntityService();
+        OsobyEntity osobyEntity = new OsobyEntity(2,"","ěščřžýáíé", "ĚŠČŘŽÝÁÍÉ","",
+                null, "M", null, null);
+        osobyEntityService.createOrUpdate(osobyEntity);*/
+
+
+
+
+        /*
         StatistikyEntityService statistikyEntityService = new StatistikyEntityService();
 
         List list= statistikyEntityService.findAll();
@@ -31,6 +56,6 @@ public class App {
                 System.out.println(tse.getPoradi() + ": " + tse.getSlovo() + "(" + tse.getPocetVyskytu() + ")");
             }
             System.out.println();
-        }
+        }*/
     }
 }

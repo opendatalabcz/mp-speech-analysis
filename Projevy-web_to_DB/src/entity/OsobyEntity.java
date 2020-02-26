@@ -6,12 +6,12 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "osoby", schema = "FdCPKNUIYW")
-public class OsobyEntity implements HasID{
+@Table(name = "osoby", schema = "dbo", catalog = "Poslanci")
+public class OsobyEntity implements HasID {
     private Integer idOsoba;
     private String pred;
-    private String jmeno;
     private String prijmeni;
+    private String jmeno;
     private String za;
     private Date narozeni;
     private String pohlavi;
@@ -75,16 +75,6 @@ public class OsobyEntity implements HasID{
     }
 
     @Basic
-    @Column(name = "jmeno")
-    public String getJmeno() {
-        return jmeno;
-    }
-
-    public void setJmeno(String jmeno) {
-        this.jmeno = jmeno;
-    }
-
-    @Basic
     @Column(name = "prijmeni")
     public String getPrijmeni() {
         return prijmeni;
@@ -92,6 +82,16 @@ public class OsobyEntity implements HasID{
 
     public void setPrijmeni(String prijmeni) {
         this.prijmeni = prijmeni;
+    }
+
+    @Basic
+    @Column(name = "jmeno")
+    public String getJmeno() {
+        return jmeno;
+    }
+
+    public void setJmeno(String jmeno) {
+        this.jmeno = jmeno;
     }
 
     @Basic
@@ -149,10 +149,10 @@ public class OsobyEntity implements HasID{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OsobyEntity that = (OsobyEntity) o;
-        return idOsoba.equals(that.idOsoba) &&
+        return Objects.equals(idOsoba, that.idOsoba) &&
                 Objects.equals(pred, that.pred) &&
-                Objects.equals(jmeno, that.jmeno) &&
                 Objects.equals(prijmeni, that.prijmeni) &&
+                Objects.equals(jmeno, that.jmeno) &&
                 Objects.equals(za, that.za) &&
                 Objects.equals(narozeni, that.narozeni) &&
                 Objects.equals(pohlavi, that.pohlavi) &&
@@ -162,10 +162,10 @@ public class OsobyEntity implements HasID{
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOsoba, pred, jmeno, prijmeni, za, narozeni, pohlavi, zmena, umrti);
+        return Objects.hash(idOsoba, pred, prijmeni, jmeno, za, narozeni, pohlavi, zmena, umrti);
     }
 
-    @OneToMany(mappedBy = "osobyByIdOsoba")
+    @OneToMany(mappedBy = "osobyByIdOsoba", cascade = CascadeType.ALL, orphanRemoval = true)
     public Collection<PoslanecEntity> getPoslanecsByIdOsoba() {
         return poslanecsByIdOsoba;
     }
