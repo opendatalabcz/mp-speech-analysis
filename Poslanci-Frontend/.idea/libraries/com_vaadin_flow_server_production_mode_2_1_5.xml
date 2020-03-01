@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.vaadin:flow-server-production-mode:2.1.5" type="repository">
+    <properties maven-id="com.vaadin:flow-server-production-mode:2.1.5" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/flow-server-production-mode-2.1.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

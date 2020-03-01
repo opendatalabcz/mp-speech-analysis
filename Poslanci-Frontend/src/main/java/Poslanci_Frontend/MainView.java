@@ -13,10 +13,9 @@ import com.vaadin.flow.router.Route;
 @PWA(name = "My Application", shortName = "My Application")
 public class MainView extends VerticalLayout {
 
-
     public MainView() {
         Button button = new Button("Click me",
                 event -> Notification.show("Clicked!"));
-        add(new StartView(this));
+        add(new PoslanecView(4));
     }
 }

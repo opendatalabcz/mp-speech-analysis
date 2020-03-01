@@ -2,48 +2,96 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7ee2b51-199b-4fc9-ab22-aa025e311164" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Text-extractor/out/production/Text-extractor/horynja2/textextractor/MeetingDir.class" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/out/production/Text-extractor/horynja2/textextractor/MeetingDir.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/001schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/001schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/002schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/002schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/003schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/003schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/004schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/004schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/005schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/005schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/006schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/006schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/007schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/007schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/008schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/008schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/009schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/009schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/010schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/010schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/011schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/011schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/012schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/012schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/013schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/013schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/014schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/014schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/015schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/015schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/016schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/016schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/017schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/017schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/018schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/018schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/019schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/019schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/020schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/020schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/021schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/021schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/022schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/022schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/023schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/023schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/024schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/024schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/025schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/025schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/026schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/026schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/027schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/027schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/028schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/028schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/029schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/029schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/030schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/030schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/031schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/031schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/032schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/032schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/033schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/033schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/034schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/034schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/035schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/035schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/036schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/036schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/037schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/037schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/038schuz-format-txt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/resources/Schuze-format-txt/038schuz-format-txt.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Text-extractor/src/horynja2/textextractor/MeetingDir.java" beforeDir="false" afterPath="$PROJECT_DIR$/Text-extractor/src/horynja2/textextractor/MeetingDir.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/Poslanci-Frontend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/libraries/JPA_1_0_JPA_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/libraries/com_github_gwenn_sqlite_dialect_0_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/libraries/org_hibernate_hibernate_c3p0_5_4_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/libraries/org_hibernate_hibernate_entitymanager_5_4_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/libraries/org_xerial_sqlite_jdbc_3_30_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/PoslanecStatistikyEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Poslanci-Frontend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/Poslanci-Frontend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Poslanci-Frontend/Poslanci-Frontend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Poslanci-Frontend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Poslanci-Frontend/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/PoslanciSQLite.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/Projevy-web_to_DB.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/Poslanci-Backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/czech-morfflex-pdt-161115/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/czech-morfflex-pdt-161115/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/osoby.unl" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/resources/osoby.unl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/META-INF/Projevy-web_to_DB.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/LemmaWithTag.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/LemmaWithTag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/ProjevStatistikyCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/ProjevStatistikyCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/SlovoCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/SlovoCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/SlovoCreatorData.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/SlovoCreatorData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/StatistikyCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/StatistikyCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/TopSlovaCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/creator/TopSlovaCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/BodEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/HasID.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/OsobyEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/PoslanecEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/ProjevEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/ProjevStatistikyEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/SlovoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/StatistikyEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/entity/TopSlovaEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/BodReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/BodReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/OsobyReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/OsobyReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/PoslanecReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/PoslanecReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/ProjevReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/reader/ProjevReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/AbstractService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/BodEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/OsobyEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/PoslanecEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/ProjevEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/ProjevStatistikyEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/SlovoEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/StatistikyEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/out/production/Projevy-web_to_DB/service/TopSlovaEntityService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/poslanec.unl" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/resources/poslanec.unl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/resources/Schuze/017schuz/s017039.htm" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/resources/Schuze/017schuz/s017039.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/resources/Schuze/024schuz/s024252.htm" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/resources/Schuze/024schuz/s024252.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/resources/Schuze/030schuz/s030264.htm" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/resources/Schuze/030schuz/s030264.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/LemmaWithTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/LemmaWithTag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/ProjevStatistikyCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/ProjevStatistikyCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/SlovoCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/SlovoCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/SlovoCreatorData.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/SlovoCreatorData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/StatistikyCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/StatistikyCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/TopSlovaCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/creator/TopSlovaCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/BodEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/HasID.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/OsobyEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/PoslanecEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/ProjevEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/ProjevStatistikyEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/SlovoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/StatistikyEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/entity/TopSlovaEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/BodReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/BodReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/OsobyReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/OsobyReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/PoslanecReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/PoslanecReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/ProjevReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/reader/ProjevReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/AbstractService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/AbstractService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/BodEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/BodEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/OsobyEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/OsobyEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/PoslanecEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/PoslanecEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/ProjevEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/ProjevEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/ProjevStatistikyEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/ProjevStatistikyEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/SlovoEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/SlovoEntityService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/StatistikyEntityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projevy-web_to_DB/src/service/TopSlovaEntityService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Projevy-web_to_DB/src/poslanciDB/service/TopSlovaEntityService.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,20 +114,16 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1UilIcG3SUGkLruvg7EU6vfE9sK" />
-  <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Text-analyzer" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SbtLocalSettings">
     <option name="projectSyncType">
@@ -98,6 +142,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575847217123</updated>
+      <workItem from="1582986023495" duration="17000" />
     </task>
     <servers />
   </component>
@@ -106,7 +151,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
