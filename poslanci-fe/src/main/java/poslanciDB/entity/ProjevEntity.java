@@ -116,7 +116,7 @@ public class ProjevEntity implements HasID {
         this.projevStatistikyByIdProjev = projevStatistikyByIdProjev;
     }
 
-    @OneToMany(mappedBy = "projevByIdProjev")
+    @OneToMany(mappedBy = "projevByIdProjev", fetch = FetchType.LAZY)
     public Collection<SlovoEntity> getSlovosByIdProjev() {
         return slovosByIdProjev;
     }

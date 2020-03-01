@@ -26,7 +26,7 @@ public class BodEntity implements HasID {
 
     @Id
     @Column(name = "id_bod")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Integer getIdBod() {
         return idBod;
     }

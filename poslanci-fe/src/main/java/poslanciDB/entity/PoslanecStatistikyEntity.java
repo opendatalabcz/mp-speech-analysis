@@ -12,6 +12,7 @@ public class PoslanecStatistikyEntity implements HasID {
     private Double sentiment;
     private PoslanecEntity poslanecByIdPoslanec;
     private Collection<TopSlovaEntity> topSlovaByIdPoslanec;
+    private Collection<PoslanecStatistikyMesicEntity> poslanecStatistikyMesicsByIdPoslanec;
 
     public PoslanecStatistikyEntity() {
     }
@@ -90,6 +91,15 @@ public class PoslanecStatistikyEntity implements HasID {
 
     public void setTopSlovaByIdPoslanec(Collection<TopSlovaEntity> topSlovaByIdPoslanec) {
         this.topSlovaByIdPoslanec = topSlovaByIdPoslanec;
+    }
+
+    @OneToMany(mappedBy = "poslanecStatistikyByIdPoslanec")
+    public Collection<PoslanecStatistikyMesicEntity> getPoslanecStatistikyMesicsByIdPoslanec() {
+        return poslanecStatistikyMesicsByIdPoslanec;
+    }
+
+    public void setPoslanecStatistikyMesicsByIdPoslanec(Collection<PoslanecStatistikyMesicEntity> poslanecStatistikyMesicsByIdPoslanec) {
+        this.poslanecStatistikyMesicsByIdPoslanec = poslanecStatistikyMesicsByIdPoslanec;
     }
 
     @Override

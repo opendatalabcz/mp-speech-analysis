@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "slovo", schema = "main")
-public class SlovoEntity implements HasID{
+public class SlovoEntity implements HasID {
     private Integer idSlovo;
     private String slovo;
     private String tag;

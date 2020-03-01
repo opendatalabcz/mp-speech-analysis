@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "top_slova", schema = "main")
-public class TopSlovaEntity implements HasID{
+public class TopSlovaEntity implements HasID {
     private Integer idTopSlova;
     private String slovo;
     private Integer pocetVyskytu;
@@ -26,7 +26,7 @@ public class TopSlovaEntity implements HasID{
 
     @Id
     @Column(name = "id_top_slova")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public Integer getIdTopSlova() {
         return idTopSlova;
     }
