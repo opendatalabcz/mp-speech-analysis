@@ -1,12 +1,10 @@
 package web;
 
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.select.Select;
 import poslanciDB.entity.OrganyEntity;
-import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.service.OrganyEntityService;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,23 +12,23 @@ import java.util.function.Consumer;
 
 public class ChoosePartyComponent extends HorizontalLayout {
     OrganyEntityService organyEntityService = new OrganyEntityService();
-    ComboBox<OrganyEntity> seasonsComboBox = new ComboBox<>();
-    ComboBox<OrganyEntity> partysComboBox = new ComboBox<>();
+    Select<OrganyEntity> seasonsSelect = new Select<>();
+    Select<OrganyEntity> partysSelect = new Select<>();
 
     Integer comboBoxWidth = 400;
 
     public ChoosePartyComponent(Consumer<OrganyEntity> func) {
         initializeComponents(func);
-        add(seasonsComboBox, partysComboBox);
+        add(seasonsSelect, partysSelect);
     }
 
     private void initializeComponents(Consumer<OrganyEntity> func) {
-        seasonsComboBox.setLabel("Volební odbobí:");
-        seasonsComboBox.setWidth(comboBoxWidth.toString());
+        seasonsSelect.setLabel("Volební odbobí:");
+        seasonsSelect.setWidth(comboBoxWidth.toString());
         setupSeasonsComboBox();
 
         //TODO zatim takhle, je potreba asi udelat vazbu s nadrazenym organem
-        seasonsComboBox.addValueChangeListener(event -> {
+        seasonsSelect.addValueChangeListener(event -> {
             Set<OrganyEntity> set = new HashSet<>();
             if(event.getValue() != null) {
                 event.getValue().getPoslanecsObdobiByIdOrgan().forEach(posl -> {
@@ -39,20 +37,20 @@ public class ChoosePartyComponent extends HorizontalLayout {
                 });
             }
             //System.out.println();
-            partysComboBox.setItems(set);
-            partysComboBox.setEnabled(true);
+            partysSelect.setItems(set);
+            partysSelect.setEnabled(true);
         });
 
-        partysComboBox.setLabel("Kandidátka:");
-        partysComboBox.setEnabled(false);
-        partysComboBox.setWidth(comboBoxWidth.toString());
-        partysComboBox.addValueChangeListener(event -> {
+        partysSelect.setLabel("Kandidátka:");
+        partysSelect.setEnabled(false);
+        partysSelect.setWidth(comboBoxWidth.toString());
+        partysSelect.addValueChangeListener(event -> {
             func.accept(event.getValue());
         });
     }
 
     private void setupSeasonsComboBox() {
         List<OrganyEntity> list = organyEntityService.getAllChamberSeasons();
-        seasonsComboBox.setItems(list);
+        seasonsSelect.setItems(list);
     }
 }
