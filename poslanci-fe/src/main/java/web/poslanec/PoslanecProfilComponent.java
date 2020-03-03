@@ -23,7 +23,10 @@ public class PoslanecProfilComponent extends VerticalLayout {
     }
 
     private HorizontalLayout getParty() {
-        return Helper.getValueWithLabelComponent("Kandidátka: ", poslanecEntity.getOrganyByIdKandidatka().getNazevOrganuCz());
+        if(poslanecEntity.getOrganyByIdKandidatka() != null)
+            return Helper.getValueWithLabelComponent("Kandidátka: ", poslanecEntity.getOrganyByIdKandidatka().getNazevOrganuCz());
+        else
+            return Helper.getValueWithLabelComponent("Kandidátka: ", "");
     }
 
     private HorizontalLayout getBirthDate() {
