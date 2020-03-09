@@ -15,7 +15,6 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import javafx.geometry.Pos;
 import org.apache.commons.lang3.ArrayUtils;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.PoslanecStatistikyEntity;
@@ -49,9 +48,9 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
             list.add(poslanecEntity);
 
             add(new Label("STATISTIKY:"), getWordCount(), getSentiment(), getStatsInMonths(),
-                    getPoslanecSentimentBarChartWrapped(poslanecEntity),
+                    new PoslanecStatistikySchuzeComponent(poslanecEntity),
                     getTest0Div(),
-                    getTest1Div(list));
+                    getPoslanecSentimentMesicDiv(list));
         }
     }
 

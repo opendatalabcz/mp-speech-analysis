@@ -14,19 +14,13 @@ import be.ceau.chart.options.ticks.LinearTicks;
 import com.syndybat.chartjs.ChartJs;
 import com.syndybat.chartjs.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.dom.ThemeList;
-import com.vaadin.flow.theme.material.Material;
-import javafx.geometry.Pos;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.service.PoslanecEntityService;
-import web.monthYear.MonthYear;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static web.chart.Helper.wrapToDiv;
 import static web.chart.PoslanecData.getMonthLabelsList;
@@ -35,11 +29,11 @@ import static web.chart.PoslanecData.getPoslanecDoublesArray;
 public class BarChart {
     private static PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
 
-    public static Div getPoslanecSentimentBarChartWrapped(PoslanecEntity poslanecEntity) {
-        return wrapToDiv(getPoslanecSentimentBarChart(poslanecEntity));
+    public static Div getPoslanecSentimentBarChartWrappedOld(PoslanecEntity poslanecEntity) {
+        return wrapToDiv(getPoslanecSentimentBarChartOld(poslanecEntity));
     }
 
-    private static ChartJs getPoslanecSentimentBarChart(PoslanecEntity poslanecEntity) {
+    private static ChartJs getPoslanecSentimentBarChartOld(PoslanecEntity poslanecEntity) {
         BarDataset barDataset = getBarDataSet(poslanecEntity, Color.RED);
         List<String> dates = getMonthLabelsList(poslanecEntity);
 
@@ -81,31 +75,17 @@ public class BarChart {
                 .setBorderWidth(2);
     }
 
-    Div getPoslanecSentimentBarChart(List<PoslanecEntity> listPoslanecEntity) {
-        return null;
-    }
-
-
-    Div getDoubleBarChart(Map<MonthYear, Double> data) {
-        return null;
-    }
-
-    Div getDoubleBarChart(List<Map<MonthYear, Double>> data) {
-        return null;
-    }
-
-
 
     public static Div getTest0Div(){
         return wrapToDiv(getTest0());
     }
 
-    public static Div getTest1Div(PoslanecEntity poslanecEntity){
-        return wrapToDiv(getTest1(poslanecEntity));
+    public static Div getPoslanecSentimentMesicDiv(PoslanecEntity poslanecEntity){
+        return wrapToDiv(getPoslanecSentimentMesic(poslanecEntity));
     }
 
-    public static Div getTest1Div(List<PoslanecEntity> list){
-        return wrapToDiv(getTest1(list));
+    public static Div getPoslanecSentimentMesicDiv(List<PoslanecEntity> list){
+        return wrapToDiv(getPoslanecSentimentMesic(list));
     }
 
     private static ChartJs getTest0(){
@@ -132,13 +112,13 @@ public class BarChart {
         return new ChartJs(new be.ceau.chart.BarChart(data,barOptions).toJson());
     }
 
-    private static ChartJs getTest1(PoslanecEntity poslanecEntity) {
+    private static ChartJs getPoslanecSentimentMesic(PoslanecEntity poslanecEntity) {
         List<PoslanecEntity> list = new ArrayList<>();
         list.add(poslanecEntity);
-        return getTest1(list);
+        return getPoslanecSentimentMesic(list);
     }
 
-    private static ChartJs getTest1(List<PoslanecEntity> listPoslanecEntity)
+    private static ChartJs getPoslanecSentimentMesic(List<PoslanecEntity> listPoslanecEntity)
     {
         if(listPoslanecEntity.isEmpty()) return null;
         if(listPoslanecEntity.get(0) == null) return null;
