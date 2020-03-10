@@ -18,6 +18,10 @@ public class ChooseOsobaComponent extends HorizontalLayout {
         add(osobyComboBox);
     }
 
+    public void clear() {
+        osobyComboBox.clear();
+    }
+
     private void initializeComponents(Consumer<OsobyEntity> func) {
         List<OsobyEntity> list = osobyEntityService.findAll();
         osobyComboBox.setItems(list);

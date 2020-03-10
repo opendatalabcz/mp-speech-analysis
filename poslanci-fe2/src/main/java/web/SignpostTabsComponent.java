@@ -4,7 +4,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import web.graph.GraphView;
+import web.graph.OsobyCompareView;
+import web.graph.OsobySetComponent;
 import web.info.InfoView;
 import web.osoba.OsobaView;
 import web.party.PartyView;
@@ -39,7 +40,7 @@ public class SignpostTabsComponent extends VerticalLayout {
            if(label.startsWith("1")) div.add(new PoslanecView());
            if(label.startsWith("2")) div.add(new OsobaView());
            if(label.startsWith("3")) div.add(new PartyView());
-           if(label.startsWith("4")) div.add(new GraphView());
+           if(label.startsWith("4")) div.add(new OsobyCompareView());
            if(label.startsWith("5")) div.add(new InfoView());
         });
     }
