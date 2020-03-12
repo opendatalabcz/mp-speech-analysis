@@ -11,20 +11,35 @@ import java.util.List;
 
 public class Colors {
     int counter = 0;
-    ThemeList themeList;
     static List<Color> darkColors = getDarkColors();
     static List<Color> lightColors = getLightColors();
+    private Integer theme = 0; // 0 - dark, 1 - light
 
 
     public Colors() {
-        themeList = UI.getCurrent().getElement().getThemeList();
+        ThemeList themeList = UI.getCurrent().getElement().getThemeList();
+        if(themeList.contains(Material.LIGHT))
+            theme = 1;
+        if(!themeList.contains(Material.LIGHT))
+            theme = 0;
+    }
+
+    public static Color getChartLabelColor() {
+        return getColorFromString("#BF360C");
+    }
+
+    public Color getGridLinesColor() {
+        if(theme == 0)
+            return getColorFromString("#616161");
+        else
+            return getColorFromString("#EEEEEE");
     }
 
     public Color getColor() {
         Color color = null;
-        if(themeList.contains(Material.LIGHT) && lightColors.size() > 0)
+        if(theme == 1 && lightColors.size() > 0)
             color = lightColors.get(counter);
-        if(!themeList.contains(Material.LIGHT) && darkColors.size() > 0)
+        if(theme == 0 && darkColors.size() > 0)
             color = darkColors.get(counter);
         int minListSize = Math.min(lightColors.size(), darkColors.size());
         if(counter >= minListSize - 1)
@@ -86,6 +101,27 @@ public class Colors {
         list.add(getColorFromString("#FFCA28"));
 
         return list;
+    }
+
+    public Color getRed() {
+        if(theme == 0)
+            return getColorFromString("#E53935");
+        else
+            return getColorFromString("#EF5350");
+    }
+
+    public Color getGreen() {
+        if(theme == 0)
+            return getColorFromString("#43A047");
+        else
+            return getColorFromString("#66BB6A");
+    }
+
+    public Color getYellow() {
+        if(theme == 0)
+            return getColorFromString("#FDD835");
+        else
+            return getColorFromString("#FFEE58");
     }
 
 }

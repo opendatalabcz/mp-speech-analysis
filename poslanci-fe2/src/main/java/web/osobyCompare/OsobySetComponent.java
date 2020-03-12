@@ -1,8 +1,7 @@
-package web.graph;
+package web.osobyCompare;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.OsobyEntity;
 import web.ChooseOsobaComponent;

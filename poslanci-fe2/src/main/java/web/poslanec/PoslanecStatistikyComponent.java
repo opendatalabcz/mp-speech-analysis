@@ -26,7 +26,7 @@ import web.monthYear.MonthYear;
 import java.sql.Date;
 import java.util.*;
 
-import static web.chart.BarChart.*;
+import static web.chart.PoslanecBarChart.*;
 
 public class PoslanecStatistikyComponent extends VerticalLayout {
     private PoslanecEntity poslanecEntity;
@@ -47,10 +47,10 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
             list.add(poslanecEntityService.find(1540));
             list.add(poslanecEntity);
 
-            add(new Label("STATISTIKY:"), getWordCount(), getSentiment(), getStatsInMonths(),
-                    new PoslanecStatistikySchuzeComponent(poslanecEntity),
-                    getTest0Div(),
-                    getPoslanecSentimentMesicDiv(list));
+            add(new Label("STATISTIKY:"), getWordCount(), getSentiment(),
+                    new PoslanecStatistikySchuzeComponent(poslanecEntity));
+                    /*getTest0Div(),
+                    getPoslanecSentimentMesicDiv(list));*/
         }
     }
 
@@ -83,120 +83,5 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
         }
 
         return verticalLayout;
-    }
-
-    private Div wrapToDiv(ChartJs barChartJs)
-    {
-        Div div = new Div();
-        div.add(barChartJs);
-        div.setWidth("800px");
-        div.setHeight("1000px");
-        return div;
-    }
-
-    private int getMonth(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int month = cal.get(Calendar.MONTH);
-        return month;
-    }
-
-    private int getYear(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int year = cal.get(Calendar.YEAR);
-        return year;
-    }
-
-    private boolean isThisMonth(int month1, int year1, int month2, int year2) {
-        if(year1 == year2) {
-            if(month2 - 1 == month1) return true;
-            else return false;
-        } else {
-            if(year2 - 1 == year1 && month1 == 11 && month2 == 0) return true;
-            else return false;
-        }
-    }
-
-    private String getStringMesic(int year, int month) {
-        if(month == 0) return year + " - " + month;
-        else return month + "";
-    }
-
-    private ChartJs getBarChart(){
-        List<Double> doubles = new ArrayList<>();
-        List<String> dates = new ArrayList<>();
-        Map<MonthYear, Double> dateDoubleMap = new HashMap<>();
-
-        for(PoslanecStatistikyMesicEntity monthStats : poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec()) {
-            Date date = monthStats.getMesic();
-            MonthYear monthYear = new MonthYear(getMonth(date), getYear(date));
-            Double num = monthStats.getSentiment();
-            dateDoubleMap.put(monthYear, num);
-        }
-        Date dateBegin = poslanecEntity.getOrganyByIdObdobi().getOdOrgan();
-        if(dateBegin == null) {
-            dateBegin = new Date(Calendar.getInstance().getTime().getTime());
-        }
-        MonthYear monthYearCurrent = new MonthYear(getMonth(dateBegin), getYear(dateBegin));
-
-        Date dateEnd = poslanecEntity.getOrganyByIdObdobi().getDoOrgan();
-        if(dateEnd == null) {
-            dateEnd = new Date(Calendar.getInstance().getTime().getTime());
-        }
-        MonthYear monthYearEnd = new MonthYear(getMonth(dateEnd), getYear(dateEnd));
-
-
-        while(monthYearEnd.greaterThan(monthYearCurrent) || monthYearEnd.equals(monthYearCurrent)) {
-            Double num = dateDoubleMap.get(monthYearCurrent);
-            if(num == null) {
-                num = 0.0;
-            }
-            doubles.add(num);
-            dates.add(monthYearCurrent.toString());
-            monthYearCurrent.increase();
-        }
-
-        Double[] a = doubles.stream().toArray(Double[]::new);
-        double[] doublesArr = ArrayUtils.toPrimitive(a);
-
-        BarDataset dataset = new BarDataset()
-                .setLabel("Sentiment")
-                .setData(doublesArr)
-                .addBackgroundColor(Color.RED)
-                .setBorderWidth(2);
-
-        BarDataset dataset2 = new BarDataset()
-                .setLabel("Sentiment2")
-                .setData(doublesArr)
-                .addBackgroundColor(Color.BLUE)
-                .setBorderWidth(2);
-
-        BarData data = new BarData()
-                .addLabels(dates.toArray(new String[0]))
-                .addDataset(dataset)
-                .addDataset(dataset2);
-
-        JavaScriptFunction label = new JavaScriptFunction(
-                "\"function(chart) {console.log('test legend');}\""
-        );
-
-        LinearTicks ticks = new LinearTicks()
-                .setAutoSkip(false)
-                .setMin(0)
-                .setMax(1)
-                .setStepSize(1);
-        XAxis axis = new XAxis().setTicks(ticks).setStacked(true);
-        BarScale scales = new BarScale().addxAxes(axis);
-
-        BarOptions barOptions = new BarOptions()
-                .setResponsive(true)
-                .setTitle(new Title().setText("test"))
-                .setLegend(new Legend()
-                        .setDisplay(true)
-                        .setOnClick(label))
-                .setScales(scales);
-
-        return new ChartJs(new BarChart(data,barOptions).toJson());
     }
 }

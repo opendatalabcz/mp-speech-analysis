@@ -1,10 +1,12 @@
 package web.poslanec;
 
 import com.vaadin.flow.component.accordion.Accordion;
+import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.ProjevEntity;
+import poslanciDB.entity.ProjevStatistikyEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,26 +40,38 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
             projevy.removeIf(projev -> (projev.getBodByIdBod().getCisloSchuze() == finalSchuzeNum));
             schuzeNum++;
         }
-        accordion.setWidthFull();
         accordion.close();
+        accordion.setWidthFull();
+        accordion.setSizeFull();
+        accordion.getElement().getStyle().set("background", "#455A64");
     }
 
-    private VerticalLayout getProjevLayout(ProjevEntity projevEntity) {
-        Label label = new Label("Projev: " + projevEntity.getText());
-        return new VerticalLayout(label);
+    private AccordionPanel getProjevLayout(ProjevEntity projevEntity) {
+        String summary = projevEntity.getBodByIdBod().getText() + "\n" +
+                ", počet slov celkem: " + projevEntity.getPocetSlov();
+
+        Label content = new Label(projevEntity.getText());
+        AccordionPanel panel = new AccordionPanel(summary, content);
+        return panel;
     }
 
     private void processOneSchuze(List<ProjevEntity> list, Integer cisloSchuze) {
         Integer pocetSlov = 0, pocetPosSlov = 0, pocetNegSlov = 0;
-        VerticalLayout listLayout = new VerticalLayout();
+        Accordion listAccordion = new Accordion();
         for(ProjevEntity projev : list){
             pocetSlov += projev.getPocetSlov();
             pocetPosSlov += projev.getProjevStatistikyByIdProjev().getPocetPosSlov();
             pocetNegSlov += projev.getProjevStatistikyByIdProjev().getPocetNegSlov();
-            listLayout.add(getProjevLayout(projev));
+            listAccordion.add(getProjevLayout(projev));
         }
+        listAccordion.close();
+        listAccordion.getElement().getStyle().set("background", "#607D8B");
 
-        String summary = "Schuze č." + cisloSchuze + ", početSlov: " + pocetSlov;
-        accordion.add(summary,listLayout);
+        String summary = "Schůze č." + cisloSchuze + ", počet slov celkem: " + pocetSlov +
+                ", počet positivních slov: " + pocetPosSlov + ", počet negativních slov: " + pocetNegSlov;
+        accordion.add(summary, listAccordion);
     }
+
+
+
 }

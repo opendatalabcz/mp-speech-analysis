@@ -20,10 +20,9 @@ public class OsobaView extends VerticalLayout {
         if(osobyEntity != null){
             div.add(new OsobaProfilComponent(osobyEntity));
             for(PoslanecEntity poslanecEntity : osobyEntity.getPoslanecsByIdOsoba()) {
-                Label label = new Label("ODBOBI: " + poslanecEntity.getOrganyByIdObdobi());
-                PoslanecProfilComponent poslanecProfilComponent = new PoslanecProfilComponent(poslanecEntity);
+                Label label = new Label("OBDOBÍ: " + poslanecEntity.getOrganyByIdObdobi());
                 PoslanecStatistikyComponent poslanecStatistikyComponent = new PoslanecStatistikyComponent(poslanecEntity);
-                div.add(label, poslanecProfilComponent, poslanecStatistikyComponent);
+                div.add(label, poslanecStatistikyComponent);
             }
         }
     }

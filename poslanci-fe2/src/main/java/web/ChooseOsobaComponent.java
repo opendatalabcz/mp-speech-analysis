@@ -5,6 +5,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import poslanciDB.entity.OsobyEntity;
 import poslanciDB.service.OsobyEntityService;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -24,6 +26,8 @@ public class ChooseOsobaComponent extends HorizontalLayout {
 
     private void initializeComponents(Consumer<OsobyEntity> func) {
         List<OsobyEntity> list = osobyEntityService.findAll();
+        list.sort((o1, o2) -> o1.getPrijmeni().compareToIgnoreCase(o2.getPrijmeni()));
+
         osobyComboBox.setItems(list);
 
         osobyComboBox.addValueChangeListener(event -> {

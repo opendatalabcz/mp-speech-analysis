@@ -9,8 +9,11 @@ import be.ceau.chart.options.BarOptions;
 import be.ceau.chart.options.Legend;
 import be.ceau.chart.options.Title;
 import com.syndybat.chartjs.ChartJs;
+import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.HtmlImport;
+import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -29,19 +32,33 @@ import java.util.List;
  * The main view contains a button and a click listener.
  */
 @Route
+@JavaScript("frontend://script.js")
 @HtmlImport("frontend://styles/shared-styles.html")
 @Theme(value = Material.class, variant = Material.DARK)
 @PWA(name = "My web.Application", shortName = "My web.Application")
 public class MainView extends VerticalLayout {
 
     public MainView() {
-        Button button = new Button("Click me",
-                event -> Notification.show("Clicked!"));
-        //add(button, wrapToDiv(getBarChart()));
+        getElement().executeJavaScript("javascriptFunction($0)", getElement());
+        UI.getCurrent().getPage().addBrowserWindowResizeListener(event ->
+        {
+            Notification.show("Window width=" + event.getWidth()
+                    + ", height=" + event.getHeight());
+            SizeUI.width = event.getWidth();
+        });
         add(new SignpostTabsComponent());
     }
 
+    @ClientCallable
+    public void greet(String name) {
+        System.out.println("Hi, " + name);
+    }
 
+    @ClientCallable
+    private void javaFunction(int width){
+        System.out.println("Width: " + width);
+        SizeUI.width = width;
+    }
 
     private Div wrapToDiv(ChartJs barChartJs)
     {

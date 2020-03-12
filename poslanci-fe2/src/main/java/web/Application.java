@@ -1,5 +1,7 @@
 package web;
 
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.notification.Notification;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
