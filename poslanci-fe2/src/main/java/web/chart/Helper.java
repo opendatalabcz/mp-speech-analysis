@@ -3,9 +3,8 @@ package web.chart;
 import be.ceau.chart.color.Color;
 import be.ceau.chart.dataset.BarDataset;
 import be.ceau.chart.options.scales.GridLines;
-import com.syndybat.chartjs.ChartJs;
-import com.vaadin.flow.component.html.Div;
 import org.apache.commons.lang3.ArrayUtils;
+import web.Colors;
 import web.monthYear.MonthYear;
 
 import java.util.ArrayList;

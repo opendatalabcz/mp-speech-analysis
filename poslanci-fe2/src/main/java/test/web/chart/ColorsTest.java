@@ -3,7 +3,7 @@ package test.web.chart;
 import be.ceau.chart.color.Color;
 import org.junit.Test;
 
-import static web.chart.Colors.getColorFromString;
+import static web.Colors.getColorFromString;
 
 public class ColorsTest {
     @Test

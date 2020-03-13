@@ -42,8 +42,8 @@ public class MainView extends VerticalLayout {
         getElement().executeJavaScript("javascriptFunction($0)", getElement());
         UI.getCurrent().getPage().addBrowserWindowResizeListener(event ->
         {
-            Notification.show("Window width=" + event.getWidth()
-                    + ", height=" + event.getHeight());
+            /*Notification.show("Window width=" + event.getWidth()
+                    + ", height=" + event.getHeight());*/
             SizeUI.width = event.getWidth();
         });
         add(new SignpostTabsComponent());

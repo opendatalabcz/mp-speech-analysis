@@ -1,5 +1,6 @@
 package web.osoba;
 
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.OsobyEntity;
@@ -18,8 +19,17 @@ public class OsobaProfilComponent extends VerticalLayout {
         this.osobyEntity = osobyEntity;
         Set<OsobyEntity> set = new HashSet<>();
         set.add(osobyEntity);
-        add(getMostCurrentProfil(),
-                new HorizontalLayout(OsobyBarChart.getOsobySentimentPeriodDiv(set), OsobyBarChart.getOsobyPocetSlovPeriodDiv(set)));
+        PoslanecProfilComponent poslanecProfilComponent = getMostCurrentProfil();
+
+        if(poslanecProfilComponent != null) {
+            add(poslanecProfilComponent,
+                    new HorizontalLayout(OsobyBarChart.getOsobySentimentPeriodDiv(set),
+                            OsobyBarChart.getOsobyPocetSlovPeriodDiv(set)
+                    )
+            );
+        } else {
+            add(getShortOsobaProfil());
+        }
     }
 
     private PoslanecProfilComponent getMostCurrentProfil() {
@@ -34,6 +44,19 @@ public class OsobaProfilComponent extends VerticalLayout {
                 poslanecEnt = poslanecEntity;
             }
         }
-        return new PoslanecProfilComponent(poslanecEnt);
+        PoslanecProfilComponent poslanecProfilComponent = null;
+        try {
+            poslanecProfilComponent = new PoslanecProfilComponent(poslanecEnt);
+        } catch (Exception ignored){}
+
+        return poslanecProfilComponent;
+    }
+
+    private VerticalLayout getShortOsobaProfil() {
+        VerticalLayout verticalLayout = new VerticalLayout();
+        verticalLayout.add(Helper.getValueWithLabelComponent("Jméno: ", osobyEntity.toString()));
+        verticalLayout.add(Helper.getValueWithLabelComponent("Narození: ", osobyEntity.getNarozeni().toString()));
+        verticalLayout.add(new Label("Tato osoba nemá a neměla poslanecký mandát."));
+        return verticalLayout;
     }
 }

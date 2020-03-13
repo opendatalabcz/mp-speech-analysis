@@ -12,6 +12,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static web.chart.Helper.getDoublesArrayFromList;
+import static web.chart.Helper.getIntsArrayFromList;
 import static web.monthYear.Helper.getMonthFromSQLDate;
 import static web.monthYear.Helper.getYearFromSQLDate;
 
@@ -38,6 +39,23 @@ public class PoslanecData {
             monthYearCurrent.increase();
         }
         return getDoublesArrayFromList(doubles);
+    }
+
+    public static int[] getPoslanecIntsPocetSlovArray(PoslanecEntity poslanecEntity) {
+        Map<MonthYear, Integer> dateIntegerMap = getPoslanecPocetSlovMap(poslanecEntity.getPoslanecStatistikyByIdPoslanec());
+        MonthYear monthYearCurrent = new MonthYear(poslanecEntity.getOrganyByIdObdobi().getOdOrgan());
+        MonthYear monthYearEnd = new MonthYear(poslanecEntity.getOrganyByIdObdobi().getDoOrgan());
+        List<Integer> integers = new ArrayList<>();
+
+        while(monthYearEnd.greaterThan(monthYearCurrent) || monthYearEnd.equals(monthYearCurrent)) {
+            Integer num = dateIntegerMap.get(monthYearCurrent);
+            if(num == null) {
+                num = 0;
+            }
+            integers.add(num);
+            monthYearCurrent.increase();
+        }
+        return getIntsArrayFromList(integers);
     }
 
     public static Map<MonthYear, Double> getPoslanecSentimentMap(PoslanecStatistikyEntity poslanecStatistikyEntity) {

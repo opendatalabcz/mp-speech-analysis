@@ -26,7 +26,6 @@ import java.util.List;
 public class PoslanecProfilComponent extends VerticalLayout {
     private PoslanecEntity poslanecEntity;
     private OsobyEntity osobyEntity;
-    private Integer labelWidth = 300;
 
     public PoslanecProfilComponent(PoslanecEntity poslanecEntity) {
         this.poslanecEntity = poslanecEntity;

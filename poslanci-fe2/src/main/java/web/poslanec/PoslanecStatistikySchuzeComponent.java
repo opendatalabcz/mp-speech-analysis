@@ -4,9 +4,11 @@ import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import poslanciDB.entity.BodEntity;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.ProjevEntity;
 import poslanciDB.entity.ProjevStatistikyEntity;
+import web.Helper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,11 +49,13 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
     }
 
     private AccordionPanel getProjevLayout(ProjevEntity projevEntity) {
-        String summary = projevEntity.getBodByIdBod().getText() + "\n" +
+        BodEntity bod = projevEntity.getBodByIdBod();
+        String summary = bod.getDatum().toString() + " - " +  Helper.getShortenString(bod.getText(), 75) + "\n" +
                 ", počet slov celkem: " + projevEntity.getPocetSlov();
 
         Label content = new Label(projevEntity.getText());
         AccordionPanel panel = new AccordionPanel(summary, content);
+        panel.getElement().setProperty("title", bod.getText());
         return panel;
     }
 

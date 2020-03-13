@@ -36,21 +36,17 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
         this.poslanecEntity = poslanecEntity;
         this.poslanecStatistikyEntity = poslanecEntity.getPoslanecStatistikyByIdPoslanec();
 
-        PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
-
         if(poslanecStatistikyEntity != null)
         {
             List<PoslanecEntity> list = new ArrayList<>();
-            list.add(poslanecEntityService.find(1537));
-            list.add(poslanecEntityService.find(1538));
-            list.add(poslanecEntityService.find(1539));
-            list.add(poslanecEntityService.find(1540));
             list.add(poslanecEntity);
 
             add(new Label("STATISTIKY:"), getWordCount(), getSentiment(),
-                    new PoslanecStatistikySchuzeComponent(poslanecEntity));
-                    /*getTest0Div(),
-                    getPoslanecSentimentMesicDiv(list));*/
+                    getPoslanecSentimentMesicDiv(list),
+                    getPoslanecPocetSlovMesicDiv(list),
+                    new PoslanecStatistikySchuzeComponent(poslanecEntity)
+                    /*getTest0Div(),*/
+                    );
         }
     }
 

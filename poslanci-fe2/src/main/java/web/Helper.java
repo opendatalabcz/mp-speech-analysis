@@ -17,4 +17,13 @@ public class Helper {
         horizontalLayout.add(labelLabel, valueLabel);
         return horizontalLayout;
     }
+
+    public static String getShortenString(String s, int limit) {
+        if(limit < 0) limit = 10;
+        if(limit > s.length())
+            return s;
+        else
+            s = s.substring(0, limit) + "...";
+        return s;
+    }
 }

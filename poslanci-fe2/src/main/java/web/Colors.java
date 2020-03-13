@@ -1,4 +1,4 @@
-package web.chart;
+package web;
 
 import be.ceau.chart.color.Color;
 import com.vaadin.flow.component.UI;
@@ -8,6 +8,7 @@ import com.vaadin.flow.theme.material.Material;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Colors {
     int counter = 0;
@@ -22,6 +23,8 @@ public class Colors {
             theme = 1;
         if(!themeList.contains(Material.LIGHT))
             theme = 0;
+        /*Random rand = new Random();
+        counter = rand.nextInt(Math.min(lightColors.size(), darkColors.size()));*/
     }
 
     public static Color getChartLabelColor() {
@@ -33,6 +36,19 @@ public class Colors {
             return getColorFromString("#616161");
         else
             return getColorFromString("#EEEEEE");
+    }
+
+    public static String getHighlightColorString() {
+        return "#7E3FF2";
+    }
+
+    public Color getRandomColor() {
+        Random rand = new Random();
+        Integer rng = rand.nextInt(Math.min(lightColors.size(), darkColors.size()));
+        if(theme == 0)
+            return darkColors.get(rng);
+        else
+            return lightColors.get(rng);
     }
 
     public Color getColor() {

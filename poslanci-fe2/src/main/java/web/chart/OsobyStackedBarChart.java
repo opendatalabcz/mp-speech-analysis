@@ -1,6 +1,5 @@
 package web.chart;
 
-import be.ceau.chart.color.Color;
 import be.ceau.chart.data.BarData;
 import be.ceau.chart.dataset.BarDataset;
 import be.ceau.chart.options.BarOptions;
@@ -15,6 +14,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import poslanciDB.entity.OsobyEntity;
+import web.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class OsobyStackedBarChart {
 
         Colors colors = new Colors();
 
-        BarDataset neutralBarDataset = new BarDataset().addBackgroundColor(colors.getYellow()).setLabel("Neutrální");
+        BarDataset neutralBarDataset = new BarDataset().addBackgroundColor(colors.getYellow()).setLabel("Neutrální/nerozlišitelná");
         BarDataset posBarDataset = new BarDataset().addBackgroundColor(colors.getGreen()).setLabel("Positivní");
         BarDataset negBarDataset = new BarDataset().addBackgroundColor(colors.getRed()).setLabel("Negativní");
 

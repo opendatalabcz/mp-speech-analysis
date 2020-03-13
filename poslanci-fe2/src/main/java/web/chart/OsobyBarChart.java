@@ -1,6 +1,5 @@
 package web.chart;
 
-import be.ceau.chart.color.Color;
 import be.ceau.chart.data.BarData;
 import be.ceau.chart.dataset.BarDataset;
 import be.ceau.chart.options.BarOptions;
@@ -13,6 +12,7 @@ import com.syndybat.chartjs.ChartJs;
 import com.vaadin.flow.component.html.Div;
 import poslanciDB.entity.OsobyEntity;
 import poslanciDB.entity.PoslanecEntity;
+import web.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import java.util.Set;
 import java.util.function.Function;
 
 import static web.SizeUI.wrapToMediumDiv;
-import static web.SizeUI.wrapToSmallDiv;
 import static web.chart.Helper.*;
 import static web.chart.Helper.getDoublesArrayFromList;
 import static web.chart.PoslanecData.getPoslanecTotalSentiment;
@@ -47,11 +46,11 @@ public class OsobyBarChart {
     private static ChartJs getOsobyPocetSlovPeriod(Set<OsobyEntity> set, Function<PoslanecEntity, Integer> func, String label) {
         Integer beginPeriod = 1;
         Integer endPeriod = OsobaData.getEndSessonNumber(set);
-        List<String> dates = getPeriodLabelList(beginPeriod, endPeriod);
+        List<String> labels = getPeriodLabelList(beginPeriod, endPeriod);
         Colors colors = new Colors();
 
         BarData barData = new BarData();
-        barData.setLabels(dates.toArray(new String[0]));
+        barData.setLabels(labels.toArray(new String[0]));
 
         for(OsobyEntity osobyEntity : set) {
             List<Integer> ints = new ArrayList<>();

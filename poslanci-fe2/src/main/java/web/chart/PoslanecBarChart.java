@@ -17,6 +17,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import poslanciDB.entity.PoslanecEntity;
+import web.Colors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,14 +28,44 @@ import static web.chart.PoslanecData.*;
 
 public class PoslanecBarChart {
 
-    public static Div getPoslanecSentimentMesicDiv(PoslanecEntity poslanecEntity){
-        List<PoslanecEntity> list = new ArrayList<>();
-        list.add(poslanecEntity);
+    public static Div getPoslanecSentimentMesicDiv(List<PoslanecEntity> list){
         return wrapToBigDiv(getPoslanecSentimentMesic(list));
     }
 
-    public static Div getPoslanecSentimentMesicDiv(List<PoslanecEntity> list){
-        return wrapToBigDiv(getPoslanecSentimentMesic(list));
+    public static Div getPoslanecPocetSlovMesicDiv(List<PoslanecEntity> list){
+        return wrapToBigDiv(getPoslanecPocetSlovMesic(list));
+    }
+
+    private static ChartJs getPoslanecPocetSlovMesic(List<PoslanecEntity> listPoslanecEntity) {
+        if(listPoslanecEntity.isEmpty()) return null;
+        if(listPoslanecEntity.get(0) == null) return null;
+        List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
+
+        BarScale scale = new BarScale()
+                .addxAxes(new XAxis<LinearTicks>().setStacked(false))
+                .addyAxes(new YAxis<LinearTicks>().setStacked(false));
+
+        BarOptions options = new BarOptions();
+        options.setResponsive(true).setScales(scale);
+
+        Colors colors = new Colors();
+
+        BarData barData = new BarData();
+        barData.setLabels(dates.toArray(new String[0]));
+        for(PoslanecEntity poslanecEntity : listPoslanecEntity) {
+            if(poslanecEntity != null) {
+                BarDataset barDataset = getBarDataSet(getPoslanecIntsPocetSlovArray(poslanecEntity),poslanecEntity.toString(),
+                        colors.getColor());
+                barData.addDataset(barDataset);
+            }
+        }
+
+        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, options).setVertical();
+
+
+        ChartJs chart = new ChartJs(barChart.toJson());
+
+        return chart;
     }
 
     private static ChartJs getPoslanecSentimentMesic(List<PoslanecEntity> listPoslanecEntity)
