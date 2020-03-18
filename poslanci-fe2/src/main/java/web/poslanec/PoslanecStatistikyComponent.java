@@ -42,6 +42,7 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
             list.add(poslanecEntity);
 
             add(new Label("STATISTIKY:"), getWordCount(), getSentiment(),
+                    new PoslanecTopSlovaComponent(poslanecStatistikyEntity),
                     getPoslanecSentimentMesicDiv(list),
                     getPoslanecPocetSlovMesicDiv(list),
                     new PoslanecStatistikySchuzeComponent(poslanecEntity)
@@ -57,7 +58,7 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
 
     private HorizontalLayout getSentiment(){
         return Helper.getValueWithLabelComponent("Celkový sentiment: ",
-                poslanecStatistikyEntity.getSentiment().toString());
+                Helper.getRoundDouble(poslanecStatistikyEntity.getSentiment()));
     }
 
     private VerticalLayout getStatsInMonths() {

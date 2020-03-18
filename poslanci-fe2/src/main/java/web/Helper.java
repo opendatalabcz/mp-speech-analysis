@@ -4,6 +4,7 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class Helper {
@@ -25,5 +26,10 @@ public class Helper {
         else
             s = s.substring(0, limit) + "...";
         return s;
+    }
+
+    public static String getRoundDouble(Double num) {
+        DecimalFormat df3 = new DecimalFormat("#.###");
+        return df3.format(num);
     }
 }

@@ -82,26 +82,6 @@ public class PoslanecData {
         return  dateDoubleMap;
     }
 
-    public static Double getPoslanecTotalSentiment(PoslanecEntity poslanecEntity) {
-        PoslanecStatistikyEntity poslanecStats = poslanecEntity.getPoslanecStatistikyByIdPoslanec();
-        if(poslanecStats == null) return 0.0;
-        Integer pocetPosSlov = 0, pocetNegSlov = 0;
-        Collection<PoslanecStatistikyMesicEntity> poslMonthStats = poslanecStats.getPoslanecStatistikyMesicsByIdPoslanec();
-        if(poslMonthStats != null) {
-            for(PoslanecStatistikyMesicEntity monthStats : poslMonthStats) {
-                pocetPosSlov += monthStats.getPocetPosSlov();
-                pocetNegSlov += monthStats.getPocetNegSlov();
-            }
-        }
-        Integer pocetCelkem = pocetPosSlov + pocetNegSlov;
-        Double sentiment = 0.0;
-        if(pocetCelkem > 0) {
-            sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / pocetCelkem;
-        }
-
-        return sentiment;
-    }
-
     public static Integer getPoslanecTotalPocetSlov(PoslanecEntity poslanecEntity) {
         if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null)
             return poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPocetSlov();

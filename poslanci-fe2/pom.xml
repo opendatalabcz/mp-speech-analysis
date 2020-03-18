@@ -112,6 +112,19 @@
             <artifactId>chart</artifactId>
             <version>2.5.0</version>
         </dependency>
+<!--
+        <dependency>
+            <groupId>com.yashoid</groupId>
+            <artifactId>wordcloud</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+-->
+        <dependency>
+            <groupId>com.kennycason</groupId>
+            <artifactId>kumo-core</artifactId>
+            <version>1.22</version>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

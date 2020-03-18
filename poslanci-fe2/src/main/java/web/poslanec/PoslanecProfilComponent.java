@@ -45,7 +45,7 @@ public class PoslanecProfilComponent extends VerticalLayout {
     }
 
     private HorizontalLayout getBirthDate() {
-        return Helper.getValueWithLabelComponent("Narození: ", osobyEntity.getNarozeni().toString());
+        return Helper.getValueWithLabelComponent("Datum narození: ", osobyEntity.getNarozeni().toString());
     }
 
     private HorizontalLayout getEmail() {

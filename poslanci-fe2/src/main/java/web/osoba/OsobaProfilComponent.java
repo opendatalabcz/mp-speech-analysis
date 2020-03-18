@@ -55,7 +55,7 @@ public class OsobaProfilComponent extends VerticalLayout {
     private VerticalLayout getShortOsobaProfil() {
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.add(Helper.getValueWithLabelComponent("Jméno: ", osobyEntity.toString()));
-        verticalLayout.add(Helper.getValueWithLabelComponent("Narození: ", osobyEntity.getNarozeni().toString()));
+        verticalLayout.add(Helper.getValueWithLabelComponent("Datum narození: ", osobyEntity.getNarozeni().toString()));
         verticalLayout.add(new Label("Tato osoba nemá a neměla poslanecký mandát."));
         return verticalLayout;
     }

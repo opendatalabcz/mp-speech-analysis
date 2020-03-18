@@ -49,7 +49,7 @@ public class OsobyStackedBarChart {
 
         for(OsobyEntity osobyEntity : set) {
             OsobaData.processOsobaSlova(osobyEntity, neutralBarDataset, posBarDataset, negBarDataset);
-            labels.add(osobyEntity.toString());
+            labels.add(osobyEntity.getJmeno() + " " + osobyEntity.getPrijmeni());
         }
 
         BarData barData = new BarData();

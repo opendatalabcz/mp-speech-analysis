@@ -24,13 +24,13 @@ class OsobyMainWordStatsComponent extends VerticalLayout {
     }
 
     private void initialize() {
-        if(set != null)
+        removeAll();
+        if(set != null && !set.isEmpty())
         {
             osobySlovaPeriodChart = OsobyBarChart.getOsobyPocetSlovPeriodDiv(set);
             osobyPosSlovaPeriodChart = OsobyBarChart.getOsobyPocetPosSlovPeriodDiv(set);
             osobyNegSlovaPeriodChart = OsobyBarChart.getOsobyPocetNegSlovPeriodDiv(set);
             osobyPosNegSlovaPeriodChart = OsobyBarChart.getOsobyPocetPosNegSlovPeriodDiv(set);
-            removeAll();
             add(new HorizontalLayout(osobySlovaPeriodChart, osobyPosNegSlovaPeriodChart),
                     new HorizontalLayout(osobyPosSlovaPeriodChart, osobyNegSlovaPeriodChart));
         }

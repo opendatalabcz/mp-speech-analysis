@@ -11,6 +11,7 @@ public class PoslanecStatistikyCreator {
     private static PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
     private static PoslanecStatistikyEntityService poslanecStatistikyEntityService = new PoslanecStatistikyEntityService();
     private static TopSlovaEntityService topSlovaEntityService = new TopSlovaEntityService();
+    private static Integer pocetTopSlov = 50;
 
     public static void main(String[] args) {
         ProcessAllStatistics();
@@ -48,7 +49,7 @@ public class PoslanecStatistikyCreator {
             PoslanecStatistikyEntity poslanecStatistikyEntity = new PoslanecStatistikyEntity(poslanecEntity.getIdPoslanec(), delka, sentiment);
             poslanecStatistikyEntityService.createOrUpdate(poslanecStatistikyEntity);
 
-            List<TopSlovaEntity> topSlovaEntities = topSlovaCreator.getTopNWords(10, poslanecStatistikyEntity);
+            List<TopSlovaEntity> topSlovaEntities = topSlovaCreator.getTopNWords(pocetTopSlov, poslanecStatistikyEntity);
             topSlovaEntityService.multiBegin();
             for(TopSlovaEntity topSlovaEntity : topSlovaEntities) {
                 System.out.println("IdPosl: " + topSlovaEntity.getPoslanecStatistikyByIdPoslanec().getIdPoslanec() + ", Word: " + topSlovaEntity.getSlovo());

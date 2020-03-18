@@ -42,16 +42,26 @@ public class TopSlovaCreator {
         if(sortedMapDescending == null)
             sortMap();
 
+        StopSlova stopSlova = StopSlova.getInstance();
         int i = 0;
         for(Map.Entry<String, Integer> word : sortedMapDescending.entrySet()) {
             if(i >= n || i>sortedMapDescending.size()) {
                 break;
             }
-            topSlovaEntities.add(new TopSlovaEntity(word.getKey(), word.getValue(), i + 1, poslanecStatistikyEntity));
-            i++;
+            if(!stopSlova.isStopSlovo(formatWord(word.getKey()))) {
+                topSlovaEntities.add(new TopSlovaEntity(word.getKey(), word.getValue(), i + 1, poslanecStatistikyEntity));
+                i++;
+            }
         }
 
         return topSlovaEntities;
+    }
+
+    private String formatWord(String word) {
+        String[] parts0 = word.split("-");
+        String[] parts1 = parts0[0].split("_");
+        String[] parts2 = parts1[0].split("`");
+        return parts2[0];
     }
 
     private void sortMap() {

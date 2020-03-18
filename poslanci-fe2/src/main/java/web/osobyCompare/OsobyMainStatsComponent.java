@@ -22,11 +22,11 @@ class OsobyMainStatsComponent extends HorizontalLayout {
     }
 
     private void initialize() {
-        if(set != null)
+        removeAll();
+        if(set != null && !set.isEmpty())
         {
             osobyTotalSentimentChart = OsobyBarChart.getOsobySentimentPeriodDiv(set);
             osobySlovaChart = OsobyStackedBarChart.getOsobyPocetSlovDiv(set);
-            removeAll();
             add(osobyTotalSentimentChart, osobySlovaChart);
         }
     }

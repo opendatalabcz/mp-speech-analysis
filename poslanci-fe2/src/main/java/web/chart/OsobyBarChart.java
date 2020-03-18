@@ -2,12 +2,6 @@ package web.chart;
 
 import be.ceau.chart.data.BarData;
 import be.ceau.chart.dataset.BarDataset;
-import be.ceau.chart.options.BarOptions;
-import be.ceau.chart.options.Title;
-import be.ceau.chart.options.scales.BarScale;
-import be.ceau.chart.options.scales.XAxis;
-import be.ceau.chart.options.scales.YAxis;
-import be.ceau.chart.options.ticks.LinearTicks;
 import com.syndybat.chartjs.ChartJs;
 import com.vaadin.flow.component.html.Div;
 import poslanciDB.entity.OsobyEntity;
@@ -22,8 +16,6 @@ import java.util.function.Function;
 import static web.SizeUI.wrapToMediumDiv;
 import static web.chart.Helper.*;
 import static web.chart.Helper.getDoublesArrayFromList;
-import static web.chart.PoslanecData.getPoslanecTotalSentiment;
-
 public class OsobyBarChart {
 
 
@@ -67,7 +59,7 @@ public class OsobyBarChart {
             barData.addDataset(barDataset);
         }
 
-        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions(label)).setVertical();
+        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptionsWithBeginZero(label)).setVertical();
 
         return new ChartJs(barChart.toJson());
     }
@@ -90,10 +82,10 @@ public class OsobyBarChart {
             List<Double> doubles = new ArrayList<>();
             for(int i = beginPeriod; i <= endPeriod; i++) {
                 PoslanecEntity poslanecEntity = OsobaData.getPoslanecByPeriodNumber(osobyEntity, i);
-                if(poslanecEntity == null) {
+                if(poslanecEntity == null || poslanecEntity.getPoslanecStatistikyByIdPoslanec() == null) {
                     doubles.add(0.0);
                 } else {
-                    doubles.add(getPoslanecTotalSentiment(poslanecEntity));
+                    doubles.add(poslanecEntity.getPoslanecStatistikyByIdPoslanec().getSentiment());
                 }
             }
             BarDataset barDataset = getBarDataSet(getDoublesArrayFromList(doubles), osobyEntity.toString(),
@@ -101,21 +93,8 @@ public class OsobyBarChart {
             barData.addDataset(barDataset);
         }
 
-        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Průměrný sentiment za volební období")).setVertical();
+        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Sentiment za volební období")).setVertical();
 
         return new ChartJs(barChart.toJson());
-    }
-
-    private static BarOptions getBarOptions(String label) {
-        BarScale scale = new BarScale();
-        scale.addyAxes(new YAxis<LinearTicks>().setStacked(false));
-        scale.addxAxes(new XAxis<LinearTicks>().setStacked(false).setGridLines(getGridLines()));
-
-        BarOptions options = new BarOptions();
-        options.setResponsive(true)
-                .setScales(scale)
-                .setTitle(new Title().setText(label).setDisplay(true).setFontColor(Colors.getChartLabelColor())); //todo popisky a barvy;
-
-        return options;
     }
 }

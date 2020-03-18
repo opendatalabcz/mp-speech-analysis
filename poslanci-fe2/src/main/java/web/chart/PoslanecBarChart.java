@@ -41,13 +41,6 @@ public class PoslanecBarChart {
         if(listPoslanecEntity.get(0) == null) return null;
         List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
 
-        BarScale scale = new BarScale()
-                .addxAxes(new XAxis<LinearTicks>().setStacked(false))
-                .addyAxes(new YAxis<LinearTicks>().setStacked(false));
-
-        BarOptions options = new BarOptions();
-        options.setResponsive(true).setScales(scale);
-
         Colors colors = new Colors();
 
         BarData barData = new BarData();
@@ -60,7 +53,7 @@ public class PoslanecBarChart {
             }
         }
 
-        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, options).setVertical();
+        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Počet slov v měsících")).setVertical();
 
 
         ChartJs chart = new ChartJs(barChart.toJson());
@@ -74,13 +67,6 @@ public class PoslanecBarChart {
         if(listPoslanecEntity.get(0) == null) return null;
         List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
 
-        BarScale scale = new BarScale()
-                .addxAxes(new XAxis<LinearTicks>().setStacked(false))
-                .addyAxes(new YAxis<LinearTicks>().setStacked(false));
-
-        BarOptions options = new BarOptions();
-        options.setResponsive(true).setScales(scale);
-
         Colors colors = new Colors();
 
         BarData barData = new BarData();
@@ -93,20 +79,9 @@ public class PoslanecBarChart {
             }
         }
 
-        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, options).setVertical();
-
+        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Průměrný sentiment v měsících")).setVertical();
 
         ChartJs chart = new ChartJs(barChart.toJson());
-
-        chart.addClickListener(new ComponentEventListener<ClickEvent>()
-        {
-            @Override
-            public void onComponentEvent(ClickEvent clickEvent)
-            {
-                Notification.show(String.format("%s : %s : %s", clickEvent.getLabel(), clickEvent.getDatasetLabel(), clickEvent.getValue()),
-                        3000, Notification.Position.TOP_CENTER);
-            }
-        });
 
         return chart;
     }

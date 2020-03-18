@@ -156,7 +156,6 @@ public class OrganyEntity implements HasID {
         if(zkratka.startsWith("PSP"))
             return toStringPSP();
         else return zkratka + " - " + nazevOrganuCz;
-
     }
 
     private String toStringPSP() {

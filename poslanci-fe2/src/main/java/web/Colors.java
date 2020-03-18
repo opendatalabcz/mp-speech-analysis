@@ -42,6 +42,23 @@ public class Colors {
         return "#7E3FF2";
     }
 
+    public List<java.awt.Color> getJavaColorsList() {
+        List<java.awt.Color> colors = new ArrayList<>();
+        if(theme == 0)
+            darkColors.forEach(color -> {
+                colors.add(getJavaColor(color));
+            });
+        else
+            lightColors.forEach(color -> {
+                colors.add(getJavaColor(color));
+            });
+        return colors;
+    }
+
+    private java.awt.Color getJavaColor(Color color) {
+        return new java.awt.Color(color.getR(), color.getG(), color.getB());
+    }
+
     public Color getRandomColor() {
         Random rand = new Random();
         Integer rng = rand.nextInt(Math.min(lightColors.size(), darkColors.size()));

@@ -7,19 +7,13 @@ import com.vaadin.flow.dom.ThemeList;
 import com.vaadin.flow.theme.material.Material;
 
 public class InfoView extends VerticalLayout {
+
+
     public InfoView() {
-        Button toggleButton = new Button("Toggle dark theme", click -> {
-            ThemeList themeList = UI.getCurrent().getElement().getThemeList(); //
+        add(new ThemeChangerComponent());
+    }
 
-            if (themeList.contains(Material.LIGHT)) { //
-                themeList.remove(Material.LIGHT);
-                themeList.add(Material.DARK);
-            } else {
-                themeList.add(Material.LIGHT);
-                themeList.remove(Material.DARK);
-            }
-        });
+    private void initialize() {
 
-        add(toggleButton);
     }
 }
