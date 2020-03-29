@@ -61,11 +61,13 @@ public class PoslanecData {
     public static Map<MonthYear, Double> getPoslanecSentimentMap(PoslanecStatistikyEntity poslanecStatistikyEntity) {
         Map<MonthYear, Double> dateDoubleMap = new HashMap<>();
 
-        for(PoslanecStatistikyMesicEntity monthStats : poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec()) {
-            Date date = monthStats.getMesic();
-            MonthYear monthYear = new MonthYear(getMonthFromSQLDate(date), getYearFromSQLDate(date));
-            Double num = monthStats.getSentiment();
-            dateDoubleMap.put(monthYear, num);
+        if(poslanecStatistikyEntity != null && poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec() != null) {
+            for (PoslanecStatistikyMesicEntity monthStats : poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec()) {
+                Date date = monthStats.getMesic();
+                MonthYear monthYear = new MonthYear(getMonthFromSQLDate(date), getYearFromSQLDate(date));
+                Double num = monthStats.getSentiment();
+                dateDoubleMap.put(monthYear, num);
+            }
         }
         return  dateDoubleMap;
     }
@@ -73,11 +75,13 @@ public class PoslanecData {
     public static Map<MonthYear, Integer> getPoslanecPocetSlovMap(PoslanecStatistikyEntity poslanecStatistikyEntity) {
         Map<MonthYear, Integer> dateDoubleMap = new HashMap<>();
 
-        for(PoslanecStatistikyMesicEntity monthStats : poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec()) {
-            Date date = monthStats.getMesic();
-            MonthYear monthYear = new MonthYear(getMonthFromSQLDate(date), getYearFromSQLDate(date));
-            Integer num = monthStats.getPocetSlov();
-            dateDoubleMap.put(monthYear, num);
+        if(poslanecStatistikyEntity != null && poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec() != null) {
+            for(PoslanecStatistikyMesicEntity monthStats : poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec()) {
+                Date date = monthStats.getMesic();
+                MonthYear monthYear = new MonthYear(getMonthFromSQLDate(date), getYearFromSQLDate(date));
+                Integer num = monthStats.getPocetSlov();
+                dateDoubleMap.put(monthYear, num);
+            }
         }
         return  dateDoubleMap;
     }

@@ -45,7 +45,7 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
         accordion.close();
         accordion.setWidthFull();
         accordion.setSizeFull();
-        accordion.getElement().getStyle().set("background", "#455A64");
+        accordion.getElement().getStyle().set("background", "#616161");
     }
 
     private AccordionPanel getProjevLayout(ProjevEntity projevEntity) {
@@ -69,7 +69,7 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
             listAccordion.add(getProjevLayout(projev));
         }
         listAccordion.close();
-        listAccordion.getElement().getStyle().set("background", "#607D8B");
+        listAccordion.getElement().getStyle().set("background", "#757575");
 
         String summary = "Schůze č." + cisloSchuze + ", počet slov celkem: " + pocetSlov +
                 ", počet positivních slov: " + pocetPosSlov + ", počet negativních slov: " + pocetNegSlov;

@@ -9,6 +9,7 @@ import com.vaadin.flow.dom.ThemeList;
 import com.vaadin.flow.theme.material.Material;
 
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class ThemeChangerComponent extends HorizontalLayout {
     enum Theme {
@@ -28,12 +29,12 @@ public class ThemeChangerComponent extends HorizontalLayout {
     Button button = new Button();
     Theme theme = Theme.DARK;
 
-    public ThemeChangerComponent() {
-        initialize();
+    public ThemeChangerComponent(Runnable runner) {
+        initialize(runner);
         add(label, button);
     }
 
-    private void initialize() {
+    private void initialize(Runnable runner) {
         label.setText("Používané téma: ");
 
         button.setText(theme.toString());
@@ -49,6 +50,7 @@ public class ThemeChangerComponent extends HorizontalLayout {
                 theme = Theme.LIGHT;
             }
             button.setText(theme.toString());
+            runner.run();
         });
     }
 }

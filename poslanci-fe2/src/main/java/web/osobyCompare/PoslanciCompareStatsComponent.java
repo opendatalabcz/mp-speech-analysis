@@ -7,14 +7,15 @@ import web.Colors;
 
 import java.util.List;
 
+import static web.chart.PoslanecBarChart.getPoslanecPocetSlovMesicDiv;
+import static web.chart.PoslanecBarChart.getPoslanecSentimentMesicDiv;
+
 public class PoslanciCompareStatsComponent extends VerticalLayout {
 
     public PoslanciCompareStatsComponent(List<PoslanecEntity> list) {
         if(!list.isEmpty())
         {
-            Label label = new Label("OBDOBÍ: " + list.get(0).getOrganyByIdObdobi());
-            label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("font-weight", "bold");
-            add(label);
+            add(getPoslanecPocetSlovMesicDiv(list), getPoslanecSentimentMesicDiv(list));
         }
     }
 }

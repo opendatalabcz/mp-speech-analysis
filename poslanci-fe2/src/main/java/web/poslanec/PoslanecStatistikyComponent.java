@@ -1,29 +1,13 @@
 package web.poslanec;
 
-import be.ceau.chart.BarChart;
-import be.ceau.chart.color.Color;
-import be.ceau.chart.data.BarData;
-import be.ceau.chart.dataset.BarDataset;
-import be.ceau.chart.javascript.JavaScriptFunction;
-import be.ceau.chart.options.BarOptions;
-import be.ceau.chart.options.Legend;
-import be.ceau.chart.options.Title;
-import be.ceau.chart.options.scales.*;
-import be.ceau.chart.options.ticks.LinearTicks;
-import com.syndybat.chartjs.ChartJs;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.apache.commons.lang3.ArrayUtils;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.PoslanecStatistikyEntity;
-import poslanciDB.entity.PoslanecStatistikyMesicEntity;
-import poslanciDB.service.PoslanecEntityService;
+import web.Colors;
 import web.Helper;
-import web.monthYear.MonthYear;
 
-import java.sql.Date;
 import java.util.*;
 
 import static web.chart.PoslanecBarChart.*;
@@ -40,45 +24,33 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
         {
             List<PoslanecEntity> list = new ArrayList<>();
             list.add(poslanecEntity);
-
-            add(new Label("STATISTIKY:"), getWordCount(), getSentiment(),
+            Label label = new Label("STATISTIKY:");
+            label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("text-decoration", "underline");
+            removeAll();
+            add(label, getWordCount(), getSentiment(),
                     new PoslanecTopSlovaComponent(poslanecStatistikyEntity),
-                    getPoslanecSentimentMesicDiv(list),
                     getPoslanecPocetSlovMesicDiv(list),
+                    getPoslanecSentimentMesicDiv(list),
                     new PoslanecStatistikySchuzeComponent(poslanecEntity)
-                    /*getTest0Div(),*/
                     );
         }
     }
 
     private HorizontalLayout getWordCount(){
         return Helper.getValueWithLabelComponent("Počet slov: ",
-                poslanecStatistikyEntity.getPocetSlov().toString());
+                poslanecStatistikyEntity.getPocetSlov().toString() +
+                        "\t(průměrný počet slov poslance ve volebním období: " +
+                        Helper.getAveragePocetSlov(poslanecEntity.getOrganyByIdObdobi().getPoslanecsObdobiByIdOrgan()) +
+                        ")"
+        );
     }
 
     private HorizontalLayout getSentiment(){
         return Helper.getValueWithLabelComponent("Celkový sentiment: ",
-                Helper.getRoundDouble(poslanecStatistikyEntity.getSentiment()));
-    }
-
-    private VerticalLayout getStatsInMonths() {
-        VerticalLayout verticalLayout = new VerticalLayout();
-
-        for(PoslanecStatistikyMesicEntity mesic : poslanecStatistikyEntity.getPoslanecStatistikyMesicsByIdPoslanec())
-        {
-            HorizontalLayout horizontalLayout = new HorizontalLayout();
-            horizontalLayout.add(new Label("Mesic: "), new Label(mesic.getMesic().toString()), new Label("-----"));
-            horizontalLayout.add(new Label("Pocet slov: "), new Label(mesic.getPocetSlov().toString()),
-                    new Label("-----"));
-            horizontalLayout.add(new Label("Pocet pos slov: "), new Label(mesic.getPocetPosSlov().toString()),
-                    new Label("-----"));
-            horizontalLayout.add(new Label("Pocet neg slov: "), new Label(mesic.getPocetNegSlov().toString()),
-                    new Label("-----"));
-            horizontalLayout.add(new Label("Sentiment: "), new Label(mesic.getSentiment().toString()));
-
-            verticalLayout.add(horizontalLayout);
-        }
-
-        return verticalLayout;
+                Helper.getRoundDouble(poslanecStatistikyEntity.getSentiment()) +
+                        "\t(průměrný sentiment poslance ve volebním období: " +
+                        Helper.getAverageSentimentRound(poslanecEntity.getOrganyByIdObdobi().getPoslanecsObdobiByIdOrgan()) +
+                        ")"
+        );
     }
 }

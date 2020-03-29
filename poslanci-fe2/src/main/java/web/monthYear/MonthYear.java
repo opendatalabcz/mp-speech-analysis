@@ -86,6 +86,6 @@ public class MonthYear {
 
     @Override
     public String toString() {
-        return month + " - " + year;
+        return month+1 + " - " + year;
     }
 }

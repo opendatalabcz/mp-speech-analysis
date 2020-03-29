@@ -82,9 +82,6 @@ public class PoslanecReader {
 
         return new PoslanecEntity(idPoslanec, organyByIdKraj, organyByIdKandidatka, organyByIdObdobi, web, ulice, obec,
                 psc, email, telefon, fax, pspTelefon, facebook, foto, osobyByIdOsoba);
-/*
-        return new PoslanecEntity(idPoslanec, idKraj, idKandidatka, idObdobi, web, ulice, obec, psc, email, telefon, fax,
-                pspTelefon, facebook, foto, osobyByIdOsoba);*/
     }
 }
 

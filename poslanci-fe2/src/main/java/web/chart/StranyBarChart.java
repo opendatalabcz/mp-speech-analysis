@@ -24,9 +24,8 @@ public class StranyBarChart {
     }
 
     private static ChartJs getPartyPocetSlov(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi) {
-        if(map.isEmpty()) return null;
+        if(map == null || map.isEmpty()) return null;
         List<String> labels = getPartyNames(map.keySet());
-
         Colors colors = new Colors();
 
         BarData barData = new BarData();
@@ -35,7 +34,7 @@ public class StranyBarChart {
 
         for(OrganyEntity kandidatka : map.keySet()) {
             Integer sum = 0;
-            for(PoslanecEntity poslanecEntity : kandidatka.getPoslanecsKandidatkaByIdOrgan()) {
+            for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
                 if(poslanecEntity != null && poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
                     if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                         sum += poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPocetSlov();
@@ -58,9 +57,8 @@ public class StranyBarChart {
     }
 
     private static ChartJs getPartyAveragePocetSlov(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi) {
-        if(map.isEmpty()) return null;
+        if(map == null || map.isEmpty()) return null;
         List<String> labels = getPartyNames(map.keySet());
-
         Colors colors = new Colors();
 
         BarData barData = new BarData();
@@ -69,23 +67,22 @@ public class StranyBarChart {
 
         for(OrganyEntity kandidatka : map.keySet()) {
             Integer sum = 0;
-            for(PoslanecEntity poslanecEntity : kandidatka.getPoslanecsKandidatkaByIdOrgan()) {
+            for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
                 if(poslanecEntity != null && poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
                     if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                         sum += poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPocetSlov();
                     }
                 }
             }
-            Double pocetSlov = (double)sum / kandidatka.getPoslanecsKandidatkaByIdOrgan().size();
+            double pocetSlov = (double)sum / map.get(kandidatka).size();
             barDataset.addData(pocetSlov).addBackgroundColor(colors.getColor());
         }
 
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
                 getBarOptionsWithBeginZero("Průměrný počet slov podle stran na jednoho poslance")).setVertical();
-        ChartJs chart = new ChartJs(barChart.toJson());
 
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     public static Div getPartyMedianPocetSlovDiv(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi){
@@ -93,7 +90,7 @@ public class StranyBarChart {
     }
 
     private static ChartJs getPartyMedianPocetSlov(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi) {
-        if(map.isEmpty()) return null;
+        if(map == null || map.isEmpty()) return null;
         List<String> labels = getPartyNames(map.keySet());
 
         Colors colors = new Colors();
@@ -104,7 +101,7 @@ public class StranyBarChart {
 
         for(OrganyEntity kandidatka : map.keySet()) {
             List<Integer> list = new ArrayList<>();
-            for(PoslanecEntity poslanecEntity : kandidatka.getPoslanecsKandidatkaByIdOrgan()) {
+            for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
                 if(poslanecEntity != null && poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
                     if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                         list.add(poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPocetSlov());
@@ -117,10 +114,9 @@ public class StranyBarChart {
 
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
-                getBarOptionsWithBeginZero("Median početu slov podle stran na jednoho poslance")).setVertical();
-        ChartJs chart = new ChartJs(barChart.toJson());
+                getBarOptionsWithBeginZero("Median počtu slov podle stran na jednoho poslance")).setVertical();
 
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     public static Div getPartyTotalSentimentDiv(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi){
@@ -128,7 +124,7 @@ public class StranyBarChart {
     }
 
     private static ChartJs getPartyTotalSentiment(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi) {
-        if(map.isEmpty()) return null;
+        if(map == null || map.isEmpty()) return null;
         List<String> labels = getPartyNames(map.keySet());
 
         Colors colors = new Colors();
@@ -139,7 +135,7 @@ public class StranyBarChart {
 
         for(OrganyEntity kandidatka : map.keySet()) {
             Integer pocetPosSlov = 0, pocetNegSlov = 0;
-            for(PoslanecEntity poslanecEntity : kandidatka.getPoslanecsKandidatkaByIdOrgan()) {
+            for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
                 if(poslanecEntity != null && poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
                     if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                         pocetPosSlov += getPoslanecTotalPocetPosSlov(poslanecEntity);
@@ -159,9 +155,8 @@ public class StranyBarChart {
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
                 getBarOptions("Celkový sentiment stran" + System.lineSeparator()
                         + "(vypočítaný sentiment z projevů všech poslanců dané strany)")).setVertical();
-        ChartJs chart = new ChartJs(barChart.toJson());
 
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     public static Div getPartyAverageSentimentDiv(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi){
@@ -169,7 +164,7 @@ public class StranyBarChart {
     }
 
     private static ChartJs getPartyAverageSentiment(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi) {
-        if(map.isEmpty()) return null;
+        if(map == null || map.isEmpty()) return null;
         List<String> labels = getPartyNames(map.keySet());
 
         Colors colors = new Colors();
@@ -180,14 +175,14 @@ public class StranyBarChart {
 
         for(OrganyEntity kandidatka : map.keySet()) {
             Double sum = 0.0;
-            for(PoslanecEntity poslanecEntity : kandidatka.getPoslanecsKandidatkaByIdOrgan()) {
+            for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
                 if(poslanecEntity != null && poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
                     if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                         sum += poslanecEntity.getPoslanecStatistikyByIdPoslanec().getSentiment();
                     }
                 }
             }
-            Double sentiment = sum / kandidatka.getPoslanecsKandidatkaByIdOrgan().size();
+            double sentiment = sum / map.get(kandidatka).size();
             barDataset.addData(sentiment).addBackgroundColor(colors.getColor());
         }
 
@@ -195,9 +190,8 @@ public class StranyBarChart {
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
                 getBarOptions("Průměrný sentiment poslance ze strany" + System.lineSeparator()
                         + "(průměr sentimentů všech poslanců dané strany)")).setVertical();
-        ChartJs chart = new ChartJs(barChart.toJson());
 
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     public static Div getPartyMedianSentimentDiv(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi){
@@ -205,7 +199,7 @@ public class StranyBarChart {
     }
 
     private static ChartJs getPartyMedianSentiment(Map<OrganyEntity, Set<PoslanecEntity>> map, OrganyEntity obdobi) {
-        if(map.isEmpty()) return null;
+        if(map == null || map.isEmpty()) return null;
         List<String> labels = getPartyNames(map.keySet());
 
         Colors colors = new Colors();
@@ -216,7 +210,7 @@ public class StranyBarChart {
 
         for(OrganyEntity kandidatka : map.keySet()) {
             List<Double> list = new ArrayList<>();
-            for(PoslanecEntity poslanecEntity : kandidatka.getPoslanecsKandidatkaByIdOrgan()) {
+            for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
                 if(poslanecEntity != null && poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
                     if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                         list.add(poslanecEntity.getPoslanecStatistikyByIdPoslanec().getSentiment());
@@ -230,9 +224,8 @@ public class StranyBarChart {
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
                 getBarOptions("Median sentimentu strany")).setVertical();
-        ChartJs chart = new ChartJs(barChart.toJson());
 
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     private static List<String> getPartyNames(Set<OrganyEntity> keySet) {

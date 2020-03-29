@@ -38,5 +38,6 @@ public class StranyCompareChartsComponent extends VerticalLayout {
                 map.put(poslanecEntity.getOrganyByIdKandidatka(), set);
             }
         }
+        int i = 5;
     }
 }

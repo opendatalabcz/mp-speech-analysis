@@ -17,6 +17,10 @@ public class OsobyReader {
 
     public static void main(String[] args) {
         String path = "resources/osoby.unl";
+        readAndCreateAllOsoby(path);
+    }
+
+    public static void readAndCreateAllOsoby(String path) {
         AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
         List<String> myList;
         Timer timer = new Timer();

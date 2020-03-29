@@ -153,10 +153,12 @@ public class OrganyEntity implements HasID {
 
     @Override
     public String toString() {
-        if(zkratka.startsWith("PSP"))
+        if(zkratka != null && zkratka.startsWith("PSP"))
             return toStringPSP();
-        else return zkratka + " - " + nazevOrganuCz;
-
+        if(zkratka == null || zkratka.isEmpty())
+            return nazevOrganuCz;
+        else
+            return zkratka + " - " + nazevOrganuCz;
     }
 
     private String toStringPSP() {

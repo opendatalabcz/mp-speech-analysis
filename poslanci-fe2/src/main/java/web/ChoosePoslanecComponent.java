@@ -6,19 +6,17 @@ import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.service.OrganyEntityService;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ChoosePoslanecComponent extends HorizontalLayout {
-    OrganyEntityService organyEntityService = new OrganyEntityService();
-    Select<OrganyEntity> seasonsSelect = new Select<>();
-    Select<OrganyEntity> partysSelect = new Select<>();
-    Select<PoslanecEntity> personsSelect = new Select<>();
+    private OrganyEntityService organyEntityService = new OrganyEntityService();
+    private Select<OrganyEntity> seasonsSelect = new Select<>();
+    private Select<OrganyEntity> partysSelect = new Select<>();
+    private Select<PoslanecEntity> personsSelect = new Select<>();
+    private OrganyEntity kandidatkaZbytek;
 
-    Integer comboBoxWidth = 400;
+    private Integer comboBoxWidth = 400;
 
 
     public ChoosePoslanecComponent(Consumer<PoslanecEntity> func) {
@@ -33,13 +31,20 @@ public class ChoosePoslanecComponent extends HorizontalLayout {
 
         //TODO zatim takhle, je potreba asi udelat vazbu s nadrazenym organem
         seasonsSelect.addValueChangeListener(event -> {
-            Set<OrganyEntity> set = new HashSet<>();
+            Set<OrganyEntity> partysSet = new HashSet<>();
+            setupKandidatkaZbytek();
             if(event.getValue() != null) {
                 event.getValue().getPoslanecsObdobiByIdOrgan().forEach(posl -> {
-                    set.add(posl.getOrganyByIdKandidatka());
+                    if(posl.getOrganyByIdKandidatka() == null) {
+                        posl.setOrganyByIdKandidatka(kandidatkaZbytek);
+                        Collection<PoslanecEntity> kandidatka = kandidatkaZbytek.getPoslanecsKandidatkaByIdOrgan();
+                        kandidatka.add(posl);
+                        kandidatkaZbytek.setPoslanecsKandidatkaByIdOrgan(kandidatka);
+                    }
+                    partysSet.add(posl.getOrganyByIdKandidatka());
                 });
             }
-            partysSelect.setItems(set);
+            partysSelect.setItems(partysSet);
             partysSelect.setEnabled(true);
             personsSelect.setItems();
             personsSelect.setEnabled(false);
@@ -66,6 +71,14 @@ public class ChoosePoslanecComponent extends HorizontalLayout {
         personsSelect.addValueChangeListener(event -> {
             func.accept(event.getValue());
         });
+    }
+
+    private void setupKandidatkaZbytek() {
+        kandidatkaZbytek = new OrganyEntity();
+        kandidatkaZbytek.setIdOrgan(-1);
+        kandidatkaZbytek.setPoslanecsKandidatkaByIdOrgan(new ArrayList<>());
+        kandidatkaZbytek.setZkratka("");
+        kandidatkaZbytek.setNazevOrganuCz("\"Strana neurčena\"");
     }
 
     private void setupSeasonsComboBox() {

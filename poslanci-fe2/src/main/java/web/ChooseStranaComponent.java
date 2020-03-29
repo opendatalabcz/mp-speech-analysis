@@ -8,6 +8,7 @@ import poslanciDB.service.OrganyEntityService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ChooseStranaComponent extends HorizontalLayout {
@@ -17,12 +18,12 @@ public class ChooseStranaComponent extends HorizontalLayout {
 
     Integer comboBoxWidth = 400;
 
-    public ChooseStranaComponent(Consumer<OrganyEntity> func) {
+    public ChooseStranaComponent(BiConsumer<OrganyEntity, OrganyEntity> func) {
         initializeComponents(func);
         add(seasonsSelect, partysSelect);
     }
 
-    private void initializeComponents(Consumer<OrganyEntity> func) {
+    private void initializeComponents(BiConsumer<OrganyEntity, OrganyEntity> func) {
         seasonsSelect.setLabel("Volební odbobí:");
         seasonsSelect.setWidth(comboBoxWidth.toString());
         setupSeasonsComboBox();
@@ -43,7 +44,7 @@ public class ChooseStranaComponent extends HorizontalLayout {
         partysSelect.setEnabled(false);
         partysSelect.setWidth(comboBoxWidth.toString());
         partysSelect.addValueChangeListener(event -> {
-            func.accept(event.getValue());
+            func.accept(seasonsSelect.getValue(), event.getValue());
         });
     }
 

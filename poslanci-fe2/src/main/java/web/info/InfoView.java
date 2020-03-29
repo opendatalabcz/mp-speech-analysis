@@ -6,14 +6,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.ThemeList;
 import com.vaadin.flow.theme.material.Material;
 
+import java.util.function.Predicate;
+
 public class InfoView extends VerticalLayout {
 
 
-    public InfoView() {
-        add(new ThemeChangerComponent());
-    }
-
-    private void initialize() {
-
+    public InfoView(Runnable runner) {
+        add(new ThemeChangerComponent(runner));
     }
 }

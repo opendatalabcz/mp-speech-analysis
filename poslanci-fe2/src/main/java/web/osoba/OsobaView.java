@@ -1,6 +1,8 @@
 package web.osoba;
 
 import be.ceau.chart.color.Color;
+import com.vaadin.flow.component.accordion.Accordion;
+import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -19,16 +21,19 @@ public class OsobaView extends VerticalLayout {
 
     private void setDiv(OsobyEntity osobyEntity){
         div.removeAll();
-        Colors colors = new Colors();
-        Color graphColor = colors.getRandomColor();
+        Accordion accordion = new Accordion();
         if(osobyEntity != null){
             div.add(new OsobaProfilComponent(osobyEntity));
             for(PoslanecEntity poslanecEntity : osobyEntity.getPoslanecsByIdOsoba()) {
                 Label label = new Label("OBDOBÍ: " + poslanecEntity.getOrganyByIdObdobi());
                 label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("font-weight", "bold");
                 PoslanecStatistikyComponent poslanecStatistikyComponent = new PoslanecStatistikyComponent(poslanecEntity);
-                div.add(label, poslanecStatistikyComponent);
+                accordion.add(new AccordionPanel(label, poslanecStatistikyComponent));
             }
+            accordion.close();
+            accordion.setWidthFull();
+            accordion.setSizeFull();
+            div.add(accordion);
         }
     }
 }
