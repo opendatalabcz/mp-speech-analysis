@@ -8,6 +8,7 @@ import poslanciDB.service.OrganyEntityService;
 import poslanciDB.service.OsobyEntityService;
 import poslanciDB.service.PoslanecEntityService;
 
+import java.util.Collection;
 import java.util.List;
 
 import static helper.ParseHelper.removeUselessWhitespacesString;
@@ -20,17 +21,29 @@ public class PoslanecReader {
 
     public static void main(String[] args) {
         String path = "resources/poslanec.unl";
+        readAndCreateAllPoslanec(path);
+    }
+
+    public static void readAndCreateAllPoslanec(String path) {
+        System.out.println();
+        System.out.println("readAndCreateAllPoslanec(" + path + ")");
+
         AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
         List<String> myList;
         Timer timer = new Timer();
 
         while ((myList = abstractUNLFileReader.getLineList()) != null) {
             PoslanecEntity poslanecEntity = CreatePoslanecEntityFromStringList(myList);
-            poslanecEntityService.createOrUpdate(poslanecEntity);
-            System.out.println("CURRENT ESTIMATED TIME: " + timer.getTime() + " --- ACTUAL ID: " +
+            //poslanecEntityService.createOrUpdate(poslanecEntity);
+            OsobyEntity osobyEntity = poslanecEntity.getOsobyByIdOsoba();
+            Collection<PoslanecEntity> poslanecEntities = osobyEntity.getPoslanecsByIdOsoba();
+            poslanecEntities.add(poslanecEntity);
+            osobyEntity.setPoslanecsByIdOsoba(poslanecEntities);
+            osobyEntityService.createOrUpdate(osobyEntity);
+            System.out.println("POSLANEC - TIME: " + timer.getTime() + " --- CURRENT ID: " +
                     poslanecEntity.getIdPoslanec());
         }
-        System.out.println("ESTIMATED TIME: " + timer.getTime());
+        System.out.println("POSLANEC - FINAL TIME: " + timer.getTime());
     }
 
     private static PoslanecEntity CreatePoslanecEntityFromStringList(List<String> list) {

@@ -11,23 +11,8 @@ public class TopSlovaCreator {
     //private static TopSlovaEntityService topSlovaEntityService = new TopSlovaEntityService();
     private Map<String, Integer> unsortedMap = new HashMap<>();
     private Map<String, Integer> sortedMapDescending = null;
-    private Integer idPoslanec;
 
-    public TopSlovaCreator(Integer idPoslanec) {
-        this.idPoslanec = idPoslanec;
-    }
-
-    public void processSpeech(String speech) {
-        List<LemmaWithTag> lemmasList = MorphoditaAnalyzer.analyzeString(speech);
-        sortedMapDescending = null;
-        lemmasList.forEach(word -> {
-            Integer value = unsortedMap.get(word.getLemma());
-            if (value == null)
-                value = 0;
-            value++;
-            unsortedMap.put(word.getLemma(), value);
-        });
-    }
+    public TopSlovaCreator() { }
 
     public void addWord(SlovoEntity slovoEntity) {
         Integer value = unsortedMap.get(slovoEntity.getSlovo());

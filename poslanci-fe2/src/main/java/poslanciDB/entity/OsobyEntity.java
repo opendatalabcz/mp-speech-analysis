@@ -153,7 +153,8 @@ public class OsobyEntity implements HasID {
                 Objects.equals(narozeni, that.narozeni) &&
                 Objects.equals(pohlavi, that.pohlavi) &&
                 Objects.equals(zmena, that.zmena) &&
-                Objects.equals(umrti, that.umrti);
+                Objects.equals(umrti, that.umrti) &&
+                Objects.equals(poslanecsByIdOsoba, that.poslanecsByIdOsoba);
     }
 
     @Override
@@ -166,7 +167,7 @@ public class OsobyEntity implements HasID {
         return pred + ' ' + jmeno + ' ' + prijmeni + ' ' + za;
     }
 
-    @OneToMany(mappedBy = "osobyByIdOsoba")
+    @OneToMany(mappedBy = "osobyByIdOsoba", cascade = CascadeType.ALL)
     public Collection<PoslanecEntity> getPoslanecsByIdOsoba() {
         return poslanecsByIdOsoba;
     }

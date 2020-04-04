@@ -1,25 +1,22 @@
 package creator;
 
 import poslanciDB.entity.*;
-import helper.StringHelper;
-import poslanciDB.service.OsobyEntityService;
-import poslanciDB.service.ProjevStatistikyEntityService;
+import poslanciDB.service.OrganyEntityService;
 
 import java.util.Collection;
-import java.util.List;
 
 public class ProjevStatistikyCreator {
-    private static OsobyEntityService osobyEntityService = new OsobyEntityService();
-    private static ProjevStatistikyEntityService projevStatistikyEntityService = new ProjevStatistikyEntityService();
+    private static OrganyEntityService organyEntityService = new OrganyEntityService();
+    /*private static ProjevStatistikyEntityService projevStatistikyEntityService = new ProjevStatistikyEntityService();
 
     public static void main(String[] args) {
-        processAllPersons();
+        OrganyEntity season = organyEntityService.find(172);
+        processAllPoslanec("PSP8");
     }
 
-    public static void processOneSpeech(ProjevEntity projevEntity) {
+    private static void processOneSpeech(ProjevEntity projevEntity) {
         System.out.println("---Projev id: " + projevEntity.getIdProjev());
         Integer idProjev = projevEntity.getIdProjev();
-        Integer pocetSlov = StringHelper.wordCount(projevEntity.getText());
         Integer pocetPosSlov = 0, pocetNegSlov = 0;
         double sentiment = 0.0;
         for(SlovoEntity slovoEntity : projevEntity.getSlovosByIdProjev()) {
@@ -29,11 +26,11 @@ public class ProjevStatistikyCreator {
         if(pocetPosSlov + pocetNegSlov != 0)
             sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
         ProjevStatistikyEntity projevStatistikyEntity = new ProjevStatistikyEntity(idProjev, pocetPosSlov, pocetNegSlov,
-                sentiment, projevEntity);
+                sentiment);
         projevStatistikyEntityService.multiCreate(projevStatistikyEntity);
     }
 
-    public static void processAllSpeeches(Collection<ProjevEntity> projevEntityCollection) {
+    private static void processAllSpeeches(Collection<ProjevEntity> projevEntityCollection) {
         projevStatistikyEntityService.multiBegin();
         for(ProjevEntity projevEntity : projevEntityCollection) {
             processOneSpeech(projevEntity);
@@ -41,27 +38,15 @@ public class ProjevStatistikyCreator {
         projevStatistikyEntityService.multiCommit();
     }
 
-    private static void processAllPersons() {
-        List osobyEntityList = osobyEntityService.findAll();
-        for(Object obj : osobyEntityList) {
-            OsobyEntity osobyEntity;
-            try {
-                osobyEntity = (OsobyEntity) obj;
-            } catch (Exception e) {
-                e.printStackTrace();
-                continue;
-            }
-            System.out.println("Osoba(" + osobyEntity.getIdOsoba() + "): " + osobyEntity.getJmeno() + " " +
-                    osobyEntity.getPrijmeni());
-            Collection<PoslanecEntity> poslanecEntityCollection = osobyEntity.getPoslanecsByIdOsoba();
-            for(PoslanecEntity poslanecEntity : poslanecEntityCollection) {
-                Collection<ProjevEntity> projevEntityCollection = poslanecEntity.getProjevsByIdPoslanec();
-                for(ProjevEntity projevEntity : projevEntityCollection) {
-                    processOneSpeech(projevEntity);
-                }
-            }
+    public static void processAllPoslanec(String seasonString) {
+        System.out.println("----ProjevStatistikyCreator----");
+        OrganyEntity season = helper.EntityHelper.getSeason(seasonString); //TODO season == null
+
+        Collection<PoslanecEntity> poslanecEntityCollection = season.getPoslanecsObdobiByIdOrgan();
+        for(PoslanecEntity poslanecEntity : poslanecEntityCollection) {
+            System.out.println("ProjevStatistikyCreator - Poslanec: " + poslanecEntity.toString());
+            Collection<ProjevEntity> projevEntityCollection = poslanecEntity.getProjevsByIdPoslanec();
+            processAllSpeeches(projevEntityCollection);
         }
-    }
-
-
+    }*/
 }

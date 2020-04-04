@@ -13,15 +13,17 @@ public class BodEntity implements HasID {
     private Integer cisloSchuze;
     private Date datum;
     private Collection<ProjevEntity> projevsByIdBod;
+    private OrganyEntity organyByIdOrganObdobi;
 
     public BodEntity() {
     }
 
-    public BodEntity(Integer idBod, String text, Integer cisloSchuze, Date datum) {
+    public BodEntity(Integer idBod, String text, Integer cisloSchuze, Date datum, OrganyEntity organyEntity) {
         this.idBod = idBod;
         this.text = text;
         this.cisloSchuze = cisloSchuze;
         this.datum = datum;
+        this.organyByIdOrganObdobi = organyEntity;
     }
 
     @Id
@@ -73,15 +75,16 @@ public class BodEntity implements HasID {
         return Objects.equals(idBod, bodEntity.idBod) &&
                 Objects.equals(text, bodEntity.text) &&
                 Objects.equals(cisloSchuze, bodEntity.cisloSchuze) &&
-                Objects.equals(datum, bodEntity.datum);
+                Objects.equals(datum, bodEntity.datum) &&
+                Objects.equals(organyByIdOrganObdobi, bodEntity.organyByIdOrganObdobi);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idBod, text, cisloSchuze, datum);
+        return Objects.hash(idBod, text, cisloSchuze, datum, organyByIdOrganObdobi);
     }
 
-    @OneToMany(mappedBy = "bodByIdBod")
+    @OneToMany(mappedBy = "bodByIdBod", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     public Collection<ProjevEntity> getProjevsByIdBod() {
         return projevsByIdBod;
     }
@@ -98,5 +101,15 @@ public class BodEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdBod(id);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_organ_obdobi", referencedColumnName = "id_organ", nullable = false)
+    public OrganyEntity getOrganyByIdOrganObdobi() {
+        return organyByIdOrganObdobi;
+    }
+
+    public void setOrganyByIdOrganObdobi(OrganyEntity organyByIdOrganObdobi) {
+        this.organyByIdOrganObdobi = organyByIdOrganObdobi;
     }
 }

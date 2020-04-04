@@ -17,6 +17,12 @@ public class OrganyReader {
 
     public static void main(String[] args) {
         String path = "resources/organy.unl";
+        readAndCreateAllOrgany(path);
+    }
+
+    public static void readAndCreateAllOrgany(String path) {
+        System.out.println();
+        System.out.println("readAndCreateAllOrgany(" + path + ")");
 
         AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
 
@@ -26,10 +32,10 @@ public class OrganyReader {
         while ((myList = abstractUNLFileReader.getLineList()) != null) {
             OrganyEntity organyEntity = CreateOrganyEntityFromStringList(myList);
             organyEntityService.createOrUpdate(organyEntity);
-            System.out.println("CURRENT ESTIMATED TIME: " + timer.getTime() + " --- ACTUAL ID: " +
+            System.out.println("ORGANY - TIME: " + timer.getTime() + " --- CURRENT ID: " +
                     organyEntity.getIdOrgan());
         }
-        System.out.println("ESTIMATED TIME: " + timer.getTime());
+        System.out.println("ORGANY - FINAL TIME: " + timer.getTime());
     }
 
     private static OrganyEntity CreateOrganyEntityFromStringList(List<String> list) {

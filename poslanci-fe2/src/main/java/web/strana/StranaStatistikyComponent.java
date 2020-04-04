@@ -36,11 +36,11 @@ public class StranaStatistikyComponent extends VerticalLayout {
         grid.removeAllColumns();
         grid.setWidth("1200px");
         grid.setHeight("600px");
-        grid.addColumn(PoslanecEntity::toString).setHeader("Jmeno").setSortable(true).setResizable(true).setFlexGrow(2);
+        grid.addColumn(PoslanecEntity::toString).setHeader("Jméno").setSortable(true).setResizable(true).setFlexGrow(2);
         grid.addColumn(this::getPoslanecSentiment).setHeader("Sentiment").setSortable(true).setResizable(true);
-        grid.addColumn(this::getPoslanecPocetSlov).setHeader("Pocet slov").setSortable(true).setResizable(true);
-        grid.addColumn(this::getPoslanecPocetPosSlov).setHeader("Pocet positivnich slov").setSortable(true).setResizable(true);
-        grid.addColumn(this::getPoslanecPocetNegSlov).setHeader("Pocet negativnich slov").setSortable(true);
+        grid.addColumn(this::getPoslanecPocetSlov).setHeader("Počet slov").setSortable(true).setResizable(true);
+        grid.addColumn(this::getPoslanecPocetPosSlov).setHeader("Počet positivních slov").setSortable(true).setResizable(true);
+        grid.addColumn(this::getPoslanecPocetNegSlov).setHeader("Počet negativních slov").setSortable(true);
     }
 
     private String getPoslanecSentiment(PoslanecEntity poslanecEntity) {

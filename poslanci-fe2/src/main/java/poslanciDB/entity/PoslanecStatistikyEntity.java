@@ -13,14 +13,9 @@ public class PoslanecStatistikyEntity implements HasID {
     private PoslanecEntity poslanecByIdPoslanec;
     private Collection<TopSlovaEntity> topSlovaByIdPoslanec;
     private Collection<PoslanecStatistikyMesicEntity> poslanecStatistikyMesicsByIdPoslanec;
+    private Collection<PoslanecStatistikyZminkyEntity> poslanecStatistikyZminkiesByIdPoslanec;
 
     public PoslanecStatistikyEntity() {
-    }
-
-    public PoslanecStatistikyEntity(PoslanecEntity poslanecEntity, Integer pocetSlov, Double sentiment) {
-        this.poslanecByIdPoslanec = poslanecEntity;
-        this.pocetSlov = pocetSlov;
-        this.sentiment = sentiment;
     }
 
     public PoslanecStatistikyEntity(Integer idPoslanec, Integer pocetSlov, Double sentiment) {
@@ -66,7 +61,10 @@ public class PoslanecStatistikyEntity implements HasID {
         PoslanecStatistikyEntity that = (PoslanecStatistikyEntity) o;
         return Objects.equals(idPoslanec, that.idPoslanec) &&
                 Objects.equals(pocetSlov, that.pocetSlov) &&
-                Objects.equals(sentiment, that.sentiment);
+                Objects.equals(sentiment, that.sentiment) &&
+                Objects.equals(topSlovaByIdPoslanec, that.topSlovaByIdPoslanec) &&
+                Objects.equals(poslanecStatistikyMesicsByIdPoslanec, that.poslanecStatistikyMesicsByIdPoslanec) &&
+                Objects.equals(poslanecStatistikyZminkiesByIdPoslanec, that.poslanecStatistikyZminkiesByIdPoslanec);
     }
 
     @Override
@@ -84,7 +82,7 @@ public class PoslanecStatistikyEntity implements HasID {
         this.poslanecByIdPoslanec = poslanecByIdPoslanec;
     }
 
-    @OneToMany(mappedBy = "poslanecStatistikyByIdPoslanec")
+    @OneToMany(mappedBy = "poslanecStatistikyByIdPoslanec", cascade = CascadeType.ALL)
     public Collection<TopSlovaEntity> getTopSlovaByIdPoslanec() {
         return topSlovaByIdPoslanec;
     }
@@ -93,7 +91,7 @@ public class PoslanecStatistikyEntity implements HasID {
         this.topSlovaByIdPoslanec = topSlovaByIdPoslanec;
     }
 
-    @OneToMany(mappedBy = "poslanecStatistikyByIdPoslanec")
+    @OneToMany(mappedBy = "poslanecStatistikyByIdPoslanec", cascade = CascadeType.ALL)
     public Collection<PoslanecStatistikyMesicEntity> getPoslanecStatistikyMesicsByIdPoslanec() {
         return poslanecStatistikyMesicsByIdPoslanec;
     }
@@ -110,5 +108,19 @@ public class PoslanecStatistikyEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdPoslanec(id);
+    }
+
+    @OneToMany(mappedBy = "poslanecStatistikyByIdPoslanecRecnik", cascade = CascadeType.ALL)
+    public Collection<PoslanecStatistikyZminkyEntity> getPoslanecStatistikyZminkiesByIdPoslanec() {
+        return poslanecStatistikyZminkiesByIdPoslanec;
+    }
+
+    public void setPoslanecStatistikyZminkiesByIdPoslanec(Collection<PoslanecStatistikyZminkyEntity> poslanecStatistikyZminkiesByIdPoslanec) {
+        this.poslanecStatistikyZminkiesByIdPoslanec = poslanecStatistikyZminkiesByIdPoslanec;
+    }
+
+    @Override
+    public String toString() {
+        return poslanecByIdPoslanec.toString();
     }
 }

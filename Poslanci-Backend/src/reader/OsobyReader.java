@@ -6,6 +6,7 @@ import poslanciDB.service.OsobyEntityService;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +22,9 @@ public class OsobyReader {
     }
 
     public static void readAndCreateAllOsoby(String path) {
+        System.out.println();
+        System.out.println("readAndCreateAllOsoby(" + path + ")");
+
         AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
         List<String> myList;
         Timer timer = new Timer();
@@ -28,10 +32,32 @@ public class OsobyReader {
         while ((myList = abstractUNLFileReader.getLineList()) != null) {
             OsobyEntity osobyEntity = CreateOsobaEntityFromStringList(myList);
             osobyEntityService.createOrUpdate(osobyEntity);
-            System.out.println("CURRENT ESTIMATED TIME: " + timer.getTime() + " --- CURRENT ID: " +
+            System.out.println("OSOBY - TIME: " + timer.getTime() + " --- CURRENT ID: " +
                     osobyEntity.getIdOsoba());
         }
-        System.out.println("ESTIMATED TIME: " + timer.getTime());
+        System.out.println("OSOBY - FINAL TIME: " + timer.getTime());
+    }
+
+    public static void removeAllOsobyWithoutPoslanec() {
+        System.out.println();
+        System.out.println("removeAllOsobyWithoutPoslanec()");
+
+        List osoby = osobyEntityService.findAll();
+        for(Object obj : osoby) {
+            OsobyEntity osobyEntity;
+            try {
+                osobyEntity = (OsobyEntity)obj;
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
+            osobyEntity = osobyEntityService.refresh(osobyEntity);
+            Collection poslanci = osobyEntity.getPoslanecsByIdOsoba();
+            if(poslanci == null || poslanci.size() == 0) {
+                System.out.println("REMOVE OSOBY - ID: " + osobyEntity.getIdOsoba());
+                osobyEntityService.remove(osobyEntity);
+            }
+        }
     }
 
     private static OsobyEntity CreateOsobaEntityFromStringList(List<String> list){

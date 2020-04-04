@@ -17,6 +17,8 @@
         <class>poslanciDB.entity.PoslanecStatistikyEntity</class>
         <class>poslanciDB.entity.TopSlovaEntity</class>
         <class>poslanciDB.entity.PoslanecStatistikyMesicEntity</class>
+        <class>poslanciDB.entity.ZminkaEntity</class>
+        <class>poslanciDB.entity.PoslanecStatistikyZminkyEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Users/hory9/Documents/GitHub/mp-speech-analysis/Resources/PoslanciSQLite.db"/>
             <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC"/>
@@ -34,7 +36,7 @@
             <property name="hibernate.order_inserts" value="true" />
             <property name="hibernate.order_updates" value="true" />
             <property name="hibernate.c3p0.min_size" value="5"/>
-            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.max_size" value="30"/>
             <property name="hibernate.c3p0.acquire_increment" value="5"/>
             <property name="hibernate.c3p0.timeout" value="1800"/>
         </properties>

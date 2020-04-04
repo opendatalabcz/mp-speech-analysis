@@ -1,9 +1,8 @@
 package reader;
 
-import poslanciDB.entity.BodEntity;
-import poslanciDB.entity.OsobyEntity;
-import poslanciDB.entity.PoslanecEntity;
-import poslanciDB.entity.ProjevEntity;
+import creator.SlovoCreatorData;
+import creator.ZminkaCreator;
+import poslanciDB.entity.*;
 import helper.FileHelper;
 import helper.ParseHelper;
 import helper.StringHelper;
@@ -16,50 +15,73 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import poslanciDB.service.BodEntityService;
+import poslanciDB.service.OrganyEntityService;
 import poslanciDB.service.PoslanecEntityService;
 import poslanciDB.service.ProjevEntityService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
 public class ProjevReader {
     private static String charset = "Windows-1250";
-    private static String inPath = "resources/Schuze/";
     private static String snemovna = "/sqw/detail.sqw?id=";
     private static String vladaHttps = "https://www.vlada.cz/cz/clenove-vlady/";
     private static String vladaHttp = "http://www.vlada.cz/cz/clenove-vlady/";
     private static Integer period = 172;
-    private static List poslanecEntityList = null;
+    private static Collection poslanecEntityList = null;
     private static List bodEntityList = null;
+    private static OrganyEntityService organyEntityService = new OrganyEntityService();
     private static PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
     private static BodEntityService bodEntityService = new BodEntityService();
     private static ProjevEntityService projevEntityService = new ProjevEntityService();
 
     public static void main(String[] args) {
-        ProcessAllMeetings();
+        String inPath = "resources/Schuze/";
+        OrganyEntity season = organyEntityService.find(172);
+        ProcessAllMeetings(inPath, "PSP8");
     }
 
-    public static void ProcessAllMeetings() {
+    public static void ProcessAllMeetings(String inPath, String seasonString) {
+        System.out.println("----ProjevReader----");
+        OrganyEntity season = helper.EntityHelper.getSeason(seasonString); //TODO season == null
+
+        if(season == null) return;
         long meetingsCount = FileHelper.GetMeetingsCount(inPath);
         String dirName;
         if(meetingsCount < 0) {
             System.out.println("Neplatny pocet schuzi");
             return;
         }
-        poslanecEntityList = poslanecEntityService.findAllWithPeriod(period);
+        poslanecEntityList = season.getPoslanecsObdobiByIdOrgan();
         Timer timer = new Timer();
         for(int i = 1; i <= meetingsCount; i++) {
-            System.out.println("CURRENT ESTIMATED TIME: " + timer.getTime() + " --- CURRENT MEETING: " +
+            System.out.println("ProjevReader - TIME: " + timer.getTime() + ", CURRENT MEETING: " +
                     i);
             dirName = inPath + String.format("%03d",i) + "schuz";
-            bodEntityList = bodEntityService.findAllWithMeetingNumber(i);
+            bodEntityList = getAllPointsInMeeting(season, i);
             projevEntityService.multiBegin();
             ProcessOneMeeting(dirName, i);
             projevEntityService.multiCommit();
         }
-        System.out.println("ESTIMATED TIME: " + timer.getTime());
+        System.out.println("ProjevReader - FINAL TIME: " + timer.getTime());
+    }
+
+    private static List<BodEntity> getAllPointsInMeeting(OrganyEntity season, Integer meetingNumber) {
+        List<BodEntity> bodEntityList = new ArrayList<>();
+        for(Object obj : season.getBodsByIdOrgan()) {
+            BodEntity bodEntity;
+            try {
+                bodEntity = (BodEntity)obj;
+            } catch (Exception e) {
+                continue;
+            }
+            if(bodEntity.getCisloSchuze().equals(meetingNumber)) bodEntityList.add(bodEntity);
+        }
+        return bodEntityList;
     }
 
     public static void ProcessOneMeeting(String dir, Integer meetingNumber) {
@@ -72,7 +94,7 @@ public class ProjevReader {
         String completePath = dir + "/s" + String.format("%03d",meetingNumber) + String.format("%03d",meetingPartNum) + ".htm";
         while(new File(completePath).exists()){
             File currentFile = new File(completePath);
-            //System.out.println(currentFile.getName());
+            System.out.println("----File: " + currentFile.getName());
             Document doc = null;
             try {
                 doc = Jsoup.parse(currentFile, charset);
@@ -153,7 +175,6 @@ public class ProjevReader {
         for (Attribute atr:atrs) {
             if(atr.getKey().equals("href")){
                 if(atr.getValue().startsWith(vladaHttp) || atr.getValue().startsWith(vladaHttps)){
-                    //System.out.println(atr.getValue());
                     id = getPoslanecIdFromVlada(atr.getValue());
                     return id;
                 }
@@ -231,7 +252,40 @@ public class ProjevReader {
         if(poslanecEntity != null){
             ProjevEntity projevEntity = new ProjevEntity(null, projevText, StringHelper.wordCount(projevText),
                     poradi, poslanecEntity, bodEntity);
+
+            SlovoCreatorData slovoCreatorData = new SlovoCreatorData(projevEntity);
+            slovoCreatorData.analyze();
+            List<SlovoEntity> slovoEntities = slovoCreatorData.getSlovoEntities();
+            projevEntity.setSlovosByIdProjev(slovoEntities);
+
+            ZminkaCreator zminkaCreator = new ZminkaCreator(poslanecEntityList);
+            for(SlovoEntity slovoEntity : slovoEntities) {
+                zminkaCreator.processSlovoToZminka(slovoEntity);
+            }
+            List<ZminkaEntity> zminkaEntities = zminkaCreator.getZminkaList();
+            projevEntity.setZminkasByIdProjev(zminkaEntities);
+
+            projevEntity = processOneSpeechStats(projevEntity);
+
+            //projevEntityService.createOrUpdate(projevEntity);
             projevEntityService.multiCreate(projevEntity);
         }
+    }
+
+    private static ProjevEntity processOneSpeechStats(ProjevEntity projevEntity) {
+        //System.out.println("---Projev id: " + projevEntity.getIdProjev());
+        //Integer idProjev = projevEntity.getIdProjev();
+        Integer pocetPosSlov = 0, pocetNegSlov = 0;
+        double sentiment = 0.0;
+        for(SlovoEntity slovoEntity : projevEntity.getSlovosByIdProjev()) {
+            if(slovoEntity.getSentiment() == 1) pocetPosSlov += slovoEntity.getPocetVyskytu();
+            if(slovoEntity.getSentiment() == -1) pocetNegSlov += slovoEntity.getPocetVyskytu();
+        }
+        if(pocetPosSlov + pocetNegSlov != 0)
+            sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
+        projevEntity.setPocetPosSlov(pocetPosSlov);
+        projevEntity.setPocetNegSlov(pocetNegSlov);
+        projevEntity.setSentiment(sentiment);
+        return projevEntity;
     }
 }

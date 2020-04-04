@@ -1,12 +1,15 @@
 package reader;
 
+import org.hibernate.id.uuid.Helper;
 import poslanciDB.entity.BodEntity;
 import helper.FileHelper;
 import helper.ParseHelper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
+import poslanciDB.entity.OrganyEntity;
 import poslanciDB.service.BodEntityService;
+import poslanciDB.service.OrganyEntityService;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +19,18 @@ import java.util.regex.Pattern;
 
 public class BodReader {
     private static BodEntityService bodEntityService = new BodEntityService();
+    private static OrganyEntityService organyEntityService = new OrganyEntityService();
     private static String charset = "Windows-1250";
-    private static String inPath = "resources/Schuze/";
+    //private static String inPath = "resources/Schuze/";
     private static String genericPointText = "---Provozní úkony---";
 
     public static void main(String[] args) {
-        ProcessAllMeetings();
+        String path = "resources/Schuze/";
+        OrganyEntity season = organyEntityService.find(172);
+        ProcessAllMeetings(path, "PSP8");
     }
 
-    public static BodEntity createGenericPoint(String unformatedDateString, Integer meetingNumber) {
+    public static BodEntity createGenericPoint(String unformatedDateString, Integer meetingNumber, OrganyEntity season) {
         String day = null, month = null, year = null, stringDate;
         day = unformatedDateString.split("\\.")[0];
         if(day.length() == 1) day = "0".concat(day);
@@ -57,20 +63,22 @@ public class BodReader {
                     null,
                     genericPointText,
                     meetingNumber,
-                    sqlDate
+                    sqlDate,
+                    season
             );
         } else {
             bodEntity = new BodEntity(
                     bodEntityAlreadyExists.getIdBod(),
                     genericPointText,
                     meetingNumber,
-                    sqlDate
+                    sqlDate,
+                    season
             );
         }
         return bodEntity;
     }
 
-    public static void ProcessOneMeeting(File file, Integer meetingNumber) {
+    public static void ProcessOneMeeting(File file, Integer meetingNumber, OrganyEntity season) {
         Document doc;
         boolean genericPointTextCreated = false;
         String genericPointText = null;
@@ -108,27 +116,32 @@ public class BodReader {
                                     null,
                                     ParseHelper.removeNumberPrefix(child.ownText()),
                                     meetingNumber,
-                                    ParseHelper.getSqlDateFromBod(element.ownText())
+                                    ParseHelper.getSqlDateFromBod(element.ownText()),
+                                    season
                             );
                         } else {
                             bodEntity = new BodEntity(
                                     bodEntityAlreadyExists.getIdBod(),
                                     ParseHelper.removeNumberPrefix(child.ownText()),
                                     meetingNumber,
-                                    ParseHelper.getSqlDateFromBod(element.ownText())
+                                    ParseHelper.getSqlDateFromBod(element.ownText()),
+                                    season
                             );
                         }
-                        //bodEntityService.createOrUpdate(bodEntity);
+                        bodEntityService.createOrUpdate(bodEntity);
                     }
                 }
             }
         }
 
-        BodEntity bodEntity = createGenericPoint(genericPointDateString, meetingNumber);
-        //bodEntityService.createOrUpdate(bodEntity);
+        BodEntity bodEntity = createGenericPoint(genericPointDateString, meetingNumber, season);
+        bodEntityService.createOrUpdate(bodEntity);
     }
 
-    public static void ProcessAllMeetings() {
+    public static void ProcessAllMeetings(String inPath, String seasonString) {
+        System.out.println("----BodReader----");
+        OrganyEntity season = helper.EntityHelper.getSeason(seasonString); //TODO season == null
+
         long meetingsCount = FileHelper.GetMeetingsCount(inPath);
         String dirName, completePath;
         if(meetingsCount < 0) {
@@ -141,7 +154,8 @@ public class BodReader {
             if(new File(completePath).exists())
             {
                 File currentFile = new File(completePath);
-                ProcessOneMeeting(currentFile, i);
+                System.out.println("BodReader - meeting: " + i);
+                ProcessOneMeeting(currentFile, i, season);
             }
         }
     }

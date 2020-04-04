@@ -29,6 +29,7 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
             removeAll();
             add(label, getWordCount(), getSentiment(),
                     new PoslanecTopSlovaComponent(poslanecStatistikyEntity),
+                    new PoslanecZminkyComponent(poslanecEntity),
                     getPoslanecPocetSlovMesicDiv(list),
                     getPoslanecSentimentMesicDiv(list),
                     new PoslanecStatistikySchuzeComponent(poslanecEntity)

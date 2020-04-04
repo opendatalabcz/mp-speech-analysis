@@ -18,12 +18,4 @@ public class BodEntityService extends AbstractService<BodEntity> {
             return null;
         }
     }
-
-    public List findAllWithMeetingNumber(Integer meetingNumber) {
-        entityManager.getTransaction().begin();
-        List list = entityManager.createQuery("SELECT t FROM " + entityClass.getName() + " t WHERE t.cisloSchuze = "
-                + meetingNumber).getResultList();
-        entityManager.getTransaction().commit();
-        return list;
-    }
 }

@@ -13,8 +13,11 @@ public class ProjevEntity implements HasID{
     private Integer poradi;
     private PoslanecEntity poslanecByIdPoslanec;
     private BodEntity bodByIdBod;
-    private ProjevStatistikyEntity projevStatistikyByIdProjev;
     private Collection<SlovoEntity> slovosByIdProjev;
+    private Collection<ZminkaEntity> zminkasByIdProjev;
+    private Integer pocetPosSlov;
+    private Integer pocetNegSlov;
+    private Double sentiment;
 
     public ProjevEntity() {
     }
@@ -87,7 +90,7 @@ public class ProjevEntity implements HasID{
         return Objects.hash(idProjev, text, pocetSlov, poradi);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "id_poslanec", referencedColumnName = "id_poslanec")
     public PoslanecEntity getPoslanecByIdPoslanec() {
         return poslanecByIdPoslanec;
@@ -107,16 +110,7 @@ public class ProjevEntity implements HasID{
         this.bodByIdBod = bodByIdBod;
     }
 
-    @OneToOne(mappedBy = "projevByIdProjev")
-    public ProjevStatistikyEntity getProjevStatistikyByIdProjev() {
-        return projevStatistikyByIdProjev;
-    }
-
-    public void setProjevStatistikyByIdProjev(ProjevStatistikyEntity projevStatistikyByIdProjev) {
-        this.projevStatistikyByIdProjev = projevStatistikyByIdProjev;
-    }
-
-    @OneToMany(mappedBy = "projevByIdProjev", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "projevByIdProjev", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Collection<SlovoEntity> getSlovosByIdProjev() {
         return slovosByIdProjev;
     }
@@ -133,5 +127,44 @@ public class ProjevEntity implements HasID{
     @Override
     public void pushID(Integer id) {
         setIdProjev(id);
+    }
+
+    @OneToMany(mappedBy = "projevByIdProjev", cascade = CascadeType.ALL)
+    public Collection<ZminkaEntity> getZminkasByIdProjev() {
+        return zminkasByIdProjev;
+    }
+
+    public void setZminkasByIdProjev(Collection<ZminkaEntity> zminkasByIdProjev) {
+        this.zminkasByIdProjev = zminkasByIdProjev;
+    }
+
+    @Basic
+    @Column(name = "pocet_pos_slov")
+    public Integer getPocetPosSlov() {
+        return pocetPosSlov;
+    }
+
+    public void setPocetPosSlov(Integer pocetPosSlov) {
+        this.pocetPosSlov = pocetPosSlov;
+    }
+
+    @Basic
+    @Column(name = "pocet_neg_slov")
+    public Integer getPocetNegSlov() {
+        return pocetNegSlov;
+    }
+
+    public void setPocetNegSlov(Integer pocetNegSlov) {
+        this.pocetNegSlov = pocetNegSlov;
+    }
+
+    @Basic
+    @Column(name = "sentiment")
+    public Double getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(Double sentiment) {
+        this.sentiment = sentiment;
     }
 }

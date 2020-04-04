@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class StopSlova {
-    private static final StopSlova stopSlova = new StopSlova();
+    private static final StopSlova stopSlova = new StopSlova(); //todo path ke stop slovum
     private static Set<String> set;
 
     private StopSlova() {

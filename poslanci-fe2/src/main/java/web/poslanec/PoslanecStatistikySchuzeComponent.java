@@ -7,7 +7,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.BodEntity;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.ProjevEntity;
-import poslanciDB.entity.ProjevStatistikyEntity;
 import web.Helper;
 
 import java.util.ArrayList;
@@ -64,8 +63,8 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
         Accordion listAccordion = new Accordion();
         for(ProjevEntity projev : list){
             pocetSlov += projev.getPocetSlov();
-            pocetPosSlov += projev.getProjevStatistikyByIdProjev().getPocetPosSlov();
-            pocetNegSlov += projev.getProjevStatistikyByIdProjev().getPocetNegSlov();
+            pocetPosSlov += projev.getPocetPosSlov();
+            pocetNegSlov += projev.getPocetNegSlov();
             listAccordion.add(getProjevLayout(projev));
         }
         listAccordion.close();

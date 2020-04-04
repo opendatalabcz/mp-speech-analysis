@@ -14,6 +14,13 @@ public class TypOrganuReader {
 
     public static void main(String[] args) {
         String path = "resources/typ_organu.unl";
+        readAndCreateAllTypOrganu(path);
+    }
+
+    public static void readAndCreateAllTypOrganu(String path) {
+        System.out.println();
+        System.out.println("readAndCreateAllTypOrganu(" + path + ")");
+
         AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
 
         List<String> myList;
@@ -22,10 +29,10 @@ public class TypOrganuReader {
         while ((myList = abstractUNLFileReader.getLineList()) != null) {
             TypOrganuEntity typOrganuEntity = CreateTypOrganuEntityFromStringList(myList);
             typOrganuEntityService.createOrUpdate(typOrganuEntity);
-            System.out.println("CURRENT ESTIMATED TIME: " + timer.getTime() + " --- ACTUAL ID: " +
+            System.out.println("TYP_ORGANU - TIME: " + timer.getTime() + " --- CURRENT ID: " +
                     typOrganuEntity.getIdTypOrg());
         }
-        System.out.println("ESTIMATED TIME: " + timer.getTime());
+        System.out.println("TYP_ORGANU - FINAL TIME: " + timer.getTime());
     }
 
     private static TypOrganuEntity CreateTypOrganuEntityFromStringList(List<String> list) {
