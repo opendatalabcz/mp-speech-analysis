@@ -58,7 +58,6 @@ public class ParseHelper {
         try {
             date = new SimpleDateFormat(pattern).parse(input);
         } catch (ParseException e) {
-            e.printStackTrace();
             return null;
         }
 

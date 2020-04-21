@@ -9,6 +9,7 @@ import web.Colors;
 import web.Helper;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 import static web.chart.PoslanecBarChart.*;
 
@@ -16,7 +17,7 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
     private PoslanecEntity poslanecEntity;
     private PoslanecStatistikyEntity poslanecStatistikyEntity;
 
-    public PoslanecStatistikyComponent(PoslanecEntity poslanecEntity) {
+    public PoslanecStatistikyComponent(PoslanecEntity poslanecEntity, Consumer<PoslanecEntity> switchToPoslanec) {
         this.poslanecEntity = poslanecEntity;
         this.poslanecStatistikyEntity = poslanecEntity.getPoslanecStatistikyByIdPoslanec();
 
@@ -29,7 +30,7 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
             removeAll();
             add(label, getWordCount(), getSentiment(),
                     new PoslanecTopSlovaComponent(poslanecStatistikyEntity),
-                    new PoslanecZminkyComponent(poslanecEntity),
+                    new PoslanecZminkyComponent(poslanecEntity, switchToPoslanec),
                     getPoslanecPocetSlovMesicDiv(list),
                     getPoslanecSentimentMesicDiv(list),
                     new PoslanecStatistikySchuzeComponent(poslanecEntity)

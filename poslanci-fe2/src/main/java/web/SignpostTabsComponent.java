@@ -1,9 +1,12 @@
 package web;
 
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import poslanciDB.entity.OsobyEntity;
+import poslanciDB.entity.PoslanecEntity;
 import web.obdobiCompare.ObdobiCompareView;
 import web.osobyCompare.OsobyCompareView;
 import web.info.InfoView;
@@ -30,7 +33,7 @@ public class SignpostTabsComponent extends VerticalLayout {
 
     private void initializeTabs() {
         Tab tab1 = new Tab("1 - Poslanec");
-        poslanecView = new PoslanecView();
+        poslanecView = new PoslanecView(this::switchToPoslanec);
         div.add(poslanecView);
 
         Tab tab2 = new Tab("2 - Osoba");
@@ -48,19 +51,19 @@ public class SignpostTabsComponent extends VerticalLayout {
             div.removeAll();
             String label = tabs.getSelectedTab().getLabel();
             if(label.startsWith("1")) {
-                if(poslanecView == null) poslanecView = new PoslanecView();
+                if(poslanecView == null) poslanecView = new PoslanecView(this::switchToPoslanec);
                 div.add(poslanecView);
             }
             if(label.startsWith("2")) {
-                if(osobaView == null) osobaView = new OsobaView();
+                if(osobaView == null) osobaView = new OsobaView(this::switchToPoslanec);
                 div.add(osobaView);
             }
             if(label.startsWith("3")) {
-                if(stranaView == null) stranaView = new StranaView();
+                if(stranaView == null) stranaView = new StranaView(this::switchToPoslanec);
                 div.add(stranaView);
             }
             if(label.startsWith("4")) {
-                if(osobyCompareView == null) osobyCompareView = new OsobyCompareView();
+                if(osobyCompareView == null) osobyCompareView = new OsobyCompareView(this::switchToOsoba);
                 div.add(osobyCompareView);
             }
             if(label.startsWith("5")) {
@@ -79,12 +82,34 @@ public class SignpostTabsComponent extends VerticalLayout {
     }
 
     private void refresh() {
-        poslanecView = new PoslanecView();
-        osobaView = new OsobaView();
-        stranaView = new StranaView();
-        osobyCompareView = new OsobyCompareView();
+        poslanecView = new PoslanecView(this::switchToPoslanec);
+        osobaView = new OsobaView(this::switchToPoslanec);
+        stranaView = new StranaView(this::switchToPoslanec);
+        osobyCompareView = new OsobyCompareView(this::switchToOsoba);
         stranyCompareView = new StranyCompareView();
         obdobiCompareView = new ObdobiCompareView();
+    }
+
+    private void switchToPoslanec(PoslanecEntity poslanecEntity) {
+        //todo
+        Notification notification = new Notification("Přesměrovávám na poslance " + poslanecEntity,
+                3000, Notification.Position.BOTTOM_END);
+        notification.open();
+        poslanecView = new PoslanecView(this::switchToPoslanec, poslanecEntity);
+        //TODO vymyslet lepe
+        if(tabs.getSelectedIndex() == 0) tabs.setSelectedIndex(1);
+        tabs.setSelectedIndex(0);
+    }
+
+    private void switchToOsoba(OsobyEntity osobyEntity) {
+        //todo
+        Notification notification = new Notification("Přesměrovávám na osobu " + osobyEntity,
+                3000, Notification.Position.BOTTOM_END);
+        notification.open();
+        osobaView = new OsobaView(this::switchToPoslanec, osobyEntity);
+        //TODO vymyslet lepe
+        if(tabs.getSelectedIndex() == 1) tabs.setSelectedIndex(0);
+        tabs.setSelectedIndex(1);
     }
 }
 

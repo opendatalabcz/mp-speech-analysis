@@ -231,7 +231,7 @@ public class OrganyEntity implements HasID {
         setIdOrgan(id);
     }
 
-    @OneToMany(mappedBy = "organyByIdOrganObdobi")
+    @OneToMany(mappedBy = "organyByIdOrganObdobi", cascade = CascadeType.ALL)
     public Collection<BodEntity> getBodsByIdOrgan() {
         return bodsByIdOrgan;
     }

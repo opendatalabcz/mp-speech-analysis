@@ -12,6 +12,7 @@ public class Timer {
         long second = (durationInMillis / 1000) % 60;
         long minute = (durationInMillis / (1000 * 60)) % 60;
         long hour = (durationInMillis / (1000 * 60 * 60)) % 24;
+        long days = (durationInMillis / (1000*60*60*24));
 
         String time = String.format("%02d:%02d:%02d.%d", hour, minute, second, millis);
         return time;

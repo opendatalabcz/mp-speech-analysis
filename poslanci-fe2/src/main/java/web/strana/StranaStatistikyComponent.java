@@ -11,6 +11,9 @@ import web.Helper;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
+
+import static web.chart.ZminkyBarChart.*;
 
 public class StranaStatistikyComponent extends VerticalLayout {
     private OrganyEntity obdobi;
@@ -18,14 +21,15 @@ public class StranaStatistikyComponent extends VerticalLayout {
     private Set<PoslanecEntity> poslanci= new HashSet<>();
     private Grid<PoslanecEntity> grid = new Grid(PoslanecEntity.class);
 
-    public StranaStatistikyComponent(OrganyEntity obdobi, OrganyEntity strana) {
+    public StranaStatistikyComponent(OrganyEntity obdobi, OrganyEntity strana, Consumer<PoslanecEntity> switchToPoslanec) {
         this.obdobi = obdobi;
         this.strana = strana;
-        initialize();
-        add(new Label("pocet poslancu: " + poslanci.size()), grid);
+        initialize(switchToPoslanec);
+        add(new Label("Počet poslanců: " + poslanci.size()), grid,
+                getStranaZminkyStranyDiv(obdobi, strana), getStranaZminkyStranyDividedByPoslanecCountDiv(obdobi, strana));
     }
 
-    private void initialize() {
+    private void initialize(Consumer<PoslanecEntity> switchToPoslanec) {
         this.setSizeFull();
         for(PoslanecEntity poslanecEntity : strana.getPoslanecsKandidatkaByIdOrgan()) {
             if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
@@ -35,12 +39,16 @@ public class StranaStatistikyComponent extends VerticalLayout {
         grid.setItems(poslanci);
         grid.removeAllColumns();
         grid.setWidth("1200px");
-        grid.setHeight("600px");
+        grid.setMaxHeight("600px");
         grid.addColumn(PoslanecEntity::toString).setHeader("Jméno").setSortable(true).setResizable(true).setFlexGrow(2);
         grid.addColumn(this::getPoslanecSentiment).setHeader("Sentiment").setSortable(true).setResizable(true);
         grid.addColumn(this::getPoslanecPocetSlov).setHeader("Počet slov").setSortable(true).setResizable(true);
         grid.addColumn(this::getPoslanecPocetPosSlov).setHeader("Počet positivních slov").setSortable(true).setResizable(true);
         grid.addColumn(this::getPoslanecPocetNegSlov).setHeader("Počet negativních slov").setSortable(true);
+
+        grid.addItemDoubleClickListener(event -> {
+            switchToPoslanec.accept(event.getItem());
+        });
     }
 
     private String getPoslanecSentiment(PoslanecEntity poslanecEntity) {

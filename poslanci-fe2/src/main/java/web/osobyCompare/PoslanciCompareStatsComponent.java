@@ -1,5 +1,6 @@
 package web.osobyCompare;
 
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.PoslanecEntity;
@@ -15,7 +16,10 @@ public class PoslanciCompareStatsComponent extends VerticalLayout {
     public PoslanciCompareStatsComponent(List<PoslanecEntity> list) {
         if(!list.isEmpty())
         {
-            add(getPoslanecPocetSlovMesicDiv(list), getPoslanecSentimentMesicDiv(list));
+            Div pocetSlovDiv = getPoslanecPocetSlovMesicDiv(list);
+            if(pocetSlovDiv != null) add(pocetSlovDiv);
+            Div sendimentDiv = getPoslanecSentimentMesicDiv(list);
+            if(sendimentDiv != null) add(sendimentDiv);
         }
     }
 }

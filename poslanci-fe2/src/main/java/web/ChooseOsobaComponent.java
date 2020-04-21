@@ -20,6 +20,16 @@ public class ChooseOsobaComponent extends HorizontalLayout {
         add(osobyComboBox);
     }
 
+    public ChooseOsobaComponent(Consumer<OsobyEntity> func, OsobyEntity osobyEntity) {
+        initializeComponents(func);
+        add(osobyComboBox);
+        chooseOsoba(osobyEntity);
+    }
+
+    private void chooseOsoba(OsobyEntity osobyEntity) {
+        osobyComboBox.setValue(osobyEntity);
+    }
+
     public void clear() {
         osobyComboBox.clear();
     }

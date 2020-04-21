@@ -47,7 +47,7 @@ public class ProjevReader {
 
     public static void ProcessAllMeetings(String inPath, String seasonString) {
         System.out.println("----ProjevReader----");
-        OrganyEntity season = helper.EntityHelper.getSeason(seasonString); //TODO season == null
+        OrganyEntity season = helper.EntityHelper.getSeason(seasonString);
 
         if(season == null) return;
         long meetingsCount = FileHelper.GetMeetingsCount(inPath);
@@ -89,7 +89,7 @@ public class ProjevReader {
         Integer poradi = 0;
 
         String projevText = null;
-        String currentBod = null;
+        BodEntity currentBod = null;
         Integer currentOsobaId = null;
         String completePath = dir + "/s" + String.format("%03d",meetingNumber) + String.format("%03d",meetingPartNum) + ".htm";
         while(new File(completePath).exists()){
@@ -105,31 +105,28 @@ public class ProjevReader {
             Elements elements = doc.body().select("*");
 
             for (Element element : elements) {
-                if(element.childNodeSize() == 2) {
-                    if(validSpeaker(element.child(0)) != null) {
+                if(validSpeechPart(element)){
+                    if(element.childrenSize() > 0 && validSpeaker(element.child(0)) != null) {
                         if(currentOsobaId != null ) {
-                            if(currentOsobaId == 443) {
-                                int a = 8;
-                            }
                             processAndSaveProjevtoDB(currentOsobaId, projevText, poradi, currentBod);
                             poradi++;
-                            projevText = null;
                         }
+                        projevText = null;
                         currentOsobaId = validSpeaker(element.child(0));
                     }
-                }
-                if(validSpeechPart(element)){
                     if(projevText == null || projevText.isEmpty()) {
                         projevText = element.ownText();
                     } else {
                         projevText = projevText.concat(" " + element.ownText());
                     }
-                } else if(validTheme(element)) {
-                    currentBod = element.child(0).ownText();
+                }
+                BodEntity newBod = getCurrentBod(element, currentBod);
+                if(newBod != null && !newBod.equals(currentBod)) {
+                    currentBod = newBod;
                     if(projevText == null || projevText.isEmpty()) {
-                        projevText = element.child(0).ownText();
+                        projevText = currentBod.getText();
                     } else {
-                        projevText = projevText.concat(" " + element.child(0).ownText());
+                        projevText = projevText.concat(" " + currentBod.getText());
                     }
                 }
             }
@@ -139,7 +136,7 @@ public class ProjevReader {
         processAndSaveProjevtoDB(currentOsobaId, projevText, poradi, currentBod);
     }
 
-    private static Integer getPoslanecIdFromVlada(String vladaString) {
+    private static Integer getOsobaIdFromVlada(String vladaString) {
         //how could look vladaString - https://www.vlada.cz/cz/clenove-vlady/pri-uradu-vlady/jan_chvojka/zivotopis/jan-chvojka-151262/
         String[] firstSplit = vladaString.split("/");
         String[] secondSplit = firstSplit[firstSplit.length - 1].split("-");
@@ -158,12 +155,15 @@ public class ProjevReader {
     }
 
     private static Integer validSpeaker(Element elem){
-        if(!elem.tagName().equals("a")) return null;
+        while(elem.tagName().equalsIgnoreCase("b") && elem.childrenSize() > 0)
+            elem = elem.child(0);
+
+        if(!elem.tagName().equalsIgnoreCase("a")) return null;
         Attributes atrs = elem.attributes();
         Integer id = null;
 
         for (Attribute atr:atrs) {
-            if(atr.getKey().equals("href")){
+            if(atr.getKey().equalsIgnoreCase("href")){
                 if(atr.getValue().startsWith(snemovna)){
                     if(ParseHelper.tryParseInt(atr.getValue().substring(snemovna.length()))) {
                         id = Integer.parseInt(atr.getValue().substring(snemovna.length()));
@@ -173,37 +173,116 @@ public class ProjevReader {
             }
         }
         for (Attribute atr:atrs) {
-            if(atr.getKey().equals("href")){
+            if(atr.getKey().equalsIgnoreCase("href")){
                 if(atr.getValue().startsWith(vladaHttp) || atr.getValue().startsWith(vladaHttps)){
-                    id = getPoslanecIdFromVlada(atr.getValue());
+                    id = getOsobaIdFromVlada(atr.getValue());
                     return id;
                 }
             }
         }
+        //System.out.println("Mluvi: " + elem.ownText());
+        id = getOsobyIdFromName(elem.ownText());
         return id;
     }
 
-    private static boolean validSpeechPart(Element elem){
-        if(!elem.tagName().equals("p")) return false;
-        Attributes atrs = elem.attributes();
-        boolean ret = false;
-        for (Attribute atr:atrs) {
-            if(atr.getKey().equals("align") && atr.getValue().equals("justify")){
-                ret = true;
-                break;
+    private static Integer getOsobyIdFromName(String text) {
+        if(poslanecEntityList == null) return null; //todo text empty
+
+        List<Integer> osobyIdList = new ArrayList<>();
+        for(Object obj : poslanecEntityList) {
+            PoslanecEntity poslanecEntity;
+            try {
+                poslanecEntity = (PoslanecEntity)obj;
+            } catch (Exception e) {
+                continue;
+            }
+            OsobyEntity osobyEntity = poslanecEntity.getOsobyByIdOsoba();
+            String name = osobyEntity.getJmeno() + " " + osobyEntity.getPrijmeni();
+            if(text.endsWith(name))
+                osobyIdList.add(osobyEntity.getIdOsoba());
+        }
+        if(osobyIdList.size() > 1) {
+            Exception exception = new Exception("Vice poslancu se stejnym jmenem");
+            exception.printStackTrace();
+            return null;
+        }
+        if(osobyIdList.size() == 1) return osobyIdList.get(0);
+
+        Integer ret = null;
+        int similarity = Integer.MAX_VALUE;
+        for(Object obj : poslanecEntityList) {
+            PoslanecEntity poslanecEntity;
+            try {
+                poslanecEntity = (PoslanecEntity)obj;
+            } catch (Exception e) {
+                continue;
+            }
+            OsobyEntity osobyEntity = poslanecEntity.getOsobyByIdOsoba();
+            String name = osobyEntity.getJmeno() + " " + osobyEntity.getPrijmeni();
+            Integer nameWordsCount = helper.StringHelper.wordCount(name);
+            String textCut = helper.StringHelper.getLastNWordsInString(text, nameWordsCount);
+
+            int newSimilarity = StringUtils.getLevenshteinDistance(name, textCut);
+            if(newSimilarity < similarity) {
+                similarity = newSimilarity;
+                ret = osobyEntity.getIdOsoba();
             }
         }
+        if(similarity > 2) {
+            Exception exception = new Exception("Pouzil jsem editacni vzdalenost > 2, text: '" + text + "'");
+            //exception.printStackTrace();
+            return null;
+        }
+
         return ret;
     }
 
+    private static boolean validSpeechPart(Element elem){
+        if(!elem.tagName().equalsIgnoreCase("p")) return false;
+        //Attributes atrs = elem.attributes();
+        boolean ret = false;
+        if(!elem.ownText().isEmpty())
+            ret = true;
+        /*for (Attribute atr:atrs) {
+            if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("justify")){
+                ret = true;
+                break;
+            }
+        }*/
+        return ret;
+    }
+
+    private static BodEntity getCurrentBod(Element elem, BodEntity oldBod) {
+        if(oldBod == null) oldBod = findRightBodEntity(null);
+        if(!elem.tagName().equalsIgnoreCase("p")) return oldBod;
+        Attributes atrs = elem.attributes();
+        for(Attribute atr:atrs){
+            if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("center")) {
+                String textBod = null;
+                if(elem.childrenSize() > 0 && elem.child(0).tagName().equalsIgnoreCase("b"))
+                    textBod = elem.child(0).ownText();
+                else
+                    textBod = elem.ownText();
+
+                if(textBod == null || textBod.isEmpty() || textBod.length() < 5)
+                    return oldBod;
+                else
+                    return findRightBodEntity(textBod);
+            }
+        }
+        return oldBod;
+    }
+
     private static boolean validTheme(Element elem) {
-        if(!elem.tagName().equals("p")) return false;
+        if(!elem.tagName().equalsIgnoreCase("p")) return false;
         Attributes atrs = elem.attributes();
         boolean ret = false;
 
         for (Attribute atr:atrs) {
-            if(atr.getKey().equals("align") && atr.getValue().equals("center")){
-                if(!elem.child(0).ownText().isEmpty())  ret = true;
+            if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("center")){
+                if(elem.childrenSize() > 0 && elem.child(0).tagName().equalsIgnoreCase("b"))
+                        ret = true;
+
                 break;
             }
         }
@@ -233,6 +312,20 @@ public class ProjevReader {
                 ret = bodEntity;
             }
         }
+        if(similarity < 8)
+            return ret;
+
+        tema = "---Provozní úkony---";
+        similarity = Integer.MAX_VALUE;
+        if(bodEntityList.size() > 0) ret = (BodEntity)bodEntityList.get(0);
+        for(Object object : bodEntityList) {
+            BodEntity bodEntity = (BodEntity)object;
+            int newSimilarity = StringUtils.getLevenshteinDistance(tema, bodEntity.getText());
+            if(newSimilarity < similarity) {
+                similarity = newSimilarity;
+                ret = bodEntity;
+            }
+        }
         return ret;
     }
 
@@ -245,11 +338,10 @@ public class ProjevReader {
     }
 
     private static void processAndSaveProjevtoDB(Integer currentOsobaId, String projevText,
-                                                 Integer poradi, String currentBod) {
+                                                 Integer poradi, BodEntity bodEntity) {
         projevText = formatProjevText(projevText);
         PoslanecEntity poslanecEntity = findRightPoslanecEntity(currentOsobaId);
-        BodEntity bodEntity = findRightBodEntity(currentBod);
-        if(poslanecEntity != null){
+        if(poslanecEntity != null && bodEntity != null && bodEntity.getDatum() != null){
             ProjevEntity projevEntity = new ProjevEntity(null, projevText, StringHelper.wordCount(projevText),
                     poradi, poslanecEntity, bodEntity);
 

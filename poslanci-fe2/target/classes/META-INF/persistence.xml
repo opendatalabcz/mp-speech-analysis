@@ -11,13 +11,12 @@
         <class>poslanciDB.entity.OsobyEntity</class>
         <class>poslanciDB.entity.PoslanecEntity</class>
         <class>poslanciDB.entity.ProjevEntity</class>
-        <class>poslanciDB.entity.ProjevStatistikyEntity</class>
         <class>poslanciDB.entity.SlovoEntity</class>
         <class>poslanciDB.entity.TypOrganuEntity</class>
         <class>poslanciDB.entity.PoslanecStatistikyEntity</class>
         <class>poslanciDB.entity.TopSlovaEntity</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Users/hory9/Documents/GitHub/mp-speech-analysis/Resources/PoslanciSQLite.db"/>
+            <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Users/hory9/Documents/GitHub/mp-speech-analysis/Resources/PoslanciSQLite3kus-45678.db"/>
             <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="false"/>

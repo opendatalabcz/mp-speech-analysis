@@ -167,7 +167,7 @@ public class OsobyEntity implements HasID {
         return pred + ' ' + jmeno + ' ' + prijmeni + ' ' + za;
     }
 
-    @OneToMany(mappedBy = "osobyByIdOsoba", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "osobyByIdOsoba", cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST})
     public Collection<PoslanecEntity> getPoslanecsByIdOsoba() {
         return poslanecsByIdOsoba;
     }

@@ -153,7 +153,7 @@ public class StranyBarChart {
 
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
-                getBarOptions("Celkový sentiment stran" + System.lineSeparator()
+                getBarOptionsWithBeginZero("Celkový sentiment stran" + System.lineSeparator()
                         + "(vypočítaný sentiment z projevů všech poslanců dané strany)")).setVertical();
 
         return new ChartJs(barChart.toJson());
@@ -188,7 +188,7 @@ public class StranyBarChart {
 
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
-                getBarOptions("Průměrný sentiment poslance ze strany" + System.lineSeparator()
+                getBarOptionsWithBeginZero("Průměrný sentiment poslance ze strany" + System.lineSeparator()
                         + "(průměr sentimentů všech poslanců dané strany)")).setVertical();
 
         return new ChartJs(barChart.toJson());
@@ -223,14 +223,8 @@ public class StranyBarChart {
 
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
-                getBarOptions("Median sentimentu strany")).setVertical();
+                getBarOptionsWithBeginZero("Median sentimentu strany")).setVertical();
 
         return new ChartJs(barChart.toJson());
-    }
-
-    private static List<String> getPartyNames(Set<OrganyEntity> keySet) {
-        List<String> labels = new ArrayList<>();
-        keySet.forEach(party -> labels.add(party.getZkratka()));
-        return labels;
     }
 }

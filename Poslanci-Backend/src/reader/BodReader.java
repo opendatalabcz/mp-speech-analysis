@@ -56,7 +56,7 @@ public class BodReader {
         Date sqlDate = ParseHelper.getSqlDateFromString(stringDate, "dd. MMMM yyyy");
         System.out.println("Sql Date: " + sqlDate);
         System.out.println();
-        BodEntity bodEntityAlreadyExists = bodEntityService.checkTextExists(genericPointText, meetingNumber);
+        BodEntity bodEntityAlreadyExists = bodEntityService.checkTextExists(genericPointText, meetingNumber, season.getIdOrgan());
         BodEntity bodEntity;
         if(bodEntityAlreadyExists == null) {
             bodEntity = new BodEntity(
@@ -81,7 +81,6 @@ public class BodReader {
     public static void ProcessOneMeeting(File file, Integer meetingNumber, OrganyEntity season) {
         Document doc;
         boolean genericPointTextCreated = false;
-        String genericPointText = null;
         String genericPointDateString = "";
         try {
             doc = Jsoup.parse(file, charset);
@@ -91,25 +90,31 @@ public class BodReader {
         }
         Elements elements = doc.body().select("*");
         for (Element element : elements) {
-            if(element.tagName().equals("b") && !genericPointTextCreated) {
-                genericPointText = element.ownText();
+            if(element.tagName().equalsIgnoreCase("b") && !genericPointTextCreated) {
                 //System.out.println(element.ownText());
                 genericPointTextCreated = true;
             }
-            if(element.tagName().equals("a")) {
+            if(element.tagName().equalsIgnoreCase("a")) {
                 Attributes atrs = element.attributes();
                 boolean ret = false;
                 for (Attribute atr:atrs) {
-                    if(atr.getKey().equals("href") && atr.getValue().matches(".*?htm")){
-                        System.out.println(element.ownText());
-                        genericPointDateString = genericPointDateString.concat(element.ownText());
+                    if(atr.getKey().equalsIgnoreCase("href") &&
+                            (atr.getValue().matches(".*?htm") || atr.getValue().matches(".*?html")) &&
+                            !(atr.getValue().matches(".*?ndex.htm") || atr.getValue().matches(".*?ndex.html"))){
+                        if(element.ownText().matches("^[0-9].*$") && !genericPointDateString.matches(".*[0-9]{4}$")) {
+                            System.out.println(element.ownText());
+                            genericPointDateString = genericPointDateString.concat(element.ownText());
+                        }
                     }
                 }
             }
-            if(element.tagName().equals("p")) {
+            if(element.tagName().equalsIgnoreCase("p")) {
                 for(Element child : element.children()){
-                    if(child.tagName().equals("b")) {
-                        BodEntity bodEntityAlreadyExists = bodEntityService.checkTextExists(ParseHelper.removeNumberPrefix(child.ownText()), meetingNumber);
+                    if(child.tagName().equalsIgnoreCase("b")) {
+                        BodEntity bodEntityAlreadyExists =
+                                bodEntityService.checkTextExists(ParseHelper.removeNumberPrefix(child.ownText()),
+                                        meetingNumber, season.getIdOrgan()
+                                );
                         BodEntity bodEntity;
                         if(bodEntityAlreadyExists == null) {
                             bodEntity = new BodEntity(
@@ -128,14 +133,16 @@ public class BodReader {
                                     season
                             );
                         }
-                        bodEntityService.createOrUpdate(bodEntity);
+                        if(bodEntity.getDatum() != null)
+                            bodEntityService.createOrUpdate(bodEntity);
                     }
                 }
             }
         }
 
         BodEntity bodEntity = createGenericPoint(genericPointDateString, meetingNumber, season);
-        bodEntityService.createOrUpdate(bodEntity);
+        if(bodEntity.getDatum() != null)
+            bodEntityService.createOrUpdate(bodEntity);
     }
 
     public static void ProcessAllMeetings(String inPath, String seasonString) {

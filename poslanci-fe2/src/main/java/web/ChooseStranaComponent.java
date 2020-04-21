@@ -3,11 +3,10 @@ package web;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import poslanciDB.entity.OrganyEntity;
+import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.service.OrganyEntityService;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -15,6 +14,7 @@ public class ChooseStranaComponent extends HorizontalLayout {
     OrganyEntityService organyEntityService = new OrganyEntityService();
     Select<OrganyEntity> seasonsSelect = new Select<>();
     Select<OrganyEntity> partysSelect = new Select<>();
+    private OrganyEntity kandidatkaZbytek;
 
     Integer comboBoxWidth = 400;
 
@@ -28,11 +28,17 @@ public class ChooseStranaComponent extends HorizontalLayout {
         seasonsSelect.setWidth(comboBoxWidth.toString());
         setupSeasonsComboBox();
 
-        //TODO zatim takhle, je potreba asi udelat vazbu s nadrazenym organem
         seasonsSelect.addValueChangeListener(event -> {
             Set<OrganyEntity> set = new HashSet<>();
+            setupKandidatkaZbytek();
             if(event.getValue() != null) {
                 event.getValue().getPoslanecsObdobiByIdOrgan().forEach(posl -> {
+                    if(posl.getOrganyByIdKandidatka() == null) {
+                        posl.setOrganyByIdKandidatka(kandidatkaZbytek);
+                        Collection<PoslanecEntity> kandidatka = kandidatkaZbytek.getPoslanecsKandidatkaByIdOrgan();
+                        kandidatka.add(posl);
+                        kandidatkaZbytek.setPoslanecsKandidatkaByIdOrgan(kandidatka);
+                    }
                     set.add(posl.getOrganyByIdKandidatka());
                 });
             }
@@ -46,6 +52,14 @@ public class ChooseStranaComponent extends HorizontalLayout {
         partysSelect.addValueChangeListener(event -> {
             func.accept(seasonsSelect.getValue(), event.getValue());
         });
+    }
+
+    private void setupKandidatkaZbytek() {
+        kandidatkaZbytek = new OrganyEntity();
+        kandidatkaZbytek.setIdOrgan(-1);
+        kandidatkaZbytek.setPoslanecsKandidatkaByIdOrgan(new ArrayList<>());
+        kandidatkaZbytek.setZkratka("");
+        kandidatkaZbytek.setNazevOrganuCz("\"Strana neurčena\"");
     }
 
     private void setupSeasonsComboBox() {

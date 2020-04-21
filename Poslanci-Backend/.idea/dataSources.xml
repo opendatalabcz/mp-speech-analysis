@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Poslanci" uuid="4732f4fc-8ede-4dff-85ab-8887d522521a">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://remotemysql.com:3306/FdCPKNUIYW</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="Poslanci@poslanci.database.windows.net" uuid="ed408ebf-060a-42c0-b9bd-322d12373992">
-      <driver-ref>azure.ms</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://poslanci.database.windows.net:1433;database=Poslanci</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="PoslanciSQLite.db" uuid="255fd706-05ee-42f6-b841-096f86ecea6d">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../Resources/PoslanciSQLite.db</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="PoslanciSQLite5678 - kopie.db" uuid="e6dd553e-b7ce-4e95-9c26-22c5e5a63e54">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../Resources/PoslanciSQLite5678 - kopie.db</jdbc-url>
     </data-source>
   </component>
 </project>

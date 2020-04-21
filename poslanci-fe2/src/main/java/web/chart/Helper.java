@@ -10,12 +10,14 @@ import be.ceau.chart.options.scales.XAxis;
 import be.ceau.chart.options.scales.YAxis;
 import be.ceau.chart.options.ticks.LinearTicks;
 import org.apache.commons.lang3.ArrayUtils;
+import poslanciDB.entity.OrganyEntity;
+import poslanciDB.entity.PoslanecEntity;
 import web.Colors;
 import web.monthYear.MonthYear;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Helper {
     public static boolean tryParseInt(String value) {
@@ -125,5 +127,22 @@ public class Helper {
                 .setTitle(new Title().setText(label).setDisplay(true).setFontColor(Colors.getChartLabelColor()));
 
         return options;
+    }
+
+    public static List<String> getPartyNames(Set<OrganyEntity> keySet) {
+        List<String> labels = new ArrayList<>();
+        keySet.forEach(party -> labels.add(party.getZkratka()));
+        return labels;
+    }
+
+    public static Integer getPoslanciInStranaCount(OrganyEntity obdobi, OrganyEntity strana) {
+        if(obdobi == null || strana == null) return null;
+
+        Integer count = 0;
+        for(PoslanecEntity poslanecEntity : strana.getPoslanecsKandidatkaByIdOrgan()) {
+            if(poslanecEntity.getOrganyByIdObdobi() == obdobi)
+                count++;
+        }
+        return count;
     }
 }

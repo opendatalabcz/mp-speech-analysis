@@ -6,16 +6,17 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.OsobyEntity;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class OsobyCompareView extends VerticalLayout {
     OsobyMainStatsComponent osobyMainStatsComponent = new OsobyMainStatsComponent(null);
     OsobyMainWordStatsComponent osobyMainWordStatsComponent = new OsobyMainWordStatsComponent(null);
     OsobyStatsBySeasonsComponent osobyStatsBySeasonsComponent = new OsobyStatsBySeasonsComponent(null);
-    OsobySetComponent osobySetComponent = new OsobySetComponent(this::getSet);
+    OsobySetComponent osobySetComponent;
 
-    public OsobyCompareView() {
 
-        System.out.println("Width: " + UI.getCurrent().getSession().getBrowser().getScreenWidth());
+    public OsobyCompareView(Consumer<OsobyEntity> switchToOsoba) {
+        osobySetComponent = new OsobySetComponent(this::getSet, switchToOsoba);
         add(new HorizontalLayout(osobySetComponent, new VerticalLayout(osobyMainStatsComponent, osobyMainWordStatsComponent)),
                 osobyStatsBySeasonsComponent);
     }

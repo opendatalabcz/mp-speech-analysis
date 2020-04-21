@@ -2,12 +2,12 @@ package web;
 
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
 
 import java.sql.Date;
 import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.Collection;
+import java.util.*;
 
 public class Helper {
     public static HorizontalLayout getValueWithLabelComponent(String label, String value) {
@@ -60,5 +60,31 @@ public class Helper {
             return sentiment / poslanecEntities.size();
         }
         return 0.0;
+    }
+
+    public static Map<OrganyEntity, Set<PoslanecEntity>> getStranyPoslanecMapInObdobi(OrganyEntity obdobi) {
+        if(obdobi == null) return null;
+        Map<OrganyEntity, Set<PoslanecEntity>> map = new HashMap<>();
+        for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
+            if(!map.containsKey(poslanecEntity.getOrganyByIdKandidatka())) {
+                Set<PoslanecEntity> set = new HashSet<>();
+                set.add(poslanecEntity);
+                map.put(poslanecEntity.getOrganyByIdKandidatka(), set);
+            } else {
+                Set<PoslanecEntity> set = map.get(poslanecEntity.getOrganyByIdKandidatka());
+                set.add(poslanecEntity);
+                map.put(poslanecEntity.getOrganyByIdKandidatka(), set);
+            }
+        }
+        return map;
+    }
+
+    public static Set<OrganyEntity> getStranySetInObdobi(OrganyEntity obdobi) {
+        if(obdobi == null) return null;
+        Set<OrganyEntity> set = new HashSet<>();
+        for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
+            set.add(poslanecEntity.getOrganyByIdKandidatka());
+        }
+        return set;
     }
 }

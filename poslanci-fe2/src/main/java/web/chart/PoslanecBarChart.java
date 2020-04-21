@@ -39,6 +39,7 @@ public class PoslanecBarChart {
     private static ChartJs getPoslanecPocetSlovMesic(List<PoslanecEntity> listPoslanecEntity) {
         if(listPoslanecEntity.isEmpty()) return null;
         if(listPoslanecEntity.get(0) == null) return null;
+        if(!checkPoslanecStatsExist(listPoslanecEntity)) return null;
         List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
 
         Colors colors = new Colors();
@@ -65,6 +66,7 @@ public class PoslanecBarChart {
     {
         if(listPoslanecEntity.isEmpty()) return null;
         if(listPoslanecEntity.get(0) == null) return null;
+        if(!checkPoslanecStatsExist(listPoslanecEntity)) return null;
         List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
 
         Colors colors = new Colors();
@@ -86,6 +88,12 @@ public class PoslanecBarChart {
         return chart;
     }
 
+    private static boolean checkPoslanecStatsExist(List<PoslanecEntity> listPoslanecEntity) {
+        for(PoslanecEntity poslanecEntity : listPoslanecEntity) {
+            if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) return true;
+        }
+        return false;
+    }
 
 
 

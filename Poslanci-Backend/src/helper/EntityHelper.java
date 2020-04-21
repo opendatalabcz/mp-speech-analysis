@@ -17,7 +17,12 @@ public class EntityHelper {
             } catch (Exception e) {
                 continue;
             }
-            if(obdobi.getZkratka().equals(seasonString)) return organyEntityService.refresh(obdobi);
+            if(obdobi.getZkratka().equals(seasonString)) {
+                if(organyEntityService.getEntityManager().contains(obdobi)) {
+                    obdobi = organyEntityService.refresh(obdobi);
+                }
+                return obdobi;
+            }
         }
         return null;
     }

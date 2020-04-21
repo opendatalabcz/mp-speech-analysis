@@ -20,21 +20,19 @@ public class OsobySetComponent extends VerticalLayout {
     Button removeButton = new Button("Odebrat");
     ChooseOsobaComponent chooseOsobaComponent = new ChooseOsobaComponent(this::setPerson);
 
-    public OsobySetComponent(Consumer<Set<OsobyEntity>> func) {
-        initialize(func);
+    public OsobySetComponent(Consumer<Set<OsobyEntity>> func, Consumer<OsobyEntity> switchToOsoba) {
+        initialize(func, switchToOsoba);
         add(chooseOsobaComponent, new HorizontalLayout(addButton, removeButton), grid);
     }
 
-    private void initialize(Consumer<Set<OsobyEntity>> func) {
+    private void initialize(Consumer<Set<OsobyEntity>> func, Consumer<OsobyEntity> switchToOsoba) {
         grid.addThemeVariants(GridVariant.MATERIAL_COLUMN_DIVIDERS);
         grid.setItems(setOsoby);
         grid.removeAllColumns();
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
         grid.addColumn(OsobyEntity::toString).setHeader("Osoba");
         grid.addItemDoubleClickListener(event -> {
-            setOsoby.remove(event.getItem());
-            grid.setItems(setOsoby);
-            func.accept(setOsoby);
+            switchToOsoba.accept(event.getItem());
         });
 
         addButton.addClickListener(buttonClickEvent -> {

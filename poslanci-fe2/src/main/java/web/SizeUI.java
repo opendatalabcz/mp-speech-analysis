@@ -21,6 +21,7 @@ public class SizeUI {
 
     public static Div wrapToBigDiv(ChartJs barChartJs)
     {
+        if(barChartJs == null) return null;
         Div div = new Div();
         div.add(barChartJs);
         div.setWidth(getWidthString(3,5)); //1200px
@@ -29,6 +30,7 @@ public class SizeUI {
 
     public static Div wrapToMediumDiv(ChartJs barChartJs)
     {
+        if(barChartJs == null) return null;
         Div div = new Div();
         div.add(barChartJs);
         div.setWidth(getWidthString(7,20)); //700px
@@ -37,6 +39,7 @@ public class SizeUI {
 
     public static Div wrapToSmallDiv(ChartJs barChartJs)
     {
+        if(barChartJs == null) return null;
         Div div = new Div();
         div.add(barChartJs);
         div.setWidth(getWidthString(1,4)); //600px

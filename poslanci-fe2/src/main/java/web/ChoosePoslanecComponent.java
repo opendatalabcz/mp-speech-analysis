@@ -24,12 +24,23 @@ public class ChoosePoslanecComponent extends HorizontalLayout {
         add(seasonsSelect, partysSelect, personsSelect);
     }
 
+    public ChoosePoslanecComponent(Consumer<PoslanecEntity> func, PoslanecEntity poslanecEntity) {
+        initializeComponents(func);
+        add(seasonsSelect, partysSelect, personsSelect);
+        choosePoslanec(poslanecEntity);
+    }
+
+    private void choosePoslanec(PoslanecEntity poslanecEntity) {
+        seasonsSelect.setValue(poslanecEntity.getOrganyByIdObdobi());
+        partysSelect.setValue(poslanecEntity.getOrganyByIdKandidatka());
+        personsSelect.setValue(poslanecEntity);
+    }
+
     private void initializeComponents(Consumer<PoslanecEntity> func) {
         seasonsSelect.setLabel("Volební odbobí:");
         seasonsSelect.setWidth(comboBoxWidth.toString());
         setupSeasonsComboBox();
 
-        //TODO zatim takhle, je potreba asi udelat vazbu s nadrazenym organem
         seasonsSelect.addValueChangeListener(event -> {
             Set<OrganyEntity> partysSet = new HashSet<>();
             setupKandidatkaZbytek();

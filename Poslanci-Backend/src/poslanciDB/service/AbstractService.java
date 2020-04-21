@@ -15,7 +15,6 @@ public abstract class AbstractService<T extends HasID> {
     protected Class<T> entityClass;
     protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
     protected EntityManager entityManager = entityManagerFactory.createEntityManager();
-    protected Integer batchSize = 1000;
 
     public AbstractService(Class<T> entityClass){
         this.entityClass = entityClass;
@@ -28,12 +27,16 @@ public abstract class AbstractService<T extends HasID> {
     public void create(T entity) {
         entityManager.getTransaction().begin();
         entityManager.persist(entity);
+        entityManager.flush();
+        entityManager.clear();
         entityManager.getTransaction().commit();
     }
 
     public void update(T entity) {
         entityManager.getTransaction().begin();
         entityManager.merge(entity);
+        entityManager.flush();
+        entityManager.clear();
         entityManager.getTransaction().commit();
     }
 
@@ -42,7 +45,14 @@ public abstract class AbstractService<T extends HasID> {
             create(entity);
             System.out.println("Creating");
         } else {
-            T entityOriginal = find(entity.takeID());
+            T entityOriginal;
+            try {
+                entityOriginal = find(entity.takeID());
+            } catch (Exception e) {
+                update(entity);
+                System.out.println("Updating");
+                return;
+            }
             if(entityOriginal == null) {
                 create(entity);
                 System.out.println("Creating");
@@ -71,6 +81,7 @@ public abstract class AbstractService<T extends HasID> {
 
     public T refresh(T entity) {
         entityManager.getTransaction().begin();
+        entityManager.persist(entity);
         entityManager.merge(entity);
         entityManager.refresh(entity);
         entityManager.getTransaction().commit();
