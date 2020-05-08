@@ -2,6 +2,7 @@ package web.strana;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
@@ -26,7 +27,9 @@ public class StranaStatistikyComponent extends VerticalLayout {
         this.strana = strana;
         initialize(switchToPoslanec);
         add(new Label("Počet poslanců: " + poslanci.size()), grid,
-                getStranaZminkyStranyDiv(obdobi, strana), getStranaZminkyStranyDividedByPoslanecCountDiv(obdobi, strana));
+                new HorizontalLayout(getStranaZminkyStranyDiv(obdobi, strana),
+                        getStranaZminkyStranyDividedByPoslanecCountDiv(obdobi, strana))
+        );
     }
 
     private void initialize(Consumer<PoslanecEntity> switchToPoslanec) {

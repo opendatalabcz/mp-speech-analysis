@@ -1,5 +1,6 @@
 package creator;
 
+import helper.StringHelper;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.SlovoEntity;
 import poslanciDB.entity.ZminkaEntity;
@@ -8,6 +9,8 @@ import poslanciDB.service.ZminkaEntityService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static helper.StringHelper.removePostfix;
 
 public class ZminkaCreator {
     Collection<PoslanecEntity> poslanecEntityList;
@@ -38,8 +41,10 @@ public class ZminkaCreator {
     private List<PoslanecEntity> getMentioned(String surname) {
         List<PoslanecEntity> list = new ArrayList<>();
         for(PoslanecEntity poslanecEntity : poslanecEntityList) {
-            if(surname.startsWith(poslanecEntity.getOsobyByIdOsoba().getPrijmeni()))
+            if(removePostfix(surname).equals(poslanecEntity.getOsobyByIdOsoba().getPrijmeni()))
                 list.add(poslanecEntity);
+            /*if(surname.startsWith(poslanecEntity.getOsobyByIdOsoba().getPrijmeni())) //todo opravit tahle blbost
+                list.add(poslanecEntity);*/
         }
         return list;
     }

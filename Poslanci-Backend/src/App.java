@@ -10,9 +10,9 @@ public class App {
     public static void main(String[] args) {
         //String mainPath = args[0];
         String mainPath = "resources";
-        String seasonString = "1993ps";
+        String seasonString = "2006ps";
         //OrganyEntity season = organyEntityService.find(172);
-        OrganyEntity season = getSeason("PSP1");
+        OrganyEntity season = getSeason("PSP5");
         Timer timer = new Timer();
 
         removeSeason(season);
@@ -24,7 +24,7 @@ public class App {
         System.out.println("++++ TIME: " + timer.getTime());
 
         String seasonPath = mainPath + "/" + seasonString + "/";
-        processSeason(seasonPath, "PSP1");
+        processSeason(seasonPath, "PSP5");
         System.out.println("++++ TIMER AFTER processSeason(" + seasonPath + ", " + season + ")");
         System.out.println("++++ TIME: " + timer.getTime());
     }
@@ -42,8 +42,8 @@ public class App {
         BodReader.ProcessAllMeetings(seasonPath, season);
         ProjevReader.ProcessAllMeetings(seasonPath, season);
 
-        //PoslanecStatistikyCreator poslanecStatistikyCreator = new PoslanecStatistikyCreator();//todo
-        //poslanecStatistikyCreator.ProcessAllStatistics(season);//todo
+        PoslanecStatistikyCreator poslanecStatistikyCreator = new PoslanecStatistikyCreator();
+        poslanecStatistikyCreator.ProcessAllStatistics(season);
     }
 
     private static void readAndCreateCommonEntities(String mainPath) {
@@ -55,6 +55,6 @@ public class App {
 
         OsobyReader.readAndCreateAllOsoby(mainPath + "/osoby.unl");
         PoslanecReader.readAndCreateAllPoslanec(mainPath + "/poslanec.unl");
-        //OsobyReader.removeAllOsobyWithoutPoslanec(); //todo
+        OsobyReader.removeAllOsobyWithoutPoslanec();
     }
 }

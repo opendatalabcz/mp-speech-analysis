@@ -1,12 +1,8 @@
 package creator;
 
 import helper.ParseHelper;
-import helper.StringHelper;
-import helper.Timer;
-import poslanciDB.entity.OsobyEntity;
-import reader.AbstractUNLFileReader;
+import reader.UNLFileReader;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +18,7 @@ public class StopSlova {
     private void initialize() {
         set = new HashSet<>();
         String path = "resources/stop_slova.unl";
-        AbstractUNLFileReader UNLFile = new AbstractUNLFileReader(path);
+        UNLFileReader UNLFile = new UNLFileReader(path);
         List<String> myList;
         while ((myList = UNLFile.getLineList()) != null) {
             if(myList.size() == 1) {

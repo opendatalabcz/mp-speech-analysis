@@ -22,11 +22,11 @@ import static web.chart.Helper.*;
 
 public class ZminkyBarChart {
     public static Div getStranaZminkyStranyDiv(OrganyEntity obdobi, OrganyEntity strana){
-        return wrapToBigDiv(getStranaZminkyStrany(obdobi, strana));
+        return wrapToMediumDiv(getStranaZminkyStrany(obdobi, strana));
     }
 
     public static Div getStranaZminkyStranyDividedByPoslanecCountDiv(OrganyEntity obdobi, OrganyEntity strana){
-        return wrapToBigDiv(getStranaZminkyStranyDividedByPoslanecCount(obdobi, strana));
+        return wrapToMediumDiv(getStranaZminkyStranyDividedByPoslanecCount(obdobi, strana));
     }
 
     public static Div getPoslanecZminkyStranyDiv(PoslanecEntity poslanecEntity){

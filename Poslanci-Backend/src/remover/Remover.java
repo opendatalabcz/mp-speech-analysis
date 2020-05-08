@@ -9,7 +9,7 @@ import poslanciDB.service.OrganyEntityService;
 import poslanciDB.service.PoslanecEntityService;
 import poslanciDB.service.PoslanecStatistikyEntityService;
 
-import java.util.Collection;
+import java.util.*;
 
 public class Remover {
     private static BodEntityService bodEntityService = new BodEntityService();
@@ -18,9 +18,11 @@ public class Remover {
 
     public static void removeSeason(OrganyEntity season) {
         if(season == null) return;
-        organyEntityService.remove(season);
-        //removeSeasonBod(season);
-        //removeSeasonPoslanec(season);
+
+        removeSeasonPoslanec(season);
+        removeSeasonBod(season);
+
+        organyEntityService.resetEntityManager();
     }
 
     private static void removeSeasonBod(OrganyEntity season) {
@@ -30,6 +32,7 @@ public class Remover {
             System.out.println("---- removing bod with id: " + bodEntity.getIdBod());
             bodEntityService.remove(bodEntity);
         }
+        bodEntityService.resetEntityManager();
     }
 
     private static void removeSeasonPoslanec(OrganyEntity season) {
@@ -39,5 +42,6 @@ public class Remover {
             System.out.println("---- removing poslanec with id: " + poslanecEntity.getIdPoslanec() + " (" + poslanecEntity.toString() + ")");
             poslanecEntityService.remove(poslanecEntity);
         }
+        poslanecEntityService.resetEntityManager();
     }
 }

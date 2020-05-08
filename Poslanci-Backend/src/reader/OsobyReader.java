@@ -25,11 +25,11 @@ public class OsobyReader {
         System.out.println();
         System.out.println("readAndCreateAllOsoby(" + path + ")");
 
-        AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
+        UNLFileReader UNLFileReader = new UNLFileReader(path);
         List<String> myList;
         Timer timer = new Timer();
 
-        while ((myList = abstractUNLFileReader.getLineList()) != null) {
+        while ((myList = UNLFileReader.getLineList()) != null) {
             OsobyEntity osobyEntity = CreateOsobaEntityFromStringList(myList);
             osobyEntityService.createOrUpdate(osobyEntity);
             System.out.println("OSOBY - TIME: " + timer.getTime() + " --- CURRENT ID: " +
@@ -82,22 +82,5 @@ public class OsobyReader {
         umrti = getSqlDateFromString(list.get(8), pattern);
 
         return new OsobyEntity(idOsoba, pred, jmeno, prijmeni, za, narozeni, pohlavi, zmena, umrti);
-    }
-
-
-
-
-    public static List<String> SplitString(String input) {
-        List<String> list = new ArrayList<>();
-        String string1, string2;
-        Pattern pattern = Pattern.compile("\\| *");
-        Matcher matcher = pattern.matcher(input);
-        while (matcher.find()) {
-            string1 = input.substring(0, matcher.start());
-            string2 = input.substring(matcher.end());
-            matcher = pattern.matcher(string2);
-            list.add(string1);
-        }
-        return list;
     }
 }

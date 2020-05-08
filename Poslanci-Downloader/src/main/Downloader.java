@@ -83,12 +83,6 @@ public class Downloader {
         while(Downloader.downloadOneMeeting(pathSeason, season, i)) {
             i++;
         }
-
-        if(Files.exists(Paths.get(pathSeason))) {
-            System.out.println(pathSeason + " EXISTUJE");
-        } else {
-            System.out.println(pathSeason + " NEEXISTUJE!!!");
-        }
     }
 
     public static boolean downloadOneMeeting(String pathSeason, String season, Integer meeting) {
@@ -100,7 +94,6 @@ public class Downloader {
             }
         }
 
-        System.out.println("SOM V PJERDELI, HLEDAM NOVU CESTU - " + meeting);
         if(downloadOneMeetingNoncompressedVersion(meeting, season, pathMeeting))
             return true;
 

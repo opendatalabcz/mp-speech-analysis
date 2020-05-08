@@ -21,12 +21,12 @@ public class TypOrganuReader {
         System.out.println();
         System.out.println("readAndCreateAllTypOrganu(" + path + ")");
 
-        AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
+        UNLFileReader UNLFileReader = new UNLFileReader(path);
 
         List<String> myList;
         Timer timer = new Timer();
 
-        while ((myList = abstractUNLFileReader.getLineList()) != null) {
+        while ((myList = UNLFileReader.getLineList()) != null) {
             TypOrganuEntity typOrganuEntity = CreateTypOrganuEntityFromStringList(myList);
             typOrganuEntityService.createOrUpdate(typOrganuEntity);
             System.out.println("TYP_ORGANU - TIME: " + timer.getTime() + " --- CURRENT ID: " +

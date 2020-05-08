@@ -4,11 +4,13 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.server.StreamResource;
 import poslanciDB.entity.PoslanecStatistikyEntity;
 import poslanciDB.entity.TopSlovaEntity;
+import web.Colors;
 import web.chart.TagCloud;
 
 import javax.imageio.ImageIO;
@@ -20,7 +22,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PoslanecTopSlovaComponent extends HorizontalLayout {
+public class PoslanecTopSlovaComponent extends VerticalLayout {
     PoslanecStatistikyEntity poslanecStatistikyEntity;
     Image image;
     Grid<TopSlovaEntity> grid = new Grid<>(TopSlovaEntity.class);
@@ -28,8 +30,10 @@ public class PoslanecTopSlovaComponent extends HorizontalLayout {
 
     public PoslanecTopSlovaComponent(PoslanecStatistikyEntity poslanecStatistikyEntity) {
         this.poslanecStatistikyEntity = poslanecStatistikyEntity;
+        Label label = new Label("Nejčastěji používaná slova poslance:");
+        label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("text-decoration", "underline");
         initialize();
-        add(image, grid);
+        add(label, new HorizontalLayout(image, grid));
     }
 
     private void initialize() {

@@ -1,15 +1,16 @@
 package web.chart;
 
-import org.apache.commons.lang3.ArrayUtils;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.PoslanecStatistikyEntity;
 import poslanciDB.entity.PoslanecStatistikyMesicEntity;
 import web.monthYear.MonthYear;
 
 import java.sql.Date;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static web.chart.Helper.getDoublesArrayFromList;
 import static web.chart.Helper.getIntsArrayFromList;

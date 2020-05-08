@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AbstractUNLFileReader {
+public class UNLFileReader {
     BufferedReader file = null;
 
-    public AbstractUNLFileReader(String path) {
+    public UNLFileReader(String path) {
         try {
             file = new BufferedReader(new InputStreamReader(new FileInputStream(path), Charset.forName("Windows-1250")));
         } catch (Exception e) {

@@ -130,4 +130,10 @@ public abstract class AbstractService<T extends HasID> {
     public void multiCreate(T entity) {
         entityManager.persist(entity);
     }
+
+    public void resetEntityManager() {
+        entityManager.clear();
+        entityManager.close();
+        entityManager = entityManagerFactory.createEntityManager();
+    }
 }

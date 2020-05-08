@@ -32,4 +32,11 @@ public class StringHelper {
         String normalizedS2 = Normalizer.normalize(s2, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         return normalizedS1.equalsIgnoreCase(normalizedS2);
     }
+
+    public static String removePostfix(String word) {
+        String[] parts0 = word.split("-");
+        String[] parts1 = parts0[0].split("_");
+        String[] parts2 = parts1[0].split("`");
+        return parts2[0];
+    }
 }

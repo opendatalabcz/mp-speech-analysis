@@ -9,6 +9,7 @@ public class EntityHelper {
     private static OrganyEntityService organyEntityService = new OrganyEntityService();
 
     public static OrganyEntity getSeason(String seasonString) {
+        organyEntityService.resetEntityManager();
         List obdobiList = organyEntityService.getAllChamberSeasons();
         for(Object obj : obdobiList) {
             OrganyEntity obdobi;

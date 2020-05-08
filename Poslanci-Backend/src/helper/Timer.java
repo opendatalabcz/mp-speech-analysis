@@ -14,7 +14,11 @@ public class Timer {
         long hour = (durationInMillis / (1000 * 60 * 60)) % 24;
         long days = (durationInMillis / (1000*60*60*24));
 
-        String time = String.format("%02d:%02d:%02d.%d", hour, minute, second, millis);
+        String time;
+        if(days > 0)
+            time = String.format("%d days, %02d:%02d:%02d.%03d", days, hour, minute, second, millis);
+        else
+            time = String.format("%02d:%02d:%02d.%03d", hour, minute, second, millis);
         return time;
     }
 }

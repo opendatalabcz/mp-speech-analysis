@@ -2,11 +2,8 @@ package reader;
 
 import creator.SlovoCreatorData;
 import creator.ZminkaCreator;
+import helper.*;
 import poslanciDB.entity.*;
-import helper.FileHelper;
-import helper.ParseHelper;
-import helper.StringHelper;
-import helper.Timer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
@@ -186,7 +183,8 @@ public class ProjevReader {
     }
 
     private static Integer getOsobyIdFromName(String text) {
-        if(poslanecEntityList == null) return null; //todo text empty
+        if(poslanecEntityList == null) return null;
+        if(text == null || text.isEmpty()) return null;
 
         List<Integer> osobyIdList = new ArrayList<>();
         for(Object obj : poslanecEntityList) {
@@ -239,54 +237,39 @@ public class ProjevReader {
 
     private static boolean validSpeechPart(Element elem){
         if(!elem.tagName().equalsIgnoreCase("p")) return false;
-        //Attributes atrs = elem.attributes();
         boolean ret = false;
         if(!elem.ownText().isEmpty())
             ret = true;
-        /*for (Attribute atr:atrs) {
-            if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("justify")){
-                ret = true;
-                break;
-            }
-        }*/
         return ret;
     }
 
     private static BodEntity getCurrentBod(Element elem, BodEntity oldBod) {
         if(oldBod == null) oldBod = findRightBodEntity(null);
-        if(!elem.tagName().equalsIgnoreCase("p")) return oldBod;
-        Attributes atrs = elem.attributes();
-        for(Attribute atr:atrs){
-            if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("center")) {
-                String textBod = null;
-                if(elem.childrenSize() > 0 && elem.child(0).tagName().equalsIgnoreCase("b"))
-                    textBod = elem.child(0).ownText();
-                else
-                    textBod = elem.ownText();
+        String textBod = null;
+        if(elem.tagName().equalsIgnoreCase("p")) {
+            Attributes atrs = elem.attributes();
+            for(Attribute atr:atrs){
+                if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("center")) {
+                    if(elem.childrenSize() > 0 && elem.child(0).tagName().equalsIgnoreCase("b"))
+                        textBod = elem.child(0).ownText();
+                    else
+                        textBod = elem.ownText();
 
-                if(textBod == null || textBod.isEmpty() || textBod.length() < 5)
-                    return oldBod;
-                else
-                    return findRightBodEntity(textBod);
+                    if(textBod == null || textBod.isEmpty() || textBod.length() < 5)
+                        return oldBod;
+                    else
+                        return findRightBodEntity(textBod);
+                }
             }
+        } else if(elem.tagName().equalsIgnoreCase("center")) {
+            if(elem.childrenSize() > 0 && elem.child(0).tagName().equalsIgnoreCase("b"))
+                textBod = elem.child(0).ownText();
+            if(textBod == null || textBod.isEmpty() || textBod.length() < 5)
+                return oldBod;
+            else
+                return findRightBodEntity(textBod);
         }
         return oldBod;
-    }
-
-    private static boolean validTheme(Element elem) {
-        if(!elem.tagName().equalsIgnoreCase("p")) return false;
-        Attributes atrs = elem.attributes();
-        boolean ret = false;
-
-        for (Attribute atr:atrs) {
-            if(atr.getKey().equalsIgnoreCase("align") && atr.getValue().equalsIgnoreCase("center")){
-                if(elem.childrenSize() > 0 && elem.child(0).tagName().equalsIgnoreCase("b"))
-                        ret = true;
-
-                break;
-            }
-        }
-        return ret;
     }
 
     private static PoslanecEntity findRightPoslanecEntity(Integer osobaId) {
@@ -312,7 +295,7 @@ public class ProjevReader {
                 ret = bodEntity;
             }
         }
-        if(similarity < 8)
+        if(similarity < 10)
             return ret;
 
         tema = "---Provozní úkony---";
@@ -359,7 +342,6 @@ public class ProjevReader {
 
             projevEntity = processOneSpeechStats(projevEntity);
 
-            //projevEntityService.createOrUpdate(projevEntity);
             projevEntityService.multiCreate(projevEntity);
         }
     }
@@ -374,7 +356,7 @@ public class ProjevReader {
             if(slovoEntity.getSentiment() == -1) pocetNegSlov += slovoEntity.getPocetVyskytu();
         }
         if(pocetPosSlov + pocetNegSlov != 0)
-            sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
+            sentiment = MathHelper.countSentiment(pocetPosSlov, pocetNegSlov);
         projevEntity.setPocetPosSlov(pocetPosSlov);
         projevEntity.setPocetNegSlov(pocetNegSlov);
         projevEntity.setSentiment(sentiment);

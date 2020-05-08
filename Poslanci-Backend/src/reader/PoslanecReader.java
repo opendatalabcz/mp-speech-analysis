@@ -16,7 +16,6 @@ import static helper.ParseHelper.tryParseInt;
 
 public class PoslanecReader {
     static OsobyEntityService osobyEntityService = new OsobyEntityService();
-    static PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
     static OrganyEntityService organyEntityService = new OrganyEntityService();
 
     public static void main(String[] args) {
@@ -28,13 +27,12 @@ public class PoslanecReader {
         System.out.println();
         System.out.println("readAndCreateAllPoslanec(" + path + ")");
 
-        AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
+        UNLFileReader UNLFileReader = new UNLFileReader(path);
         List<String> myList;
         Timer timer = new Timer();
 
-        while ((myList = abstractUNLFileReader.getLineList()) != null) {
+        while ((myList = UNLFileReader.getLineList()) != null) {
             PoslanecEntity poslanecEntity = CreatePoslanecEntityFromStringList(myList);
-            //poslanecEntityService.createOrUpdate(poslanecEntity);
             OsobyEntity osobyEntity = poslanecEntity.getOsobyByIdOsoba();
             Collection<PoslanecEntity> poslanecEntities = osobyEntity.getPoslanecsByIdOsoba();
             poslanecEntities.add(poslanecEntity);

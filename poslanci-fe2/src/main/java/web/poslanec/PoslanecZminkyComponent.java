@@ -2,11 +2,15 @@ package web.poslanec;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.PoslanecStatistikyZminkyEntity;
+import web.Colors;
+import web.Helper;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static web.chart.ZminkyBarChart.getPoslanecZminkyStranyDiv;
@@ -20,6 +24,10 @@ public class PoslanecZminkyComponent extends VerticalLayout {
     public PoslanecZminkyComponent(PoslanecEntity poslanecEntity, Consumer<PoslanecEntity> switchToPoslanec) {
         this.poslanecEntity = poslanecEntity;
         initialize(switchToPoslanec);
+        Label label = new Label("Zmínky poslance:");
+        label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("text-decoration", "underline");
+        add(label);
+        addDuplicityLabel(poslanecEntity);
         add(new HorizontalLayout(gridRecnik, gridZmineny),
                 new HorizontalLayout(getPoslanecZminkyStranyDiv(poslanecEntity),
                         getPoslanecZminkyStranyDivideByPoslanecCountDiv(poslanecEntity)
@@ -41,9 +49,6 @@ public class PoslanecZminkyComponent extends VerticalLayout {
         gridRecnik.addItemDoubleClickListener(event -> {
             switchToPoslanec.accept(event.getItem().getPoslanecByIdPoslanecZmineny());
         });
-        /*List<GridSortOrder<PoslanecStatistikyZminkyEntity>> listRecnik = new ArrayList<>();
-        listRecnik.add(new GridSortOrder<>(gridRecnik.getColumnByKey("PocetVyskytu"), SortDirection.DESCENDING));
-        gridRecnik.sort(listRecnik);*/
 
         gridZmineny.addThemeVariants(GridVariant.MATERIAL_COLUMN_DIVIDERS);
         gridZmineny.setWidth("550px");
@@ -58,8 +63,16 @@ public class PoslanecZminkyComponent extends VerticalLayout {
         gridZmineny.addItemDoubleClickListener(event -> {
             switchToPoslanec.accept(event.getItem().getPoslanecStatistikyByIdPoslanecRecnik().getPoslanecByIdPoslanec());
         });
-        /*List<GridSortOrder<PoslanecStatistikyZminkyEntity>> listZmineny = new ArrayList<>();
-        listZmineny.add(new GridSortOrder<>(gridZmineny.getColumnByKey("PocetVyskytu"), SortDirection.DESCENDING));
-        gridZmineny.sort(listZmineny);*/
+    }
+
+    private void addDuplicityLabel(PoslanecEntity poslanecEntity) {
+        List<PoslanecEntity> poslanecEntitiesSamePrijmeni = Helper.getPoslanciWithSamePrijmeniInObdobi(poslanecEntity);
+        if(poslanecEntitiesSamePrijmeni.size() > 0) {
+            String text = "V tomto volebním obdobím jsou poslanci se stejným příjmením, kteří mohou zkreslovat počet zmínek pro tuto osobu: ";
+            for(PoslanecEntity posl : poslanecEntitiesSamePrijmeni) {
+                text = text.concat(posl.toString() + " (" + posl.getOrganyByIdKandidatka().getZkratka() + "), ");
+            }
+            add(new Label(text));
+        }
     }
 }

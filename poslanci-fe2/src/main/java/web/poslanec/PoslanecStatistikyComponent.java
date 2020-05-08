@@ -8,10 +8,7 @@ import poslanciDB.entity.PoslanecStatistikyEntity;
 import web.Colors;
 import web.Helper;
 
-import java.util.*;
 import java.util.function.Consumer;
-
-import static web.chart.PoslanecBarChart.*;
 
 public class PoslanecStatistikyComponent extends VerticalLayout {
     private PoslanecEntity poslanecEntity;
@@ -23,17 +20,14 @@ public class PoslanecStatistikyComponent extends VerticalLayout {
 
         if(poslanecStatistikyEntity != null)
         {
-            List<PoslanecEntity> list = new ArrayList<>();
-            list.add(poslanecEntity);
             Label label = new Label("STATISTIKY:");
             label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("text-decoration", "underline");
             removeAll();
             add(label, getWordCount(), getSentiment(),
                     new PoslanecTopSlovaComponent(poslanecStatistikyEntity),
                     new PoslanecZminkyComponent(poslanecEntity, switchToPoslanec),
-                    getPoslanecPocetSlovMesicDiv(list),
-                    getPoslanecSentimentMesicDiv(list),
-                    new PoslanecStatistikySchuzeComponent(poslanecEntity)
+                    new PoslanecChartsComponent(poslanecEntity),
+                    new PoslanecProjevyComponent(poslanecEntity)
                     );
         }
     }

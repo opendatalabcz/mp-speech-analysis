@@ -7,23 +7,16 @@ import be.ceau.chart.javascript.JavaScriptFunction;
 import be.ceau.chart.options.BarOptions;
 import be.ceau.chart.options.Legend;
 import be.ceau.chart.options.Title;
-import be.ceau.chart.options.scales.BarScale;
-import be.ceau.chart.options.scales.XAxis;
-import be.ceau.chart.options.scales.YAxis;
-import be.ceau.chart.options.ticks.LinearTicks;
 import com.syndybat.chartjs.ChartJs;
-import com.syndybat.chartjs.ClickEvent;
-import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.notification.Notification;
 import poslanciDB.entity.PoslanecEntity;
 import web.Colors;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static web.SizeUI.wrapToBigDiv;
-import static web.chart.Helper.*;
+import static web.chart.Helper.getBarDataSet;
+import static web.chart.Helper.getBarOptions;
 import static web.chart.PoslanecData.*;
 
 public class PoslanecBarChart {
@@ -56,9 +49,7 @@ public class PoslanecBarChart {
 
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Počet slov v měsících")).setVertical();
 
-
         ChartJs chart = new ChartJs(barChart.toJson());
-
         return chart;
     }
 

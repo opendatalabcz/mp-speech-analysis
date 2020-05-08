@@ -33,7 +33,8 @@ public class TopSlovaCreator {
             if(i >= n || i>sortedMapDescending.size()) {
                 break;
             }
-            if(!stopSlova.isStopSlovo(formatWord(word.getKey()))) {
+            String formatedWord = formatWord(word.getKey());
+            if(!stopSlova.isStopSlovo(formatedWord) && formatedWord.length() > 2) {
                 topSlovaEntities.add(new TopSlovaEntity(word.getKey(), word.getValue(), i + 1, poslanecStatistikyEntity));
                 i++;
             }

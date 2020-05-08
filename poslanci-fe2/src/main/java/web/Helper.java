@@ -5,7 +5,6 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
 
-import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -86,5 +85,24 @@ public class Helper {
             set.add(poslanecEntity.getOrganyByIdKandidatka());
         }
         return set;
+    }
+
+    public static List<PoslanecEntity> getPoslanciWithSamePrijmeniInObdobi(PoslanecEntity poslanecEntity) {
+        List<PoslanecEntity> retList = new ArrayList<>();
+        Collection<PoslanecEntity> poslanecEntities = poslanecEntity.getOrganyByIdObdobi().getPoslanecsObdobiByIdOrgan();
+        for(PoslanecEntity posl : poslanecEntities) {
+            if(posl.getOsobyByIdOsoba().getPrijmeni().equals(poslanecEntity.getOsobyByIdOsoba().getPrijmeni()) &&
+                    posl.getIdPoslanec() != poslanecEntity.getIdPoslanec()) {
+                retList.add(posl);
+            }
+        }
+        return retList;
+    }
+
+    public static Double countSentiment(Integer pocetPosSlov, Integer pocetNegSlov) {
+        if(pocetPosSlov == 0 && pocetNegSlov == 0)
+            return 0.0;
+        else
+            return ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
     }
 }

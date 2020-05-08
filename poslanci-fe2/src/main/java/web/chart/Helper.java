@@ -16,6 +16,7 @@ import web.Colors;
 import web.monthYear.MonthYear;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -131,7 +132,12 @@ public class Helper {
 
     public static List<String> getPartyNames(Set<OrganyEntity> keySet) {
         List<String> labels = new ArrayList<>();
-        keySet.forEach(party -> labels.add(party.getZkratka()));
+        keySet.forEach(party -> {
+            if(party != null && party.getZkratka() != null && !party.getZkratka().isEmpty())
+                labels.add(party.getZkratka());
+            else
+                labels.add("\"Strana neurčena\"");
+        });
         return labels;
     }
 

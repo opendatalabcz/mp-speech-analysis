@@ -7,18 +7,22 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import poslanciDB.entity.BodEntity;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.ProjevEntity;
+import web.Colors;
 import web.Helper;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
+public class PoslanecProjevyComponent extends VerticalLayout {
     private Accordion accordion = new Accordion();
     private PoslanecEntity poslanecEntity;
 
-    public PoslanecStatistikySchuzeComponent(PoslanecEntity poslanecEntity) {
+    public PoslanecProjevyComponent(PoslanecEntity poslanecEntity) {
         this.poslanecEntity = poslanecEntity;
+        Label label = new Label("Projevy poslance:");
+        label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("text-decoration", "underline");
+        add(label);
         initializeAccordion();
         add(accordion);
     }
@@ -50,7 +54,8 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
     private AccordionPanel getProjevLayout(ProjevEntity projevEntity) {
         BodEntity bod = projevEntity.getBodByIdBod();
         String summary = bod.getDatum().toString() + " - " +  Helper.getShortenString(bod.getText(), 75) + "\n" +
-                ", počet slov celkem: " + projevEntity.getPocetSlov();
+                ", počet slov: " + projevEntity.getPocetSlov() +
+                ", sentiment: " + Helper.getRoundDouble(projevEntity.getSentiment());
 
         Label content = new Label(projevEntity.getText());
         AccordionPanel panel = new AccordionPanel(summary, content);
@@ -70,8 +75,11 @@ public class PoslanecStatistikySchuzeComponent extends VerticalLayout {
         listAccordion.close();
         listAccordion.getElement().getStyle().set("background", "#757575");
 
+        Double sentiment = Helper.countSentiment(pocetPosSlov, pocetNegSlov);
+
         String summary = "Schůze č." + cisloSchuze + ", počet slov celkem: " + pocetSlov +
-                ", počet positivních slov: " + pocetPosSlov + ", počet negativních slov: " + pocetNegSlov;
+                ", sentiment: " + Helper.getRoundDouble(sentiment);
+                //", počet positivních slov: " + pocetPosSlov + ", počet negativních slov: " + pocetNegSlov;
         accordion.add(summary, listAccordion);
     }
 

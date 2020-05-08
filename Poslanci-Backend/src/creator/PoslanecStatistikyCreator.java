@@ -1,5 +1,6 @@
 package creator;
 
+import helper.MathHelper;
 import helper.Timer;
 import poslanciDB.entity.*;
 import poslanciDB.service.*;
@@ -61,9 +62,7 @@ public class PoslanecStatistikyCreator {
                 poslanecStatistikyZminkyCreator.addZminka(zminkaEntity);
             }
         }
-        pocetSlov = pocetPosSlov + pocetNegSlov;
-        if(pocetSlov != 0)
-            sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / pocetSlov;
+        sentiment = MathHelper.countSentiment(pocetPosSlov, pocetNegSlov);
         PoslanecStatistikyEntity poslanecStatistikyEntity = new PoslanecStatistikyEntity(poslanecEntity.getIdPoslanec(), delka, sentiment);
 
 

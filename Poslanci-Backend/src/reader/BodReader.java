@@ -1,6 +1,5 @@
 package reader;
 
-import org.hibernate.id.uuid.Helper;
 import poslanciDB.entity.BodEntity;
 import helper.FileHelper;
 import helper.ParseHelper;
@@ -21,7 +20,6 @@ public class BodReader {
     private static BodEntityService bodEntityService = new BodEntityService();
     private static OrganyEntityService organyEntityService = new OrganyEntityService();
     private static String charset = "Windows-1250";
-    //private static String inPath = "resources/Schuze/";
     private static String genericPointText = "---Provozní úkony---";
 
     public static void main(String[] args) {
@@ -91,7 +89,6 @@ public class BodReader {
         Elements elements = doc.body().select("*");
         for (Element element : elements) {
             if(element.tagName().equalsIgnoreCase("b") && !genericPointTextCreated) {
-                //System.out.println(element.ownText());
                 genericPointTextCreated = true;
             }
             if(element.tagName().equalsIgnoreCase("a")) {
@@ -112,14 +109,14 @@ public class BodReader {
                 for(Element child : element.children()){
                     if(child.tagName().equalsIgnoreCase("b")) {
                         BodEntity bodEntityAlreadyExists =
-                                bodEntityService.checkTextExists(ParseHelper.removeNumberPrefix(child.ownText()),
+                                bodEntityService.checkTextExists(child.ownText(),
                                         meetingNumber, season.getIdOrgan()
                                 );
                         BodEntity bodEntity;
                         if(bodEntityAlreadyExists == null) {
                             bodEntity = new BodEntity(
                                     null,
-                                    ParseHelper.removeNumberPrefix(child.ownText()),
+                                    child.ownText(),
                                     meetingNumber,
                                     ParseHelper.getSqlDateFromBod(element.ownText()),
                                     season
@@ -127,7 +124,7 @@ public class BodReader {
                         } else {
                             bodEntity = new BodEntity(
                                     bodEntityAlreadyExists.getIdBod(),
-                                    ParseHelper.removeNumberPrefix(child.ownText()),
+                                    child.ownText(),
                                     meetingNumber,
                                     ParseHelper.getSqlDateFromBod(element.ownText()),
                                     season

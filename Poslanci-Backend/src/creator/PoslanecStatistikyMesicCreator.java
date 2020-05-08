@@ -1,5 +1,6 @@
 package creator;
 
+import helper.MathHelper;
 import poslanciDB.entity.*;
 import poslanciDB.service.OrganyEntityService;
 import poslanciDB.service.OsobyEntityService;
@@ -55,7 +56,7 @@ public class PoslanecStatistikyMesicCreator {
                 pocetNegSlov += projevEntity.getPocetNegSlov();
                 pocetSlov += projevEntity.getPocetSlov();
             }
-            Double sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
+            Double sentiment = MathHelper.countSentiment(pocetPosSlov, pocetNegSlov);
             Calendar cal = Calendar.getInstance();
             cal.setTime(projevFirst.getBodByIdBod().getDatum());
             Integer day = cal.get(Calendar.DAY_OF_MONTH);
@@ -99,7 +100,7 @@ public class PoslanecStatistikyMesicCreator {
                 pocetNegSlov += projevEntity.getPocetNegSlov();
                 pocetSlov += projevEntity.getPocetSlov();
             }
-            Double sentiment = ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
+            Double sentiment = MathHelper.countSentiment(pocetPosSlov, pocetNegSlov);
             Calendar cal = Calendar.getInstance();
             cal.setTime(projevFirst.getBodByIdBod().getDatum());
             Integer day = cal.get(Calendar.DAY_OF_MONTH);

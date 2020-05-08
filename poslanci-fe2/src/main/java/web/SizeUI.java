@@ -24,7 +24,7 @@ public class SizeUI {
         if(barChartJs == null) return null;
         Div div = new Div();
         div.add(barChartJs);
-        div.setWidth(getWidthString(3,5)); //1200px
+        div.setWidth(getWidthString(7,10)); //1200px
         return div;
     }
 

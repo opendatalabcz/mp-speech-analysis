@@ -24,11 +24,6 @@ public class App {
             downloadOneSeason(path, season);
         }
         deleteTemp();
-
-        //downloadOneSeason("2017ps");
-        /*downloadUNLFiles("RESOURCES");
-        downloadOneSeason("RESOURCES", "2017ps");
-        downloadOneSeason("RESOURCES", "2013ps");*/
     }
 
     private static void deleteTemp() {

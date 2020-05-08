@@ -24,12 +24,12 @@ public class OrganyReader {
         System.out.println();
         System.out.println("readAndCreateAllOrgany(" + path + ")");
 
-        AbstractUNLFileReader abstractUNLFileReader = new AbstractUNLFileReader(path);
+        UNLFileReader UNLFileReader = new UNLFileReader(path);
 
         List<String> myList;
         Timer timer = new Timer();
 
-        while ((myList = abstractUNLFileReader.getLineList()) != null) {
+        while ((myList = UNLFileReader.getLineList()) != null) {
             OrganyEntity organyEntity = CreateOrganyEntityFromStringList(myList);
             organyEntityService.createOrUpdate(organyEntity);
             System.out.println("ORGANY - TIME: " + timer.getTime() + " --- CURRENT ID: " +

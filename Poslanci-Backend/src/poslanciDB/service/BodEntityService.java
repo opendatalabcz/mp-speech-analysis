@@ -3,7 +3,9 @@ package poslanciDB.service;
 import poslanciDB.entity.BodEntity;
 
 import javax.persistence.Query;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class BodEntityService extends AbstractService<BodEntity> {
     public BodEntityService() { super(BodEntity.class); }
@@ -23,5 +25,12 @@ public class BodEntityService extends AbstractService<BodEntity> {
         } else {
             return null;
         }
+    }
+
+    public void removeBodList(Set<Integer> set) {
+        String setString = Arrays.toString(set.toArray()).replace("[", "").replace("]", "");
+        entityManager.getTransaction().begin();
+        entityManager.createQuery("DELETE FROM BodEntity WHERE id in ("  + setString + ")");
+        entityManager.getTransaction().commit();
     }
 }
