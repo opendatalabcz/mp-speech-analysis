@@ -108,7 +108,7 @@ public class StranyBarChart {
                     }
                 }
             }
-            Integer median = getMedianFromIntegerList(list);
+            Integer median = web.Helper.getMedianFromIntegerList(list);
             barDataset.addData(median).addBackgroundColor(colors.getColor());
         }
 
@@ -217,7 +217,7 @@ public class StranyBarChart {
                     }
                 }
             }
-            Double median = getMedianFromDoubleList(list);
+            Double median = web.Helper.getMedianFromDoubleList(list);
             barDataset.addData(median).addBackgroundColor(colors.getColor());
         }
 

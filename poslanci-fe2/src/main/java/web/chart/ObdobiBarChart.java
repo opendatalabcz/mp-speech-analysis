@@ -61,13 +61,7 @@ public class ObdobiBarChart {
         BarDataset barDataset = new BarDataset().setLabel("Průměrný počet slov");
 
         for(OrganyEntity obdobi : list) {
-            Integer sum = 0;
-            for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
-                if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
-                    sum += poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPocetSlov();
-                }
-            }
-            Double average = (double)sum / obdobi.getPoslanecsObdobiByIdOrgan().size();
+            Double average = web.Helper.getAveragePocetSlov(obdobi.getPoslanecsObdobiByIdOrgan());//(double)sum / obdobi.getPoslanecsObdobiByIdOrgan().size();
             barDataset.addData(average).addBackgroundColor(colors.getColor());
         }
 
@@ -92,19 +86,13 @@ public class ObdobiBarChart {
         BarDataset barDataset = new BarDataset().setLabel("Median počtu slov");
 
         for(OrganyEntity obdobi : list) {
-            List<Integer> listPocetSlov = new ArrayList<>();
-            for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
-                if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
-                    listPocetSlov.add(poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPocetSlov());
-                }
-            }
-            Integer median = getMedianFromIntegerList(listPocetSlov);
+            Integer median = web.Helper.getMedianPocetSlov(obdobi.getPoslanecsObdobiByIdOrgan());
             barDataset.addData(median).addBackgroundColor(colors.getColor());
         }
 
         barData.addDataset(barDataset);
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData,
-                getBarOptionsWithBeginZero("Median početu slov poslance ve volebním období")).setVertical();
+                getBarOptionsWithBeginZero("Median počtu slov poslance ve volebním období")).setVertical();
 
         return new ChartJs(barChart.toJson());
     }
@@ -159,13 +147,7 @@ public class ObdobiBarChart {
         BarDataset barDataset = new BarDataset().setLabel("Průměrný sentiment");
 
         for(OrganyEntity obdobi : list) {
-            Double sentiment = 0.0;
-            for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
-                if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
-                    sentiment += poslanecEntity.getPoslanecStatistikyByIdPoslanec().getSentiment();
-                }
-            }
-            Double average = sentiment / obdobi.getPoslanecsObdobiByIdOrgan().size();
+            Double average = web.Helper.getAverageSentiment(obdobi.getPoslanecsObdobiByIdOrgan()); // sentiment / obdobi.getPoslanecsObdobiByIdOrgan().size();
             barDataset.addData(average).addBackgroundColor(colors.getColor());
         }
 
@@ -190,13 +172,7 @@ public class ObdobiBarChart {
         BarDataset barDataset = new BarDataset().setLabel("Median sentimentu");
 
         for(OrganyEntity obdobi : list) {
-            List<Double> listSentiment = new ArrayList<>();
-            for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
-                if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
-                    listSentiment.add(poslanecEntity.getPoslanecStatistikyByIdPoslanec().getSentiment());
-                }
-            }
-            Double median = getMedianFromDoubleList(listSentiment);
+            Double median = web.Helper.getMedianSentiment(obdobi.getPoslanecsObdobiByIdOrgan()); //web.Helper.getMedianFromDoubleList(listSentiment);
             barDataset.addData(median).addBackgroundColor(colors.getColor());
         }
 

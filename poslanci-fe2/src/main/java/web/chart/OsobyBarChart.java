@@ -24,7 +24,7 @@ public class OsobyBarChart {
     }
 
     public static Div getOsobyPocetPosSlovPeriodDiv(Set<OsobyEntity> set) {
-        return wrapToMediumDiv(getOsobyPocetSlovPeriod(set, PoslanecData::getPoslanecTotalPocetPosSlov, "Počet positivních slov"));
+        return wrapToMediumDiv(getOsobyPocetSlovPeriod(set, PoslanecData::getPoslanecTotalPocetPosSlov, "Počet pozitivních slov"));
     }
 
     public static Div getOsobyPocetNegSlovPeriodDiv(Set<OsobyEntity> set) {
@@ -32,7 +32,7 @@ public class OsobyBarChart {
     }
 
     public static Div getOsobyPocetPosNegSlovPeriodDiv(Set<OsobyEntity> set) {
-        return wrapToMediumDiv(getOsobyPocetSlovPeriod(set, PoslanecData::getPoslanecTotalPocetPosNegSlov, "Rozdíl positivních a negativních slov"));
+        return wrapToMediumDiv(getOsobyPocetSlovPeriod(set, PoslanecData::getPoslanecTotalPocetPosNegSlov, "Rozdíl pozitivních a negativních slov"));
     }
 
     private static ChartJs getOsobyPocetSlovPeriod(Set<OsobyEntity> set, Function<PoslanecEntity, Integer> func, String label) {

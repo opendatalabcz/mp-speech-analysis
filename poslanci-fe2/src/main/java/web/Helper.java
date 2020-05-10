@@ -18,6 +18,7 @@ public class Helper {
     }
 
     public static String getShortenString(String s, int limit) {
+        if(s == null) return s;
         if(limit < 0) limit = 10;
         if(limit > s.length())
             return s;
@@ -31,7 +32,7 @@ public class Helper {
         return df3.format(num);
     }
 
-    public static Integer getAveragePocetSlov(Collection<PoslanecEntity> poslanecEntities) {
+    public static Double getAveragePocetSlov(Collection<PoslanecEntity> poslanecEntities) {
         Integer count = 0;
         for(PoslanecEntity poslanecEntity : poslanecEntities) {
             if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
@@ -39,9 +40,22 @@ public class Helper {
             }
         }
         if(poslanecEntities.size() > 0) {
-            return count / poslanecEntities.size();
+            return (double)count / poslanecEntities.size();
         }
-        return 0;
+        return 0.0;
+    }
+
+    public static String getAveragePocetSlovRound(Collection<PoslanecEntity> poslanecEntities) {
+        return getRoundDouble(getAveragePocetSlov(poslanecEntities));
+    }
+
+    public static Integer getMedianPocetSlov(Collection<PoslanecEntity> poslanecEntities) {
+        List<Integer> list = new ArrayList<>();
+        poslanecEntities.forEach(posl -> {
+            if(posl.getPoslanecStatistikyByIdPoslanec() != null)
+                list.add(posl.getPoslanecStatistikyByIdPoslanec().getPocetSlov());
+        });
+        return getMedianFromIntegerList(list);
     }
 
     public static String getAverageSentimentRound(Collection<PoslanecEntity> poslanecEntities) {
@@ -59,6 +73,39 @@ public class Helper {
             return sentiment / poslanecEntities.size();
         }
         return 0.0;
+    }
+
+    public static String getMedianSentimentRound(Collection<PoslanecEntity> poslanecEntities) {
+        return getRoundDouble(getMedianSentiment(poslanecEntities));
+    }
+
+    public static Double getMedianSentiment(Collection<PoslanecEntity> poslanecEntities) {
+        List<Double> list = new ArrayList<>();
+        poslanecEntities.forEach(posl -> {
+            if(posl.getPoslanecStatistikyByIdPoslanec() != null)
+                list.add(posl.getPoslanecStatistikyByIdPoslanec().getSentiment());
+        });
+        return getMedianFromDoubleList(list);
+    }
+
+    public static Integer getMedianFromIntegerList(List<Integer> list) {
+        if(list == null || list.size() == 0) return 0;
+        list.sort(Integer::compareTo);
+        if(list.size() % 2 == 0) {
+            return (list.get(list.size()/2) + list.get(list.size()/2 - 1)) / 2;
+        } else {
+            return list.get(list.size() / 2);
+        }
+    }
+
+    public static Double getMedianFromDoubleList(List<Double> list) {
+        if(list == null || list.size() == 0) return 0.0;
+        list.sort(Double::compareTo);
+        if(list.size() % 2 == 0) {
+            return (list.get(list.size()/2) + list.get(list.size()/2 - 1)) / 2;
+        } else {
+            return list.get(list.size() / 2);
+        }
     }
 
     public static Map<OrganyEntity, Set<PoslanecEntity>> getStranyPoslanecMapInObdobi(OrganyEntity obdobi) {
@@ -100,9 +147,10 @@ public class Helper {
     }
 
     public static Double countSentiment(Integer pocetPosSlov, Integer pocetNegSlov) {
-        if(pocetPosSlov == 0 && pocetNegSlov == 0)
+        if ((pocetPosSlov == 0 && pocetNegSlov == 0) || (pocetPosSlov < 0 || pocetNegSlov < 0)) {
             return 0.0;
-        else
+        } else {
             return ((pocetPosSlov * 1.0) + (pocetNegSlov * (-1.0))) / (pocetPosSlov + pocetNegSlov);
+        }
     }
 }

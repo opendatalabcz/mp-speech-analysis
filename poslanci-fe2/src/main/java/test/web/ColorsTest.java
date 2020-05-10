@@ -1,4 +1,4 @@
-package test.web.chart;
+package test.web;
 
 import be.ceau.chart.color.Color;
 import org.junit.Test;

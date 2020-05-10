@@ -23,8 +23,6 @@ public class Colors {
             theme = 1;
         if(!themeList.contains(Material.LIGHT))
             theme = 0;
-        /*Random rand = new Random();
-        counter = rand.nextInt(Math.min(lightColors.size(), darkColors.size()));*/
     }
 
     public static Color getChartLabelColor() {

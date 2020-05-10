@@ -8,12 +8,14 @@ import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.PoslanecStatistikyEntity;
 import poslanciDB.entity.PoslanecStatistikyMesicEntity;
+import web.Colors;
 import web.Helper;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
+import static web.Helper.*;
 import static web.chart.ZminkyBarChart.*;
 
 public class StranaStatistikyComponent extends VerticalLayout {
@@ -26,10 +28,27 @@ public class StranaStatistikyComponent extends VerticalLayout {
         this.obdobi = obdobi;
         this.strana = strana;
         initialize(switchToPoslanec);
-        add(new Label("Počet poslanců: " + poslanci.size()), grid,
-                new HorizontalLayout(getStranaZminkyStranyDiv(obdobi, strana),
-                        getStranaZminkyStranyDividedByPoslanecCountDiv(obdobi, strana))
+        Label label = new Label("STATISTIKY:");
+        label.getElement().getStyle().set("color", Colors.getHighlightColorString()).set("text-decoration", "underline");
+        add(label);
+        addTextStats();
+        add(grid, new HorizontalLayout(getStranaZminkyStranyDiv(obdobi, strana),
+                getStranaZminkyStranyDividedByPoslanecCountDiv(obdobi, strana))
         );
+    }
+
+    private void addTextStats() {
+        Label pocet = new Label("Počet poslanců: " + poslanci.size());
+        Label slova = new Label("Slova: průměr = " + getAveragePocetSlovRound(poslanci) +
+                "; medián = " + getMedianPocetSlov(poslanci));
+        //Label slovaPrumer = new Label("\t - průměr:");
+        //Label slovaMedian = new Label("\t - medián:");
+        Label sentiment = new Label("Sentiment: průměr = " + getAverageSentimentRound(poslanci) +
+                "; medián = " + getMedianSentimentRound(poslanci));
+        //Label sentimentPrumer = new Label("\t - průměr:");
+        //Label sentimentMedian = new Label("\t - medián:");
+        add(pocet, slova, sentiment);
+
     }
 
     private void initialize(Consumer<PoslanecEntity> switchToPoslanec) {
@@ -46,7 +65,7 @@ public class StranaStatistikyComponent extends VerticalLayout {
         grid.addColumn(PoslanecEntity::toString).setHeader("Jméno").setSortable(true).setResizable(true).setFlexGrow(2);
         grid.addColumn(this::getPoslanecSentiment).setHeader("Sentiment").setSortable(true).setResizable(true);
         grid.addColumn(this::getPoslanecPocetSlov).setHeader("Počet slov").setSortable(true).setResizable(true);
-        grid.addColumn(this::getPoslanecPocetPosSlov).setHeader("Počet positivních slov").setSortable(true).setResizable(true);
+        grid.addColumn(this::getPoslanecPocetPosSlov).setHeader("Počet pozitivních slov").setSortable(true).setResizable(true);
         grid.addColumn(this::getPoslanecPocetNegSlov).setHeader("Počet negativních slov").setSortable(true);
 
         grid.addItemDoubleClickListener(event -> {

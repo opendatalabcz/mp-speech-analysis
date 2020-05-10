@@ -60,26 +60,6 @@ public class Helper {
         return intsArr;
     }
 
-    public static Integer getMedianFromIntegerList(List<Integer> list) {
-        if(list == null || list.size() == 0) return 0;
-        list.sort(Integer::compareTo);
-        if(list.size() % 2 == 0) {
-            return (list.get(list.size()/2) + list.get(list.size()/2 - 1)) / 2;
-        } else {
-            return list.get(list.size() / 2);
-        }
-    }
-
-    public static Double getMedianFromDoubleList(List<Double> list) {
-        if(list == null || list.size() == 0) return 0.0;
-        list.sort(Double::compareTo);
-        if(list.size() % 2 == 0) {
-            return (list.get(list.size()/2) + list.get(list.size()/2 - 1)) / 2;
-        } else {
-            return list.get(list.size() / 2);
-        }
-    }
-
     public static BarDataset getBarDataSet(double[] doublesArr, String label, Color color) {
         return new BarDataset()
                 .setLabel(label)

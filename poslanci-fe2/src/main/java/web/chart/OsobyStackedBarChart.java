@@ -44,7 +44,7 @@ public class OsobyStackedBarChart {
         Colors colors = new Colors();
 
         BarDataset neutralBarDataset = new BarDataset().addBackgroundColor(colors.getYellow()).setLabel("Neutrální/nerozlišitelná");
-        BarDataset posBarDataset = new BarDataset().addBackgroundColor(colors.getGreen()).setLabel("Positivní");
+        BarDataset posBarDataset = new BarDataset().addBackgroundColor(colors.getGreen()).setLabel("Pozitivní");
         BarDataset negBarDataset = new BarDataset().addBackgroundColor(colors.getRed()).setLabel("Negativní");
 
         for(OsobyEntity osobyEntity : set) {
