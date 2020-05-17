@@ -3,7 +3,6 @@ package poslanciDB.service;
 import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
 
-import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.Query;
 import java.util.List;

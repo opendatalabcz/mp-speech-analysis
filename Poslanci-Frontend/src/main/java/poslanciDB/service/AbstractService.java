@@ -1,20 +1,21 @@
 package poslanciDB.service;
 
+import poslanciDB.PersistenceMap;
 import poslanciDB.entity.HasID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractService<T extends HasID> {
 
     protected Class<T> entityClass;
-    protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
+    protected EntityManagerFactory entityManagerFactory =
+            Persistence.createEntityManagerFactory("NewPersistenceUnit", PersistenceMap.getMap());
+    //protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("NewPersistenceUnit");
     protected EntityManager entityManager = entityManagerFactory.createEntityManager();
-    protected Integer batchSize = 1000;
 
     public AbstractService(Class<T> entityClass){
         this.entityClass = entityClass;
@@ -27,12 +28,16 @@ public abstract class AbstractService<T extends HasID> {
     public void create(T entity) {
         entityManager.getTransaction().begin();
         entityManager.persist(entity);
+        entityManager.flush();
+        entityManager.clear();
         entityManager.getTransaction().commit();
     }
 
     public void update(T entity) {
         entityManager.getTransaction().begin();
         entityManager.merge(entity);
+        entityManager.flush();
+        entityManager.clear();
         entityManager.getTransaction().commit();
     }
 
@@ -41,7 +46,14 @@ public abstract class AbstractService<T extends HasID> {
             create(entity);
             System.out.println("Creating");
         } else {
-            T entityOriginal = find(entity.takeID());
+            T entityOriginal;
+            try {
+                entityOriginal = find(entity.takeID());
+            } catch (Exception e) {
+                update(entity);
+                System.out.println("Updating");
+                return;
+            }
             if(entityOriginal == null) {
                 create(entity);
                 System.out.println("Creating");
@@ -70,6 +82,7 @@ public abstract class AbstractService<T extends HasID> {
 
     public T refresh(T entity) {
         entityManager.getTransaction().begin();
+        entityManager.merge(entity);
         entityManager.refresh(entity);
         entityManager.getTransaction().commit();
         return entity;
@@ -77,8 +90,18 @@ public abstract class AbstractService<T extends HasID> {
 
     public void remove(T entity) {
         entityManager.getTransaction().begin();
-        entityManager.remove(entity);
+        if (entityManager.contains(entity)) {
+            entityManager.remove(entity);
+        } else {
+            entityManager.remove(entityManager.getReference(entity.getClass(), entity.takeID()));
+        }
         entityManager.getTransaction().commit();
+    }
+
+    public void removeCollection(Collection<T> entities) {
+        for(T entity : entities) {
+            remove(entity);
+        }
     }
 
     public void removeById(int id) {
@@ -104,23 +127,7 @@ public abstract class AbstractService<T extends HasID> {
         entityManager.getTransaction().commit();
     }
 
-    public void multiCreate(T entity) { entityManager.persist(entity); }
-
-    public void ultraCreate(List<T> entities) {
-        EntityTransaction tx = entityManager.getTransaction();
-        Iterator<T> iterator = entities.iterator();
-        tx.begin();
-        int cont = 0;
-        while (iterator.hasNext()) {
-            entityManager.persist(iterator.next());
-            cont++;
-            if (cont % batchSize == 0) {
-                entityManager.flush();
-                entityManager.clear();
-                tx.commit();
-                tx.begin();
-            }
-        }
-        tx.commit();
+    public void multiCreate(T entity) {
+        entityManager.persist(entity);
     }
 }

@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "poslanec", schema = "main", catalog = "")
-public class PoslanecEntity implements HasID{
+@Table(name = "poslanec", schema = "main")
+public class PoslanecEntity implements HasID {
     private Integer idPoslanec;
     private String web;
     private String ulice;
@@ -24,6 +24,8 @@ public class PoslanecEntity implements HasID{
     private OrganyEntity organyByIdObdobi;
     private Collection<ProjevEntity> projevsByIdPoslanec;
     private PoslanecStatistikyEntity poslanecStatistikyByIdPoslanec;
+    private Collection<ZminkaEntity> zminkasByIdPoslanec;
+    private Collection<PoslanecStatistikyZminkyEntity> poslanecStatistikyZminkiesByIdPoslanec;
 
     public PoslanecEntity() {
     }
@@ -204,6 +206,11 @@ public class PoslanecEntity implements HasID{
         return Objects.hash(idPoslanec, web, ulice, obec, psc, email, telefon, fax, pspTelefon, facebook, foto);
     }
 
+    @Override
+    public String toString() {
+        return osobyByIdOsoba.toString();
+    }
+
     @ManyToOne
     @JoinColumn(name = "id_osoba", referencedColumnName = "id_osoba")
     public OsobyEntity getOsobyByIdOsoba() {
@@ -244,7 +251,7 @@ public class PoslanecEntity implements HasID{
         this.organyByIdObdobi = organyByIdObdobi;
     }
 
-    @OneToMany(mappedBy = "poslanecByIdPoslanec")
+    @OneToMany(mappedBy = "poslanecByIdPoslanec", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     public Collection<ProjevEntity> getProjevsByIdPoslanec() {
         return projevsByIdPoslanec;
     }
@@ -263,12 +270,30 @@ public class PoslanecEntity implements HasID{
         setIdPoslanec(id);
     }
 
-    @OneToOne(mappedBy = "poslanecByIdPoslanec")
+    @OneToOne(mappedBy = "poslanecByIdPoslanec", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     public PoslanecStatistikyEntity getPoslanecStatistikyByIdPoslanec() {
         return poslanecStatistikyByIdPoslanec;
     }
 
     public void setPoslanecStatistikyByIdPoslanec(PoslanecStatistikyEntity poslanecStatistikyByIdPoslanec) {
         this.poslanecStatistikyByIdPoslanec = poslanecStatistikyByIdPoslanec;
+    }
+
+    @OneToMany(mappedBy = "poslanecByIdPoslanec", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
+    public Collection<ZminkaEntity> getZminkasByIdPoslanec() {
+        return zminkasByIdPoslanec;
+    }
+
+    public void setZminkasByIdPoslanec(Collection<ZminkaEntity> zminkasByIdPoslanec) {
+        this.zminkasByIdPoslanec = zminkasByIdPoslanec;
+    }
+
+    @OneToMany(mappedBy = "poslanecByIdPoslanecZmineny", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
+    public Collection<PoslanecStatistikyZminkyEntity> getPoslanecStatistikyZminkiesByIdPoslanec() {
+        return poslanecStatistikyZminkiesByIdPoslanec;
+    }
+
+    public void setPoslanecStatistikyZminkiesByIdPoslanec(Collection<PoslanecStatistikyZminkyEntity> poslanecStatistikyZminkiesByIdPoslanec) {
+        this.poslanecStatistikyZminkiesByIdPoslanec = poslanecStatistikyZminkiesByIdPoslanec;
     }
 }

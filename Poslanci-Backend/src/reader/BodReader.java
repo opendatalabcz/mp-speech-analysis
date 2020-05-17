@@ -1,11 +1,14 @@
 package reader;
 
-import poslanciDB.entity.BodEntity;
 import helper.FileHelper;
-import helper.ParseHelper;
+import helper.StringHelper;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.*;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import poslanciDB.entity.BodEntity;
 import poslanciDB.entity.OrganyEntity;
 import poslanciDB.service.BodEntityService;
 import poslanciDB.service.OrganyEntityService;
@@ -22,14 +25,10 @@ public class BodReader {
     private static String charset = "Windows-1250";
     private static String genericPointText = "---Provozní úkony---";
 
-    public static void main(String[] args) {
-        String path = "resources/Schuze/";
-        OrganyEntity season = organyEntityService.find(172);
-        ProcessAllMeetings(path, "PSP8");
-    }
-
     public static BodEntity createGenericPoint(String unformatedDateString, Integer meetingNumber, OrganyEntity season) {
         String day = null, month = null, year = null, stringDate;
+
+        //vytvori datum pro specialni jednaci datum, coz je datum prvniho jednani schuze, takze prvni den, mesci a rok, co program najde
         day = unformatedDateString.split("\\.")[0];
         if(day.length() == 1) day = "0".concat(day);
 
@@ -51,7 +50,7 @@ public class BodReader {
         System.out.println("Unformated Date String: " + unformatedDateString);
         System.out.println("Complete Date: " + stringDate);
 
-        Date sqlDate = ParseHelper.getSqlDateFromString(stringDate, "dd. MMMM yyyy");
+        Date sqlDate = StringHelper.getSqlDateFromString(stringDate, "dd. MMMM yyyy");
         System.out.println("Sql Date: " + sqlDate);
         System.out.println();
         BodEntity bodEntityAlreadyExists = bodEntityService.checkTextExists(genericPointText, meetingNumber, season.getIdOrgan());
@@ -91,6 +90,8 @@ public class BodReader {
             if(element.tagName().equalsIgnoreCase("b") && !genericPointTextCreated) {
                 genericPointTextCreated = true;
             }
+            //element s tagem "a" znaci potencialne (musi byt splneny jeste dalsi podminky) tag,
+            //kde je uchovano datum projednavani
             if(element.tagName().equalsIgnoreCase("a")) {
                 Attributes atrs = element.attributes();
                 boolean ret = false;
@@ -105,38 +106,45 @@ public class BodReader {
                     }
                 }
             }
+            //element s tagem "p" znaci potencialne (musi byt splneny jeste dalsi podminky) tag,
+            //kde je uchovano zneni jednaciho bodu
             if(element.tagName().equalsIgnoreCase("p")) {
                 for(Element child : element.children()){
                     if(child.tagName().equalsIgnoreCase("b")) {
+                        //kontroluje se jestli stejny bod uz neni v databazi
                         BodEntity bodEntityAlreadyExists =
                                 bodEntityService.checkTextExists(child.ownText(),
                                         meetingNumber, season.getIdOrgan()
                                 );
                         BodEntity bodEntity;
+                        //jestli v databazi neni, tak se vytvori, nezname ID, proto null
                         if(bodEntityAlreadyExists == null) {
                             bodEntity = new BodEntity(
                                     null,
                                     child.ownText(),
                                     meetingNumber,
-                                    ParseHelper.getSqlDateFromBod(element.ownText()),
+                                    StringHelper.getSqlDateFromBod(element.ownText()),
                                     season
                             );
                         } else {
+                            //jestli v databazi je, tak se upravi a ID zustane stejne
                             bodEntity = new BodEntity(
                                     bodEntityAlreadyExists.getIdBod(),
                                     child.ownText(),
                                     meetingNumber,
-                                    ParseHelper.getSqlDateFromBod(element.ownText()),
+                                    StringHelper.getSqlDateFromBod(element.ownText()),
                                     season
                             );
                         }
                         if(bodEntity.getDatum() != null)
+                            //zmeny v bodu nebo novy bod se ulozi na databazi
                             bodEntityService.createOrUpdate(bodEntity);
                     }
                 }
             }
         }
 
+        //vytvori se a ulozi na databazi specialni jednaci bod pro ruzne provozni ukony a pripadne chyby
         BodEntity bodEntity = createGenericPoint(genericPointDateString, meetingNumber, season);
         if(bodEntity.getDatum() != null)
             bodEntityService.createOrUpdate(bodEntity);
@@ -144,7 +152,8 @@ public class BodReader {
 
     public static void ProcessAllMeetings(String inPath, String seasonString) {
         System.out.println("----BodReader----");
-        OrganyEntity season = helper.EntityHelper.getSeason(seasonString); //TODO season == null
+        OrganyEntity season = helper.EntityHelper.getSeason(seasonString);
+        if(season == null) return;
 
         long meetingsCount = FileHelper.GetMeetingsCount(inPath);
         String dirName, completePath;
@@ -152,6 +161,7 @@ public class BodReader {
             System.out.println("Neplatny pocet schuzi");
             return;
         }
+        //prochazi index.htm u vsech schuzi a ziskava z nich seznamy projednavanych bodu
         for(int i = 1; i <= meetingsCount; i++) {
             dirName = String.format("%03d",i) + "schuz";
             completePath = inPath + dirName + "/index.htm";

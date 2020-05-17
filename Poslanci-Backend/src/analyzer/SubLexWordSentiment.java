@@ -17,13 +17,14 @@ public class SubLexWordSentiment {
     private static Map<String, Integer> wordsSentiment = null;
 
     public static void setup() {
-        final String SAMPLE_CSV_FILE_PATH = "./sublex_1_0.csv";
+        final String SAMPLE_CSV_FILE_PATH = "resources\\sublex_1_0.csv"; //todo relativni cesta
         wordsSentiment = new HashMap<>();
         Integer count = 0;
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
                 CSVParser csvParser = new CSVParser(reader, CSVFormat.TDF)
         ) {
+            //prochazi radky slovniku a zpracovava potrebne informace
             for (CSVRecord csvRecord : csvParser) {
 
                 String word = csvRecord.get(2);
@@ -31,21 +32,15 @@ public class SubLexWordSentiment {
                 String wordProcessed = removeSuffix(word);
                 Integer sentimentProcessed = getSentimentFromString(sentiment);
 
-                /*System.out.println("Record No - " + csvRecord.getRecordNumber());
-                System.out.println("---------------");
-                System.out.println("Word : " + wordProcessed);
-                System.out.println("Sentiment: " + sentiment);
-                System.out.println("---------------\n\n");*/
-
+                //jestlize slovo uz je v seznamu, tak ho neulozi a navic smaze i to prvni
                 Integer exist = wordsSentiment.get(wordProcessed);
                 if(exist != null) {
                     if(!exist.equals(sentimentProcessed)) {
                         wordsSentiment.remove(wordProcessed);
                     }
-                    //System.out.println("-------DUPLICITA--------: " + wordProcessed);
                     count++;
-                    //break;
                 } else {
+                    //jestli slovo v seznamu jeste neni, tak ho prida
                     wordsSentiment.put(wordProcessed, sentimentProcessed);
                 }
             }
@@ -53,9 +48,6 @@ public class SubLexWordSentiment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*printMap();
-        System.out.println("Pocet Duplicit: " + count);
-        System.out.println("Velikost mapy: " + wordsSentiment.size());*/
     }
 
     public static Integer getSentimentForWord(String word) {
@@ -69,6 +61,7 @@ public class SubLexWordSentiment {
     }
 
     private static Integer getSentimentFromString(String sentiment) {
+        //NEG = negativni sentiment, POS - pozitivni sentiment
         if(sentiment.equals("NEG")) return -1;
         else if(sentiment.equals("POS")) return 1;
         return 0;

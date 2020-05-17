@@ -21,6 +21,7 @@ public class UNLFileReader {
     }
 
     public List<String> getLineList() {
+        //program vezme aktualni radek a rozdeli ho podle "|" na jednotlive retezce a ty vraci v listu
         if(file != null) {
             String line;
             try {

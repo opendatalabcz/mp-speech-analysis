@@ -5,19 +5,17 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class Downloader {
-    //https://www.psp.cz/eknih/2017ps/stenprot/zip/014schuz.zip
+    //priklad - https://www.psp.cz/eknih/2017ps/stenprot/zip/014schuz.zip
     private static String URLcompressed0Part = "https://www.psp.cz/eknih/";
     private static String URLcompressed1Part = "/stenprot/zip/";
     private static String URLcompressed2Part = "schuz.zip";
 
-    //https://www.psp.cz/eknih/2006ps/stenprot/001schuz/s001001.htm
+    //priklad - https://www.psp.cz/eknih/2006ps/stenprot/001schuz/s001001.htm
     private static String URL0Part = "https://www.psp.cz/eknih/";
     private static String URL1Part = "/stenprot/";
     private static String URL2Part = "schuz/";
@@ -26,7 +24,6 @@ public class Downloader {
     private static String tempZipFilePath = "temp/temp.zip";
 
     public static void downloadUNLFiles(String path) {
-        //https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip
         String URL = "https://www.psp.cz/eknih/cdrom/opendata/poslanci.zip";
         if(downloadZipToTemp(URL))
             unzipTempZipToPath(path);
@@ -80,6 +77,7 @@ public class Downloader {
     public static void downloadOneSeason(String path, String season) {
         String pathSeason = path + "/" + season;
         int i = 1;
+        //stahuje schuze dokud existuji
         while(Downloader.downloadOneMeeting(pathSeason, season, i)) {
             i++;
         }
@@ -88,12 +86,14 @@ public class Downloader {
     public static boolean downloadOneMeeting(String pathSeason, String season, Integer meeting) {
         String URL = URLcompressed0Part + season + URLcompressed1Part + getNumber3Digits(meeting) + URLcompressed2Part;
         String pathMeeting = pathSeason + "/" + getNumber3Digits(meeting) + "schuz";
+        //pokud existuje komprimovana verze schuze tak ji stahne a pote rozbali
         if(downloadZipToTemp(URL)){
             if(unzipTempZipToPath(pathMeeting)) {
                 return true;
             }
         }
 
+        //pokud neexistuje komprimovana verze, tak stahuje nekomprimovane soubory postupne
         if(downloadOneMeetingNoncompressedVersion(meeting, season, pathMeeting))
             return true;
 
@@ -107,6 +107,7 @@ public class Downloader {
 
         boolean ret = false;
         int i = 1;
+        //dokud existuje dalsi cast schuze, tak stahuje; uz jedna cast je povazovana za uspech, prtoto true jako navratova hodnota
         while(downloadNoncompressedMeetingPart(baseURL, i, meeting, pathMeeting)) {
             ret = true;
             i++;

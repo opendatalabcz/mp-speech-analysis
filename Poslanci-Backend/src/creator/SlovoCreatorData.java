@@ -5,7 +5,10 @@ import analyzer.SubLexWordSentiment;
 import poslanciDB.entity.ProjevEntity;
 import poslanciDB.entity.SlovoEntity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SlovoCreatorData {
     private Map<LemmaWithTag, Integer> lemmas = new HashMap<>();
@@ -20,6 +23,7 @@ public class SlovoCreatorData {
         lemmasList = MorphoditaAnalyzer.analyzeString(projevEntity.getText());
         if(lemmasList != null) {
             for(LemmaWithTag lemmaWithTag : lemmasList) {
+                //pro kazde slovo zvazi, jestli uz ve stejne forme neni v mape a kdyz ano, tak jen zvysi pocet vyskytu
                 Integer value = lemmas.get(lemmaWithTag);
                 if (value == null)
                     value = 0;
@@ -34,7 +38,7 @@ public class SlovoCreatorData {
         for(Map.Entry<LemmaWithTag, Integer> entry : lemmas.entrySet()) {
             LemmaWithTag lemmaWithTag = entry.getKey();
 
-            //filter unknown and punctuation types
+            //filtruje nezname typy slov a interpunkci
             if(!(lemmaWithTag.getTag().startsWith("X") || lemmaWithTag.getTag().startsWith("Z"))) {
                 SlovoEntity slovoEntity = new SlovoEntity(lemmaWithTag.getLemma(), lemmaWithTag.getTag(), entry.getValue(),
                         SubLexWordSentiment.getSentimentForWord(lemmaWithTag.getLemma()), projevEntity);

@@ -2,6 +2,7 @@ package poslanciDB.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -21,6 +22,7 @@ public class OrganyEntity implements HasID {
     private Collection<PoslanecEntity> poslanecsKrajByIdOrgan;
     private Collection<PoslanecEntity> poslanecsKandidatkaByIdOrgan;
     private Collection<PoslanecEntity> poslanecsObdobiByIdOrgan;
+    private Collection<BodEntity> bodsByIdOrgan;
 
     public OrganyEntity() {
     }
@@ -150,6 +152,38 @@ public class OrganyEntity implements HasID {
         return Objects.hash(idOrgan, organIdOrgan, zkratka, nazevOrganuCz, nazevOrganuEn, odOrgan, doOrgan, priorita, clOrganBase);
     }
 
+    @Override
+    public String toString() {
+        if(zkratka != null && zkratka.startsWith("PSP"))
+            return toStringPSP();
+        if(zkratka == null || zkratka.isEmpty())
+            return nazevOrganuCz;
+        else
+            return zkratka + " - " + nazevOrganuCz;
+    }
+
+    private String toStringPSP() {
+        String odYear = "";
+        if(odOrgan != null)
+        {
+            Calendar calOd = Calendar.getInstance();
+            calOd.setTime(odOrgan);
+            odYear = String.valueOf(calOd.get(Calendar.YEAR));
+        }
+
+        String doYear = "";
+        if(doOrgan != null) {
+            Calendar calDo = Calendar.getInstance();
+            calDo.setTime(doOrgan);
+            doYear = String.valueOf(calDo.get(Calendar.YEAR));
+        }
+
+
+        return  zkratka + ' ' +
+                "(" + odYear +
+                " - " + doYear + ')';
+    }
+
     @ManyToOne
     @JoinColumn(name = "id_typ_organu", referencedColumnName = "id_typ_org")
     public TypOrganuEntity getTypOrganuByIdTypOrganu() {
@@ -178,7 +212,7 @@ public class OrganyEntity implements HasID {
         this.poslanecsKandidatkaByIdOrgan = poslanecsKandidatkaByIdOrgan;
     }
 
-    @OneToMany(mappedBy = "organyByIdObdobi")
+    @OneToMany(mappedBy = "organyByIdObdobi", cascade = CascadeType.ALL)
     public Collection<PoslanecEntity> getPoslanecsObdobiByIdOrgan() {
         return poslanecsObdobiByIdOrgan;
     }
@@ -195,5 +229,14 @@ public class OrganyEntity implements HasID {
     @Override
     public void pushID(Integer id) {
         setIdOrgan(id);
+    }
+
+    @OneToMany(mappedBy = "organyByIdOrganObdobi", cascade = CascadeType.ALL)
+    public Collection<BodEntity> getBodsByIdOrgan() {
+        return bodsByIdOrgan;
+    }
+
+    public void setBodsByIdOrgan(Collection<BodEntity> bodsByIdOrgan) {
+        this.bodsByIdOrgan = bodsByIdOrgan;
     }
 }

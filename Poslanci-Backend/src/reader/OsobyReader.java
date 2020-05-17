@@ -1,25 +1,17 @@
 package reader;
 
-import poslanciDB.entity.OsobyEntity;
 import helper.Timer;
+import poslanciDB.entity.OsobyEntity;
 import poslanciDB.service.OsobyEntityService;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import static helper.ParseHelper.*;
+import static helper.StringHelper.*;
 
 public class OsobyReader {
     static OsobyEntityService osobyEntityService = new OsobyEntityService();
-
-    public static void main(String[] args) {
-        String path = "resources/osoby.unl";
-        readAndCreateAllOsoby(path);
-    }
 
     public static void readAndCreateAllOsoby(String path) {
         System.out.println();
@@ -29,6 +21,7 @@ public class OsobyReader {
         List<String> myList;
         Timer timer = new Timer();
 
+        //program prochazi unl soubor a z kazdeho radku vytvori novou entitu
         while ((myList = UNLFileReader.getLineList()) != null) {
             OsobyEntity osobyEntity = CreateOsobaEntityFromStringList(myList);
             osobyEntityService.createOrUpdate(osobyEntity);
@@ -42,6 +35,7 @@ public class OsobyReader {
         System.out.println();
         System.out.println("removeAllOsobyWithoutPoslanec()");
 
+        //program projde seznam vsech osob a z databaze smaze vsechny, ktere nemaji navazane zadne poslance
         List osoby = osobyEntityService.findAll();
         for(Object obj : osoby) {
             OsobyEntity osobyEntity;
@@ -61,6 +55,7 @@ public class OsobyReader {
     }
 
     private static OsobyEntity CreateOsobaEntityFromStringList(List<String> list){
+        //tato entita ma presne 9 atributu
         if(list.size() != 9) throw new IllegalArgumentException();
 
         Integer idOsoba;

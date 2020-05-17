@@ -17,12 +17,14 @@ public class App {
         }
         String path = args[0];
 
+        //stahne soubory o osobach, poslancich,...
         downloadUNLFiles(path);
 
         String[] seasons = Arrays.copyOfRange(args, 1, args.length);
         for(String season : seasons) {
             downloadOneSeason(path, season);
         }
+        //nakonec vycisti nepotrebne docasne soubory
         deleteTemp();
     }
 

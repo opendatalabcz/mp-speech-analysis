@@ -1,21 +1,16 @@
 package reader;
 
-import poslanciDB.entity.TypOrganuEntity;
 import helper.Timer;
+import poslanciDB.entity.TypOrganuEntity;
 import poslanciDB.service.TypOrganuEntityService;
 
 import java.util.List;
 
-import static helper.ParseHelper.removeUselessWhitespacesString;
-import static helper.ParseHelper.tryParseInt;
+import static helper.StringHelper.removeUselessWhitespacesString;
+import static helper.StringHelper.tryParseInt;
 
 public class TypOrganuReader {
     static TypOrganuEntityService typOrganuEntityService = new TypOrganuEntityService();
-
-    public static void main(String[] args) {
-        String path = "resources/typ_organu.unl";
-        readAndCreateAllTypOrganu(path);
-    }
 
     public static void readAndCreateAllTypOrganu(String path) {
         System.out.println();
@@ -26,6 +21,7 @@ public class TypOrganuReader {
         List<String> myList;
         Timer timer = new Timer();
 
+        //program prochazi unl soubor a z kazdeho radku vytvori novou entitu
         while ((myList = UNLFileReader.getLineList()) != null) {
             TypOrganuEntity typOrganuEntity = CreateTypOrganuEntityFromStringList(myList);
             typOrganuEntityService.createOrUpdate(typOrganuEntity);
@@ -36,6 +32,7 @@ public class TypOrganuReader {
     }
 
     private static TypOrganuEntity CreateTypOrganuEntityFromStringList(List<String> list) {
+        //tato entita ma presne 6 atributu
         if(list.size() != 6) throw new IllegalArgumentException();
 
         Integer idTypOrg, typIdTypOrg, typOrgObecny, priorita;

@@ -198,7 +198,10 @@ public class PoslanecEntity implements HasID {
                 Objects.equals(fax, that.fax) &&
                 Objects.equals(pspTelefon, that.pspTelefon) &&
                 Objects.equals(facebook, that.facebook) &&
-                Objects.equals(foto, that.foto);
+                Objects.equals(foto, that.foto) &&
+                Objects.equals(organyByIdKraj, that.organyByIdKraj) &&
+                Objects.equals(organyByIdObdobi, that.organyByIdObdobi) &&
+                Objects.equals(organyByIdKandidatka, that.organyByIdKandidatka);
     }
 
     @Override

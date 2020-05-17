@@ -3,13 +3,11 @@ package remover;
 import poslanciDB.entity.BodEntity;
 import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.PoslanecEntity;
-import poslanciDB.entity.PoslanecStatistikyEntity;
 import poslanciDB.service.BodEntityService;
 import poslanciDB.service.OrganyEntityService;
 import poslanciDB.service.PoslanecEntityService;
-import poslanciDB.service.PoslanecStatistikyEntityService;
 
-import java.util.*;
+import java.util.Collection;
 
 public class Remover {
     private static BodEntityService bodEntityService = new BodEntityService();
@@ -22,6 +20,7 @@ public class Remover {
         removeSeasonPoslanec(season);
         removeSeasonBod(season);
 
+        //obnoveni validniho stavu po mazani
         organyEntityService.resetEntityManager();
     }
 

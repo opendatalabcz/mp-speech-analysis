@@ -2,7 +2,6 @@ package poslanciDB.service;
 
 import poslanciDB.entity.BodEntity;
 
-import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;

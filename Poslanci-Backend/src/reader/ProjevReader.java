@@ -2,8 +2,10 @@ package reader;
 
 import creator.SlovoCreatorData;
 import creator.ZminkaCreator;
-import helper.*;
-import poslanciDB.entity.*;
+import helper.FileHelper;
+import helper.MathHelper;
+import helper.StringHelper;
+import helper.Timer;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
@@ -11,9 +13,8 @@ import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import poslanciDB.service.BodEntityService;
+import poslanciDB.entity.*;
 import poslanciDB.service.OrganyEntityService;
-import poslanciDB.service.PoslanecEntityService;
 import poslanciDB.service.ProjevEntityService;
 
 import java.io.File;
@@ -23,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class ProjevReader {
+public class ProjevReader { //todo komentare
     private static String charset = "Windows-1250";
     private static String snemovna = "/sqw/detail.sqw?id=";
     private static String vladaHttps = "https://www.vlada.cz/cz/clenove-vlady/";
@@ -32,15 +33,7 @@ public class ProjevReader {
     private static Collection poslanecEntityList = null;
     private static List bodEntityList = null;
     private static OrganyEntityService organyEntityService = new OrganyEntityService();
-    private static PoslanecEntityService poslanecEntityService = new PoslanecEntityService();
-    private static BodEntityService bodEntityService = new BodEntityService();
     private static ProjevEntityService projevEntityService = new ProjevEntityService();
-
-    public static void main(String[] args) {
-        String inPath = "resources/Schuze/";
-        OrganyEntity season = organyEntityService.find(172);
-        ProcessAllMeetings(inPath, "PSP8");
-    }
 
     public static void ProcessAllMeetings(String inPath, String seasonString) {
         System.out.println("----ProjevReader----");
@@ -162,7 +155,7 @@ public class ProjevReader {
         for (Attribute atr:atrs) {
             if(atr.getKey().equalsIgnoreCase("href")){
                 if(atr.getValue().startsWith(snemovna)){
-                    if(ParseHelper.tryParseInt(atr.getValue().substring(snemovna.length()))) {
+                    if(StringHelper.tryParseInt(atr.getValue().substring(snemovna.length()))) {
                         id = Integer.parseInt(atr.getValue().substring(snemovna.length()));
                         return id;
                     }
@@ -177,7 +170,6 @@ public class ProjevReader {
                 }
             }
         }
-        //System.out.println("Mluvi: " + elem.ownText());
         id = getOsobyIdFromName(elem.ownText());
         return id;
     }
@@ -314,9 +306,9 @@ public class ProjevReader {
 
     private static String formatProjevText(String projevText) {
         String finalProjevText = projevText.replaceAll("\\(.*?\\)", "");
-        finalProjevText = ParseHelper.removeUselessWhitespacesString(finalProjevText);
-        finalProjevText = ParseHelper.removePrefix(finalProjevText, ": ");
-        finalProjevText = ParseHelper.removePrefix(finalProjevText, " : ");
+        finalProjevText = StringHelper.removeUselessWhitespacesString(finalProjevText);
+        finalProjevText = StringHelper.removePrefix(finalProjevText, ": ");
+        finalProjevText = StringHelper.removePrefix(finalProjevText, " : ");
         return finalProjevText;
     }
 

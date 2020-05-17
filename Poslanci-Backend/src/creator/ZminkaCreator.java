@@ -1,10 +1,8 @@
 package creator;
 
-import helper.StringHelper;
 import poslanciDB.entity.PoslanecEntity;
 import poslanciDB.entity.SlovoEntity;
 import poslanciDB.entity.ZminkaEntity;
-import poslanciDB.service.ZminkaEntityService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +21,9 @@ public class ZminkaCreator {
 
     public void processSlovoToZminka(SlovoEntity slovoEntity) {
         String word = slovoEntity.getSlovo();
-        if(!basicCheck(word)) return;
+        //jmeno zacina vzdy velkym pismenem
+        if(!checkUpperCaseFirstLetter(word)) return;
+        //ziska list poslancu, kteri byli ve slove zmineni (muze jich byt vice se stejnym prijmenim)
         List<PoslanecEntity> list = getMentioned(word);
         for(PoslanecEntity poslanecEntity : list) {
             ZminkaEntity zminkaEntity = new ZminkaEntity(null, slovoEntity.getPocetVyskytu(),
@@ -32,7 +32,7 @@ public class ZminkaCreator {
         }
     }
 
-    private boolean basicCheck(String word) {
+    private boolean checkUpperCaseFirstLetter(String word) {
         if(word == null || word.isEmpty()) return false;
         if(!Character.isUpperCase(word.codePointAt(0))) return false;
         return true;
@@ -43,8 +43,6 @@ public class ZminkaCreator {
         for(PoslanecEntity poslanecEntity : poslanecEntityList) {
             if(removePostfix(surname).equals(poslanecEntity.getOsobyByIdOsoba().getPrijmeni()))
                 list.add(poslanecEntity);
-            /*if(surname.startsWith(poslanecEntity.getOsobyByIdOsoba().getPrijmeni())) //todo opravit tahle blbost
-                list.add(poslanecEntity);*/
         }
         return list;
     }

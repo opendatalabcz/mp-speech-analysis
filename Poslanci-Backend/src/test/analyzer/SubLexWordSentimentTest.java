@@ -2,6 +2,7 @@ package test.analyzer;
 
 import analyzer.SubLexWordSentiment;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 
 public class SubLexWordSentimentTest {
@@ -17,15 +18,15 @@ public class SubLexWordSentimentTest {
                 SubLexWordSentiment.getSentimentForWord("hezky"),
                 Integer.valueOf(1));
 
-        assertEquals("Positive word: fanaticky",
+        assertEquals("Nagative word: fanaticky",
                 SubLexWordSentiment.getSentimentForWord("fanaticky"),
                 Integer.valueOf(-1));
 
-        assertEquals("Positive word: hádka",
+        assertEquals("Negative word: hádka",
                 SubLexWordSentiment.getSentimentForWord("hádka"),
                 Integer.valueOf(-1));
 
-        assertEquals("Positive word: Karel",
+        assertEquals("Neutral word: Karel",
                 SubLexWordSentiment.getSentimentForWord("Karel"),
                 Integer.valueOf(0));
     }

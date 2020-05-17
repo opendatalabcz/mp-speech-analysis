@@ -5,15 +5,11 @@ import cz.cuni.mff.ufal.morphodita.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MorphoditaAnalyzer {
-    private static Tagger tagger = Tagger.load("czech-morfflex-pdt-161115\\czech-morfflex-pdt-161115.tagger");
+    private static Tagger tagger = Tagger.load("resources\\czech-morfflex-pdt-161115.tagger"); //todo relativni cesta, i kdyz tady mozna ani ne
 
-    public static String encodeEntities(String text) {
-        return text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;");
-    }
-
+    //funkce upravena z prikladu pouziti knihovny, ktery je na jejich oficialnich strankach
     public static List<LemmaWithTag> analyzeString(String input) {
         if (tagger == null) {
             System.err.println("Cannot load tagger from file");
@@ -32,6 +28,7 @@ public class MorphoditaAnalyzer {
         int t = 0;
         List<LemmaWithTag> lemmasList = new ArrayList<>();
 
+        //tokenizer prochazi text vetu po vete a jednotlive tokeny se pote prevadi na dvojici lemmatu a tagu
         while (tokenizer.nextSentence(forms, tokens)) {
             tagger.tag(forms, lemmas);
 
@@ -39,36 +36,10 @@ public class MorphoditaAnalyzer {
                 TaggedLemma lemma = lemmas.get(i);
                 TokenRange token = tokens.get(i);
                 int token_start = (int)token.getStart(), token_end = token_start + (int)token.getLength();
-                /*System.out.println("Lemma: " + lemma.getLemma());
-                System.out.println("Tag: " + lemma.getTag());
-                System.out.println();*/
                 lemmasList.add(new LemmaWithTag(lemma.getLemma(), lemma.getTag()));
-                    /*System.out.printf("%s%s<token lemma=\"%s\" tag=\"%s\">%s</token>%s",
-                            encodeEntities(text.substring(t, token_start)),
-                            i == 0 ? "<sentence>" : "",
-                            encodeEntities(lemma.getLemma()),
-                            encodeEntities(lemma.getTag()),
-                            encodeEntities(text.substring(token_start, token_end)),
-                            i + 1 == lemmas.size() ? "</sentence>" : "");
-                            */
                 t = token_end;
             }
         }
-        //System.out.print(encodeEntities(input.substring(t)));
         return lemmasList;
-    }
-
-    public static void analyzeWord(String word) {
-        Morpho morpho = Morpho.load("czech-morfflex-pdt-161115\\czech-morfflex-161115.dict");
-        TaggedLemmas lemmas = new TaggedLemmas();
-        TaggedLemmasForms lemmas_forms = new TaggedLemmasForms();
-
-        int result = morpho.analyze(word, morpho.GUESSER, lemmas);
-
-        String guesser = result == morpho.GUESSER ? "Guesser " : "";
-        for (int i = 0; i < lemmas.size(); i++) {
-            TaggedLemma lemma = lemmas.get(i);
-            System.out.printf("%sLemma: %s %s\n", guesser, lemma.getLemma(), lemma.getTag());
-        }
     }
 }

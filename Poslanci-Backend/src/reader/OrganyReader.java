@@ -1,34 +1,29 @@
 package reader;
 
+import helper.Timer;
 import poslanciDB.entity.OrganyEntity;
 import poslanciDB.entity.TypOrganuEntity;
-import helper.Timer;
 import poslanciDB.service.OrganyEntityService;
 import poslanciDB.service.TypOrganuEntityService;
 
 import java.sql.Date;
 import java.util.List;
 
-import static helper.ParseHelper.*;
+import static helper.StringHelper.*;
 
 public class OrganyReader {
     static OrganyEntityService organyEntityService = new OrganyEntityService();
     static TypOrganuEntityService typOrganuEntityService = new TypOrganuEntityService();
-
-    public static void main(String[] args) {
-        String path = "resources/organy.unl";
-        readAndCreateAllOrgany(path);
-    }
 
     public static void readAndCreateAllOrgany(String path) {
         System.out.println();
         System.out.println("readAndCreateAllOrgany(" + path + ")");
 
         UNLFileReader UNLFileReader = new UNLFileReader(path);
-
         List<String> myList;
         Timer timer = new Timer();
 
+        //program prochazi unl soubor a z kazdeho radku vytvori novou entitu
         while ((myList = UNLFileReader.getLineList()) != null) {
             OrganyEntity organyEntity = CreateOrganyEntityFromStringList(myList);
             organyEntityService.createOrUpdate(organyEntity);
@@ -39,6 +34,7 @@ public class OrganyReader {
     }
 
     private static OrganyEntity CreateOrganyEntityFromStringList(List<String> list) {
+        //tato entita ma presne 10 atributu
         if(list.size() != 10) throw new IllegalArgumentException();
 
         Integer idOrgan, organIdOrgan, idTypOrganu, priorita, clOrganBase;

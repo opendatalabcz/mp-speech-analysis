@@ -1,6 +1,6 @@
 package creator;
 
-import helper.ParseHelper;
+import helper.StringHelper;
 import reader.UNLFileReader;
 
 import java.util.HashSet;
@@ -15,6 +15,7 @@ public class StopSlova {
         initialize();
     }
 
+    //nacte stop slova ze souboru
     private void initialize() {
         set = new HashSet<>();
         String path = "resources/stop_slova.unl";
@@ -22,7 +23,7 @@ public class StopSlova {
         List<String> myList;
         while ((myList = UNLFile.getLineList()) != null) {
             if(myList.size() == 1) {
-                set.add(ParseHelper.removeUselessWhitespacesString(myList.get(0)));
+                set.add(StringHelper.removeUselessWhitespacesString(myList.get(0)));
             }
         }
     }
