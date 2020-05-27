@@ -9,6 +9,7 @@ import poslanciDB.service.OrganyEntityService;
 import java.util.*;
 import java.util.function.Consumer;
 
+//vytvari element, v kterem muze uzivatel vybrat poslance
 public class ChoosePoslanecComponent extends HorizontalLayout {
     private OrganyEntityService organyEntityService = new OrganyEntityService();
     private Select<OrganyEntity> seasonsSelect = new Select<>();

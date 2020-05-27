@@ -33,12 +33,14 @@ public class PoslanecBarChart {
         if(listPoslanecEntity.isEmpty()) return null;
         if(listPoslanecEntity.get(0) == null) return null;
         if(!checkPoslanecStatsExist(listPoslanecEntity)) return null;
+        //vytvori popisky k mesicum, v kterych poslanec mel projevy
         List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
 
         Colors colors = new Colors();
 
         BarData barData = new BarData();
         barData.setLabels(dates.toArray(new String[0]));
+        //spocita hodnoty poctu slov za kazdy mesic
         for(PoslanecEntity poslanecEntity : listPoslanecEntity) {
             if(poslanecEntity != null) {
                 BarDataset barDataset = getBarDataSet(getPoslanecIntsPocetSlovArray(poslanecEntity),poslanecEntity.toString(),
@@ -49,8 +51,7 @@ public class PoslanecBarChart {
 
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Počet slov v měsících")).setVertical();
 
-        ChartJs chart = new ChartJs(barChart.toJson());
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     private static ChartJs getPoslanecSentimentMesic(List<PoslanecEntity> listPoslanecEntity)
@@ -58,12 +59,14 @@ public class PoslanecBarChart {
         if(listPoslanecEntity.isEmpty()) return null;
         if(listPoslanecEntity.get(0) == null) return null;
         if(!checkPoslanecStatsExist(listPoslanecEntity)) return null;
+        //vytvori popisky k mesicum, v kterych poslanec mel projevy
         List<String> dates = getMonthLabelsList(listPoslanecEntity.get(0));
 
         Colors colors = new Colors();
 
         BarData barData = new BarData();
         barData.setLabels(dates.toArray(new String[0]));
+        //spocita hodnoty sentimentu za kazdy mesic
         for(PoslanecEntity poslanecEntity : listPoslanecEntity) {
             if(poslanecEntity != null) {
                 BarDataset barDataset = getBarDataSet(getPoslanecDoublesSentimentArray(poslanecEntity),poslanecEntity.toString(),
@@ -74,9 +77,7 @@ public class PoslanecBarChart {
 
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Průměrný sentiment v měsících")).setVertical();
 
-        ChartJs chart = new ChartJs(barChart.toJson());
-
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 
     private static boolean checkPoslanecStatsExist(List<PoslanecEntity> listPoslanecEntity) {
@@ -84,36 +85,5 @@ public class PoslanecBarChart {
             if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) return true;
         }
         return false;
-    }
-
-
-
-
-    public static Div getTest0Div(){
-        return wrapToBigDiv(getTest0());
-    }
-
-    private static ChartJs getTest0(){
-        BarDataset dataset = new BarDataset()
-                .setLabel("sample chart")
-                .setData(65, 59, 80, 81, 56, 55, 40)
-                .addBackgroundColors(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.GRAY, Color.BLACK)
-                .setBorderWidth(2);
-
-        BarData data = new BarData()
-                .addLabels("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-                .addDataset(dataset);
-
-        JavaScriptFunction label = new JavaScriptFunction(
-                "\"function(chart) {console.log('test legend');}\""
-        );
-
-        BarOptions barOptions = new BarOptions()
-                .setResponsive(true)
-                .setTitle(new Title().setText("test"))
-                .setLegend(new Legend().setDisplay(true)
-                        .setOnClick(label));
-
-        return new ChartJs(new be.ceau.chart.BarChart(data,barOptions).toJson());
     }
 }

@@ -30,6 +30,7 @@ public class ObdobiBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Počet slov");
 
+        //projde poslance kazdeho obdobi a secte jejich pocty slov k jednotlivym obdobim
         for(OrganyEntity obdobi : list) {
             Integer sum = 0;
             for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
@@ -60,8 +61,9 @@ public class ObdobiBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Průměrný počet slov");
 
+        //pro kazde obdobi se spocita prumerny pocet slov na jednoho poslance
         for(OrganyEntity obdobi : list) {
-            Double average = web.Helper.getAveragePocetSlov(obdobi.getPoslanecsObdobiByIdOrgan());//(double)sum / obdobi.getPoslanecsObdobiByIdOrgan().size();
+            Double average = web.Helper.getAveragePocetSlov(obdobi.getPoslanecsObdobiByIdOrgan());
             barDataset.addData(average).addBackgroundColor(colors.getColor());
         }
 
@@ -85,6 +87,7 @@ public class ObdobiBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Median počtu slov");
 
+        //pro kazde obdobi se spocita median poctu slov na jednoho poslance
         for(OrganyEntity obdobi : list) {
             Integer median = web.Helper.getMedianPocetSlov(obdobi.getPoslanecsObdobiByIdOrgan());
             barDataset.addData(median).addBackgroundColor(colors.getColor());
@@ -110,6 +113,7 @@ public class ObdobiBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Celkový sentiment");
 
+        //vypocet sentimentu ze vsech projevu daneho obdobi
         for(OrganyEntity obdobi : list) {
             Integer pocetPosSlov = 0, pocetNegSlov = 0;
             for(PoslanecEntity poslanecEntity : obdobi.getPoslanecsObdobiByIdOrgan()) {
@@ -146,6 +150,7 @@ public class ObdobiBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Průměrný sentiment");
 
+        //vypocet prumerneho sentimentu poslance v urcitem obdobi
         for(OrganyEntity obdobi : list) {
             Double average = web.Helper.getAverageSentiment(obdobi.getPoslanecsObdobiByIdOrgan()); // sentiment / obdobi.getPoslanecsObdobiByIdOrgan().size();
             barDataset.addData(average).addBackgroundColor(colors.getColor());
@@ -171,6 +176,7 @@ public class ObdobiBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Median sentimentu");
 
+        //vypocet medianu sentimentu poslancu v jednom obdobi
         for(OrganyEntity obdobi : list) {
             Double median = web.Helper.getMedianSentiment(obdobi.getPoslanecsObdobiByIdOrgan()); //web.Helper.getMedianFromDoubleList(listSentiment);
             barDataset.addData(median).addBackgroundColor(colors.getColor());

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
+//vytvari element, v kterem muze uzivatel vybrat obdobi
 public class ChooseObdobiComponent extends HorizontalLayout {
     OrganyEntityService organyEntityService = new OrganyEntityService();
     Select<OrganyEntity> seasonsSelect = new Select<>();

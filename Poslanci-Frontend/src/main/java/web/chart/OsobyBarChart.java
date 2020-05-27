@@ -78,6 +78,7 @@ public class OsobyBarChart {
         BarData barData = new BarData();
         barData.setLabels(dates.toArray(new String[0]));
 
+        //projde vsechny osoby a spocita celkovy sentiment za urcite obdobi
         for(OsobyEntity osobyEntity : set) {
             List<Double> doubles = new ArrayList<>();
             for(int i = beginPeriod; i <= endPeriod; i++) {
@@ -92,8 +93,7 @@ public class OsobyBarChart {
                     colors.getColor());
             barData.addDataset(barDataset);
         }
-
-        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptions("Sentiment za volební období")).setVertical();
+        be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, getBarOptionsWithBeginZero("Sentiment za volební období")).setVertical();
 
         return new ChartJs(barChart.toJson());
     }

@@ -32,6 +32,7 @@ public class StranyBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Počet slov");
 
+        //pro kazdou stranu spocita celkovy pocet slov
         for(OrganyEntity kandidatka : map.keySet()) {
             Integer sum = 0;
             for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
@@ -65,6 +66,7 @@ public class StranyBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Průměrný počet slov");
 
+        //pro kazdou stranu spocita prumerny pocet slov na poslance
         for(OrganyEntity kandidatka : map.keySet()) {
             Integer sum = 0;
             for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
@@ -99,6 +101,7 @@ public class StranyBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Median počet slov");
 
+        //pro kazdou stranu spocita median poctu slov
         for(OrganyEntity kandidatka : map.keySet()) {
             List<Integer> list = new ArrayList<>();
             for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
@@ -133,6 +136,7 @@ public class StranyBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Celkový sentiment");
 
+        //pro kazdou stranu spocita celkovy sentiment
         for(OrganyEntity kandidatka : map.keySet()) {
             Integer pocetPosSlov = 0, pocetNegSlov = 0;
             for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
@@ -173,6 +177,7 @@ public class StranyBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Průměrný sentiment");
 
+        //pro kazdou stranu spocita prumerny sentiment
         for(OrganyEntity kandidatka : map.keySet()) {
             Double sum = 0.0;
             for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {
@@ -208,6 +213,7 @@ public class StranyBarChart {
         barData.setLabels(labels.toArray(new String[0]));
         BarDataset barDataset = new BarDataset().setLabel("Median sentimentu");
 
+        //pro kazdou stranu spocita median sentimentu
         for(OrganyEntity kandidatka : map.keySet()) {
             List<Double> list = new ArrayList<>();
             for(PoslanecEntity poslanecEntity : map.get(kandidatka)) {

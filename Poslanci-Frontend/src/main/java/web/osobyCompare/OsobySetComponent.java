@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
+//seznam, ktery uchovava informace o tom, kteri poslanci jsou aktualne zobrazovani, do seznamu lze pridavat a odebirat z nej osoby
 public class OsobySetComponent extends VerticalLayout {
     Set<OsobyEntity> setOsoby = new HashSet<>();
     Grid<OsobyEntity> grid = new Grid<>(OsobyEntity.class);

@@ -52,14 +52,12 @@ public class Helper {
 
     public static double[] getDoublesArrayFromList(List<Double> doubles) {
         Double[] a = doubles.stream().toArray(Double[]::new);
-        double[] doublesArr = ArrayUtils.toPrimitive(a);
-        return doublesArr;
+        return ArrayUtils.toPrimitive(a);
     }
 
     public static int[] getIntsArrayFromList(List<Integer> ints) {
         Integer[] a = ints.stream().toArray(Integer[]::new);
-        int[] intsArr = ArrayUtils.toPrimitive(a);
-        return intsArr;
+        return ArrayUtils.toPrimitive(a);
     }
 
     public static BarDataset getBarDataSet(double[] doublesArr, String label, Color color) {

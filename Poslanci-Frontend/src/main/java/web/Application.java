@@ -32,6 +32,7 @@ public class Application extends SpringBootServletInitializer {
         File file = new File(path);
         if(!file.exists()) return false;
         String absolutePath = file.getAbsolutePath();
+        //pro moznou zmenu cesty k databazi za behu programu
         PersistenceMap.setUrl(absolutePath);
         return true;
     }

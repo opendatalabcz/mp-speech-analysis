@@ -41,12 +41,8 @@ public class StranaStatistikyComponent extends VerticalLayout {
         Label pocet = new Label("Počet poslanců: " + poslanci.size());
         Label slova = new Label("Slova: průměr = " + getAveragePocetSlovRound(poslanci) +
                 "; medián = " + getMedianPocetSlov(poslanci));
-        //Label slovaPrumer = new Label("\t - průměr:");
-        //Label slovaMedian = new Label("\t - medián:");
         Label sentiment = new Label("Sentiment: průměr = " + getAverageSentimentRound(poslanci) +
                 "; medián = " + getMedianSentimentRound(poslanci));
-        //Label sentimentPrumer = new Label("\t - průměr:");
-        //Label sentimentMedian = new Label("\t - medián:");
         add(pocet, slova, sentiment);
 
     }

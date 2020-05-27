@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
+//vytvari element, v kterem muze uzivatel vybrat osobu
 public class ChooseOsobaComponent extends HorizontalLayout {
     ComboBox<OsobyEntity> osobyComboBox = new ComboBox<>("Jméno osoby:");
     OsobyEntityService osobyEntityService = new OsobyEntityService();

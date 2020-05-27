@@ -10,7 +10,7 @@ import com.vaadin.flow.theme.material.Material;
 
 import java.util.Map;
 import java.util.function.Predicate;
-
+//hodne jednoduchy prepinac grafickych temat
 public class ThemeChangerComponent extends HorizontalLayout {
     enum Theme {
         DARK {

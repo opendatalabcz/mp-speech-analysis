@@ -39,7 +39,7 @@ public class OsobyStackedBarChart {
         BarOptions options = new BarOptions();
         options.setResponsive(true)
                 .setScales(scale)
-                .setTitle(new Title().setText("Slova podle osob").setDisplay(true).setFontColor(Colors.getChartLabelColor())); //todo popisky a barvy
+                .setTitle(new Title().setText("Počty slov podle osob").setDisplay(true).setFontColor(Colors.getChartLabelColor()));
 
         Colors colors = new Colors();
 
@@ -47,6 +47,7 @@ public class OsobyStackedBarChart {
         BarDataset posBarDataset = new BarDataset().addBackgroundColor(colors.getGreen()).setLabel("Pozitivní");
         BarDataset negBarDataset = new BarDataset().addBackgroundColor(colors.getRed()).setLabel("Negativní");
 
+        //pro kazdou osobu vytvori sloupec slozeny ze souctu neutralnich/nerozlisitelnych, pozitivnich a negativnich slov
         for(OsobyEntity osobyEntity : set) {
             OsobaData.processOsobaSlova(osobyEntity, neutralBarDataset, posBarDataset, negBarDataset);
             labels.add(osobyEntity.getJmeno() + " " + osobyEntity.getPrijmeni());
@@ -58,18 +59,6 @@ public class OsobyStackedBarChart {
 
         be.ceau.chart.BarChart barChart = new be.ceau.chart.BarChart(barData, options).setVertical();
 
-        ChartJs chart = new ChartJs(barChart.toJson());
-
-        chart.addClickListener(new ComponentEventListener<ClickEvent>()
-        {
-            @Override
-            public void onComponentEvent(ClickEvent clickEvent)
-            {
-                Notification.show(String.format("%s : %s : %s", clickEvent.getLabel(), clickEvent.getDatasetLabel(), clickEvent.getValue()),
-                        3000, Notification.Position.TOP_CENTER);
-            }
-        });
-
-        return chart;
+        return new ChartJs(barChart.toJson());
     }
 }

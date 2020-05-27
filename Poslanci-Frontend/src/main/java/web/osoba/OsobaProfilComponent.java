@@ -32,6 +32,7 @@ public class OsobaProfilComponent extends VerticalLayout {
         }
     }
 
+    //najde profil pro osobu tak, ze vezme profil nejnovejsiho poslaneckeho mandatu dane osoby
     private PoslanecProfilComponent getMostCurrentProfil() {
         PoslanecEntity poslanecEnt = null;
         for(PoslanecEntity poslanecEntity : osobyEntity.getPoslanecsByIdOsoba()) {

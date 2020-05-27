@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="morphodita">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/morphodita.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

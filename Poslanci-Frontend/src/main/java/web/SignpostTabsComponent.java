@@ -15,6 +15,7 @@ import web.strana.StranaView;
 import web.stranyCompare.StranyCompareView;
 import web.poslanec.PoslanecView;
 
+//rozcestnik s kartami (obrazovkami)
 public class SignpostTabsComponent extends VerticalLayout {
     private Tabs tabs;
     private Div div = new Div();
@@ -32,6 +33,7 @@ public class SignpostTabsComponent extends VerticalLayout {
     }
 
     private void initializeTabs() {
+        //cisla jsou dulezita pro navazani dalsich funkci, neni zcela idealni reseni
         Tab tab1 = new Tab("1 - Poslanec");
         poslanecView = new PoslanecView(this::switchToPoslanec);
         div.add(poslanecView);
@@ -91,109 +93,14 @@ public class SignpostTabsComponent extends VerticalLayout {
     }
 
     private void switchToPoslanec(PoslanecEntity poslanecEntity) {
-        //todo
-        Notification notification = new Notification("Přesměrovávám na poslance " + poslanecEntity,
-                3000, Notification.Position.BOTTOM_END);
-        notification.open();
         poslanecView = new PoslanecView(this::switchToPoslanec, poslanecEntity);
-        //TODO vymyslet lepe
         if(tabs.getSelectedIndex() == 0) tabs.setSelectedIndex(1);
         tabs.setSelectedIndex(0);
     }
 
     private void switchToOsoba(OsobyEntity osobyEntity) {
-        //todo
-        Notification notification = new Notification("Přesměrovávám na osobu " + osobyEntity,
-                3000, Notification.Position.BOTTOM_END);
-        notification.open();
         osobaView = new OsobaView(this::switchToPoslanec, osobyEntity);
-        //TODO vymyslet lepe
         if(tabs.getSelectedIndex() == 1) tabs.setSelectedIndex(0);
         tabs.setSelectedIndex(1);
     }
 }
-
-/*package web;
-
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.tabs.Tab;
-import com.vaadin.flow.component.tabs.Tabs;
-import web.obdobiCompare.ObdobiCompareView;
-import web.osobyCompare.OsobyCompareView;
-import web.info.InfoView;
-import web.osoba.OsobaView;
-import web.strana.StranaView;
-import web.stranyCompare.StranyCompareView;
-import web.poslanec.PoslanecView;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-public class SignpostTabsComponent extends VerticalLayout {
-
-    public SignpostTabsComponent() {
-        initializeTabs();
-        //add(tabs, divPoslanec);
-    }
-
-    private void initializeTabs() {
-        Tab tab1 = new Tab("1 - Poslanec");
-        Div div1Poslanec = new Div(new PoslanecView());
-
-        Tab tab2 = new Tab("2 - Osoba");
-        Div div2Osoba = new Div(new OsobaView());
-        div2Osoba.setVisible(false);
-
-        Tab tab3 = new Tab("3 - Strana");
-        Div div3Strana = new Div(new StranaView());
-        div3Strana.setVisible(false);
-
-        Tab tab4 = new Tab("4 - Srovnání osob");
-        Div div4SrovnaniOsob = new Div(new OsobyCompareView());
-        div4SrovnaniOsob.setVisible(false);
-
-        Tab tab5 = new Tab("5 - Srovnání stran");
-        Div div5SrovnaniStran = new Div(new StranyCompareView());
-        div5SrovnaniStran.setVisible(false);
-
-        Tab tab6 = new Tab("6 - Srovnání období");
-        Div div6SrovnaniObdobi = new Div(new ObdobiCompareView());
-        div6SrovnaniObdobi.setVisible(false);
-
-        Tab tab7 = new Tab("7 - Info");
-        Div div7Info = new Div(new InfoView());
-        div7Info.setVisible(false);
-
-        Map<Tab, Component> tabsToPages = new HashMap<>();
-        tabsToPages.put(tab1, div1Poslanec);
-        tabsToPages.put(tab2, div2Osoba);
-        tabsToPages.put(tab3, div3Strana);
-        tabsToPages.put(tab4, div4SrovnaniOsob);
-        tabsToPages.put(tab5, div5SrovnaniStran);
-        tabsToPages.put(tab6, div6SrovnaniObdobi);
-        tabsToPages.put(tab7, div7Info);
-
-        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4, tab5, tab6, tab7);
-        Div views = new Div(div1Poslanec, div2Osoba, div3Strana, div4SrovnaniOsob, div5SrovnaniStran, div6SrovnaniObdobi, div7Info);
-        Set<Component> viewsShown = Stream.of(div1Poslanec)
-                .collect(Collectors.toSet());
-
-        tabs.setWidthFull();
-        tabs.setFlexGrowForEnclosedTabs(1);
-        tabs.addSelectedChangeListener(event -> {
-            viewsShown.forEach(page -> page.setVisible(false));
-            viewsShown.clear();
-            Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
-            selectedPage.setVisible(true);
-            viewsShown.add(selectedPage);
-        });
-        add(tabs, views);
-    }
-}
-
- */

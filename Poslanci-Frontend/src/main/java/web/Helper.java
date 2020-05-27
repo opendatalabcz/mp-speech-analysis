@@ -11,7 +11,6 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 public class Helper {
-    private static OrganyEntityService organyEntityService = new OrganyEntityService();
 
     public static HorizontalLayout getValueWithLabelComponent(String label, String value) {
         HorizontalLayout horizontalLayout = new HorizontalLayout();

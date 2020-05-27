@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+//pomocna trida pro praci s barvami a poskytovani palety barev pro grafy
 public class Colors {
     int counter = 0;
     static List<Color> darkColors = getDarkColors();
     static List<Color> lightColors = getLightColors();
     private Integer theme = 0; // 0 - dark, 1 - light
-
 
     public Colors() {
         ThemeList themeList = UI.getCurrent().getElement().getThemeList();
@@ -55,15 +55,6 @@ public class Colors {
 
     private java.awt.Color getJavaColor(Color color) {
         return new java.awt.Color(color.getR(), color.getG(), color.getB());
-    }
-
-    public Color getRandomColor() {
-        Random rand = new Random();
-        Integer rng = rand.nextInt(Math.min(lightColors.size(), darkColors.size()));
-        if(theme == 0)
-            return darkColors.get(rng);
-        else
-            return lightColors.get(rng);
     }
 
     public Color getColor() {

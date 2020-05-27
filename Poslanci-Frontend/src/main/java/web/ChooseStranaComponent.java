@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+//vytvari element, v kterem muze uzivatel vybrat stranu
 public class ChooseStranaComponent extends HorizontalLayout {
     OrganyEntityService organyEntityService = new OrganyEntityService();
     Select<OrganyEntity> seasonsSelect = new Select<>();

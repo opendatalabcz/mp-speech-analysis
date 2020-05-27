@@ -3,6 +3,9 @@ package web;
 import com.syndybat.chartjs.ChartJs;
 import com.vaadin.flow.component.html.Div;
 
+//pomocna trida pro praci s velikostmi
+//reaguje na zmenu velikosti prohlizece a umi zabalit grafy di div elementu, ktere maji pomery relativni a ne absolutni,
+//takze vizualne jsou stejne velke vzdy
 public class SizeUI {
     public static Integer width = -1;
 

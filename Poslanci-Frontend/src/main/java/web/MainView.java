@@ -42,54 +42,14 @@ public class MainView extends VerticalLayout {
         getElement().executeJavaScript("javascriptFunction($0)", getElement());
         UI.getCurrent().getPage().addBrowserWindowResizeListener(event ->
         {
-            /*Notification.show("Window width=" + event.getWidth()
-                    + ", height=" + event.getHeight());*/
             SizeUI.width = event.getWidth();
         });
         add(new SignpostTabsComponent());
     }
 
     @ClientCallable
-    public void greet(String name) {
-        System.out.println("Hi, " + name);
-    }
-
-    @ClientCallable
     private void javaFunction(int width){
         System.out.println("Width: " + width);
         SizeUI.width = width;
-    }
-
-    private Div wrapToDiv(ChartJs barChartJs)
-    {
-        Div div = new Div();
-        div.add(barChartJs);
-        div.setWidth("1200px");
-        div.setHeight("10000px");
-        return div;
-    }
-
-    private ChartJs getBarChart(){
-        BarDataset dataset = new BarDataset()
-                .setLabel("sample chart")
-                .setData(65, 59, 80, 81, 56, 55, 40)
-                .addBackgroundColor(Color.RED)
-                .setBorderWidth(2);
-
-        BarData data = new BarData()
-                .addLabels("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-                .addDataset(dataset);
-
-        JavaScriptFunction label = new JavaScriptFunction(
-                "\"function(chart) {console.log('test legend');}\""
-        );
-
-        BarOptions barOptions = new BarOptions()
-                .setResponsive(true)
-                .setTitle(new Title().setText("test"))
-                .setLegend(new Legend().setDisplay(true)
-                        .setOnClick(label));
-
-        return new ChartJs(new BarChart(data,barOptions).toJson());
     }
 }

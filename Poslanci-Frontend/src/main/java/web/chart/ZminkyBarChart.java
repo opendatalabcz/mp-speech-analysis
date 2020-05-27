@@ -43,6 +43,7 @@ public class ZminkyBarChart {
             mapZminky.put(party, 0);
         }
 
+        //pro kazdou stranu spocita, jak casto poslanci vybrane strany zminuji poslance ostatnich strane nebo te vlastni strany
         for(PoslanecEntity poslanecEntity : strana.getPoslanecsKandidatkaByIdOrgan()) {
             if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                 if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
@@ -86,6 +87,8 @@ public class ZminkyBarChart {
             mapZminky.put(party, 0);
         }
 
+        //pro kazdou stranu spocita, jak casto poslanci vybrane strany zminuji poslance ostatnich strane nebo te vlastni strany
+        //pocty za strany jeste vydeli poctem poslancu konkretni strany a ziska se tedy kolikrat prumerne byl zminovan kazdy poslanec dane strany
         for(PoslanecEntity poslanecEntity : strana.getPoslanecsKandidatkaByIdOrgan()) {
             if(poslanecEntity.getOrganyByIdObdobi() == obdobi) {
                 if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
@@ -133,6 +136,7 @@ public class ZminkyBarChart {
             mapZminky.put(party, 0);
         }
 
+        //spocita pres pocty zminek poslkancu kolikrat dany poslanec neprimo cele strany
         if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
             for (PoslanecStatistikyZminkyEntity zminky
                     : poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPoslanecStatistikyZminkiesByIdPoslanec()) {
@@ -176,6 +180,7 @@ public class ZminkyBarChart {
             mapZminky.put(party, 0);
         }
 
+        //spocita pres pocty zminek poslkancu kolikrat dany poslanec neprimo cele strany
         if(poslanecEntity.getPoslanecStatistikyByIdPoslanec() != null) {
             for (PoslanecStatistikyZminkyEntity zminky
                     : poslanecEntity.getPoslanecStatistikyByIdPoslanec().getPoslanecStatistikyZminkiesByIdPoslanec()) {
@@ -198,6 +203,7 @@ public class ZminkyBarChart {
 
         for(Map.Entry<OrganyEntity, Integer> entry : mapZminky.entrySet()) {
             Integer count = getPoslanciInStranaCount(obdobi, entry.getKey());
+            //pocet se jeste deli, abychom dostali informaci o tom kolikrat prumerne byl zminen kazdy poslanec dane strany
             barDataset.addData((double)entry.getValue() / count).addBackgroundColor(colors.getColor());
         }
 

@@ -38,10 +38,6 @@ public class TagCloud {
         wordCloud.build(wordFrequencies);
     }
 
-    public void savePicturePNG() {
-        wordCloud.writeToFile("src/main/webapp/obrazek.png");
-    }
-
     public BufferedImage getBufferedImage() {
         return wordCloud.getBufferedImage();
     }

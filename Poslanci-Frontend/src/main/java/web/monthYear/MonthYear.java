@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import static web.monthYear.Helper.getMonthFromSQLDate;
 import static web.monthYear.Helper.getYearFromSQLDate;
-
+//pomocna trida pro praci s datumem ve forme mesice a roku
 public class MonthYear {
     private int month;
     private int year;
