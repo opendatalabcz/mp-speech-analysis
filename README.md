@@ -35,7 +35,7 @@ Program se spouští s minimálně dvěma parametry
 
 Výstupem programu je jsou soubory uložené v cestě, kterou uživatel zadal jako první argument, složka s těmito soubory je využita v dalším programu.
 
-##Poslanci-Backend2
+## Poslanci-Backend2
 Tento projekt analyzuje data z předchozího projektu a ukládá je do SQLite databáze.
 
 Program je spustitelný přes soubor Poslanci-Backend2-1.0-SNAPSHOT-jar-with-dependencies.jar, tento soubor je ve složce target a je vygenerován přes Maven příkazy compile a package.
@@ -53,7 +53,7 @@ Potřebná pro běh programu je i knihovna morphodita_java.dll.
 
 Výstupem programu je naplněná databáze.
 
-### 3WebApp
+## Poslanci-Frontend
 Tento projekt vytváří webovou aplikaci, která vizualizuje data z databáze.
 
 Program je spustitelný přes soubor Poslanci-Frontend-1.0.war, tento soubor je ve složce target a je vygenerován přes Maven příkazy compile a package.
@@ -66,7 +66,7 @@ Jedná se o databázi PoslanciSQLite12345678.db, která obsahuje období PSP1-8,
 
 Webová aplikace je spuštění dostupná na url http://localhost:8080/
 
-##Resources
+## Resources
 Poskytuje zálohu případných souborů potřebných pro spuštění některého z projektů.
 
 
