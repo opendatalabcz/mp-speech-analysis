@@ -38,7 +38,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>analyzer.MainTest</mainClass>
+              <mainClass>app.App</mainClass>
             </manifest>
           </archive>
         </configuration>

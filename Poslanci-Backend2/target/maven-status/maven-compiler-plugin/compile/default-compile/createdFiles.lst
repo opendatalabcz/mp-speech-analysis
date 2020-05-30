@@ -41,7 +41,6 @@ app\App.class
 test\analyzer\SubLexWordSentimentTest.class
 creator\SlovoCreatorData.class
 test\creator\TopSlovaCreatorTest.class
-analyzer\MainTest.class
 helper\StringHelper.class
 helper\FileHelper.class
 poslanciDB\entity\PoslanecStatistikyMesicEntity.class

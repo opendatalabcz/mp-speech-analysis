@@ -39,12 +39,14 @@ public class App {
             printGuide();
             return;
         }
-        if(!removeSeason(seasonString))
+        if(!seasonString.startsWith("PSP"))
         {
             System.out.println("Wrong season - 4th parameter.");
             printGuide();
             return;
         }
+
+        removeSeason(seasonString);
         System.out.println("++++ TIMER AFTER removeSeason(" + seasonString + ")");
         System.out.println("++++ TIME: " + timer.getTime());
 
@@ -57,14 +59,13 @@ public class App {
         System.out.println("++++ TIME: " + timer.getTime());
     }
 
-    private static boolean removeSeason(String seasonString) {
+    private static void removeSeason(String seasonString) {
         OrganyEntity season = helper.EntityHelper.getSeason(seasonString);
-        if(season == null) return false;
+        if(season == null) return;
 
         System.out.println();
         System.out.println("removeSeason(" + season + ")");
         Remover.removeSeason(season);
-        return true;
     }
 
     private static void processSeason(String seasonPath, String season) {
