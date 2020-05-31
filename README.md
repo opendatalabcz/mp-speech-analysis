@@ -9,6 +9,10 @@ Autorem bakalářské práce je Jan Horyna - horynja2@fit.cvut.cz
 ## Databases
 Tento adresář obsahuje databáze, které se používají v později uvedených programech.
 Kvůli velikosti celých databází zde nejsou celé databáze, ale jen SQL scripty.
+Soubor PoslanciSQL-blank.sql obsahuje prázdnou databázi s definovanými entitami a vazbami.
+Soubor PoslanciSQL-8.rar obsahuje komprimovaný SQL script, který obsahuje data popisující pouze 8. volební období.
+Uložení dalších databází je popsáno dále.
+
 SQL script lze převést na SQLite databázi, která se v tomto projektu používá, pomocí následující utility:
 
 https://sqlite.org/download.html
@@ -69,6 +73,13 @@ Webová aplikace je spuštění dostupná na url http://localhost:8080/
 ## Resources
 Poskytuje zálohu případných souborů potřebných pro spuštění některého z projektů.
 
+
+# Externí úložiště
+Ne všechny databáze se vešly do tohoto repozitáře (omezení 100MB na jeden soubor).
+Zbytek databází je dostupný na tomto odkazu: https://drive.google.com/open?id=1BdhtnmboAa6jRn-MDv6dO51KzaPMMr4y
+URL odkazuje na fakultní Google disk.
+V tomto cloudovém úložišti jsou celé databáze (.db soubory), zkomprimované SQL scripty (.rar soubory) a samotné SQL scripty.
+Cisla v názvu souboru vždy popisují, jaká volební období soubor obsahuje.
 
 
 
